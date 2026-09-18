@@ -1,0 +1,56 @@
+# Curated from GitHub's Global gitignore templates:
+# https://github.com/github/gitignore
+
+# Operating system files
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+## Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+## Linux desktop metadata
+.directory
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio and Visual Studio Code
+.vs/
+*.user
+*.userosscache
+*.suo
+*.ncb
+*.VC.db
+.vscode/
+*.code-workspace
+
+# Vim and other editor temporary files
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+.vim/undodir/
+
+# General temporary files
+*.tmp
+*.temp
