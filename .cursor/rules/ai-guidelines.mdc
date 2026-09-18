@@ -1,0 +1,10 @@
+---
+description: Repository-wide AI agent guidelines
+alwaysApply: true
+---
+
+Read and follow the canonical repository guidance:
+
+@../../.config/ai/AGENTS.md
+
+Do not duplicate or override those guidelines here.

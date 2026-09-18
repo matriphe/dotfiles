@@ -1,5 +1,8 @@
 # AI Agent Guidelines
 
+This is the canonical AI agent guidance for this repository. Agent-specific
+entrypoints refer to this file so all supported agents use the same rules.
+
 When an AI agent writes or commits changes in this repository:
 
 - Prefix every Git commit subject with `AI:`.
