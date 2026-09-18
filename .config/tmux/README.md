@@ -2,8 +2,6 @@
 
 This directory contains the Tmux configuration used by this dotfiles repository. Tmux automatically loads `tmux.conf` from `$XDG_CONFIG_HOME/tmux/tmux.conf`.
 
-This configuration is inspired by [Radley Lewis's Tmux configuration](https://github.com/radleylewis/dotfiles/blob/master/.config/tmux/tmux.conf).
-
 ## Prefix
 
 The default Tmux prefix is `Ctrl-b`. `Ctrl-B` is also configured as a secondary prefix.
@@ -60,7 +58,3 @@ The configuration uses a Melange-inspired colour palette with the status bar at 
 ## Customization
 
 Edit `tmux.conf` to change shared behavior. Keep machine-specific changes in separate local configuration when possible so the shared dotfiles remain portable.
-
-## Credits
-
-This configuration is inspired by [Radley Lewis's Tmux configuration](https://github.com/radleylewis/dotfiles/blob/master/.config/tmux/tmux.conf).

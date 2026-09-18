@@ -35,7 +35,3 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 ## Customization
 
 Add personal or machine-specific settings to `local.zsh`. It is loaded last so it can override the shared configuration without changing tracked files.
-
-## Credits
-
-This configuration is inspired by [Radley Lewis's zsh configuration](https://github.com/radleylewis/zsh).

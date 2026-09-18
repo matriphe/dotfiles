@@ -155,6 +155,10 @@ sudo dnf install -y podman podman-compose
 
 `git`, `nano`, `less`, `diff`, `df`, `mktemp`, `cat`, `rm`, and similar shell/core utilities are commonly available on major Linux distributions and macOS, so they do not need separate installation instructions.
 
+## Credits
+
+This repository is inspired by [Radley Lewis's dotfiles](https://github.com/radleylewis/dotfiles).
+
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
