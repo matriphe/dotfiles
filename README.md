@@ -223,12 +223,14 @@ The shared AI agent guidelines are stored in [`$HOME/AGENTS.md`](AGENTS.md). The
 
 The agent-specific files point to the shared guidelines:
 
-- `$HOME/.codex/AGENTS.md` is used by Codex.
-- `$HOME/.claude/CLAUDE.md` is used by Claude Code.
-- `$HOME/.gemini/GEMINI.md` is used by Gemini CLI and Google Antigravity.
-- `$HOME/.config/opencode/opencode.json` loads the guidelines for OpenCode.
-- `$HOME/.cursor/rules/ai-guidelines.mdc` is used by Cursor.
-- `$HOME/.agents/rules/ai-guidelines.md` is used by Google Antigravity for workspace rules.
+- `$HOME/.codex/AGENTS.md` is a relative symbolic link to `../AGENTS.md` for Codex.
+- `$HOME/.claude/CLAUDE.md` imports `../AGENTS.md` for Claude Code.
+- `$HOME/.gemini/GEMINI.md` imports `../AGENTS.md` for Gemini CLI and Google Antigravity.
+- `$HOME/.config/opencode/opencode.json` loads `../../AGENTS.md` for OpenCode.
+- `$HOME/.cursor/rules/ai-guidelines.mdc` references `../../AGENTS.md` for Cursor.
+- `$HOME/.agents/rules/ai-guidelines.md` references `../../AGENTS.md` for Google Antigravity workspace rules.
+
+Git checks out the Codex symbolic link normally on Linux and macOS. On Windows, symbolic-link support must be enabled, typically through Developer Mode or elevated privileges with Git configured to use symlinks. Otherwise, Git may check it out as a regular text file containing `../AGENTS.md`, and Codex will not follow it to the canonical guidelines.
 
 These files keep the agent-specific configuration small while using [`$HOME/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration; the root-level `AGENTS.md` contains the shared AI-agent guidance.
 
