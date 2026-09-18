@@ -1,7 +1,8 @@
 # AI Agent Guidelines
 
-This is the canonical AI agent guidance for this repository. Agent-specific
-entrypoints refer to this file so all supported agents use the same rules.
+This is the canonical AI agent guidance for all AI agents. Agent-specific entrypoints refer to this file so all supported agents use the same rules.
+
+## Git Commit
 
 When an AI agent writes or commits changes in this repository:
 
@@ -19,4 +20,20 @@ Model used: gpt-5 (default)
 
 Written and committed by AI.
 Co-authored-by: Codex <noreply@openai.com>
+```
+
+## Pull Requests and Merge Requests
+
+When an AI agent creates or updates a pull request or merge request, always identify the AI usage in the footer of the description.
+
+Use this format:
+
+```text
+🤖 Generated using <AI agent> using model `<model name>`.
+```
+
+Example:
+
+```text
+🤖 Generated using [Codex](https://openai.com/codex/) using model `gpt-5.6-luna (low)`.
 ```
