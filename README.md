@@ -114,6 +114,21 @@ sudo dnf install -y lf
 
 [Lf](https://github.com/gokcehan/lf) is a terminal file manager. It is needed by the `lf` navigation function. Fedora does not include `lf` in its standard repositories, so this installation uses the community-maintained [pennbauman/ports COPR](https://copr.fedorainfracloud.org/coprs/pennbauman/ports/).
 
+### Nerd Fonts
+
+Nerd Fonts provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can use another available Nerd Font such as JetBrainsMono Nerd Font.
+
+Install Hack Nerd Font for the current user:
+
+```sh
+mkdir -p "$HOME/.local/share/fonts"
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
+  | tar -xJ -C "$HOME/.local/share/fonts"
+fc-cache -f
+```
+
+Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
+
 ### Starship
 
 Install Starship with DNF (Fedora):
