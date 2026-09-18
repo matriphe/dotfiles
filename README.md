@@ -155,6 +155,21 @@ sudo dnf install -y podman podman-compose
 
 `git`, `nano`, `less`, `diff`, `df`, `mktemp`, `cat`, `rm`, and similar shell/core utilities are commonly available on major Linux distributions and macOS, so they do not need separate installation instructions.
 
+### AI Agent Configuration
+
+The shared AI agent guidelines are stored in [`$HOME/.config/ai/AGENTS.md`](.config/ai/AGENTS.md). The file contains the common rules used by all AI agents in this configuration.
+
+The agent-specific files point to the shared guidelines:
+
+- `$HOME/.codex/AGENTS.md` is used by Codex.
+- `$HOME/.claude/CLAUDE.md` is used by Claude Code.
+- `$HOME/.gemini/GEMINI.md` is used by Gemini CLI and Google Antigravity.
+- `$HOME/.config/opencode/opencode.json` loads the guidelines for OpenCode.
+- `$HOME/.cursor/rules/ai-guidelines.mdc` is used by Cursor.
+- `$HOME/.agents/rules/ai-guidelines.md` is used by Google Antigravity for workspace rules.
+
+These files keep the agent-specific configuration small while using [`$HOME/.config/ai/AGENTS.md`](.config/ai/AGENTS.md) as the single source of truth.
+
 ## Credits
 
 This repository is inspired by [Radley Lewis's dotfiles](https://github.com/radleylewis/dotfiles).
