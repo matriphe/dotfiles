@@ -1,21 +1,40 @@
 # dotfiles
 
-This repository holds Muhammad Zamroni's dotfiles and configuration. It may change over time as his setup evolves.
+This repository holds Muhammad Zamroni's personal dotfiles, shell, terminal, and application configuration. It also contains shared AI-agent guidelines for Codex, Claude Code, Gemini, Antigravity, OpenCode, and Cursor. The configuration is intended to provide a simple, reproducible starting point for a personal development environment.
+
+The repository is intended to be checked out as a bare Git repository from the home directory. The repository's working tree is therefore `$HOME` (`~`), so its root directory becomes the home directory and the tracked files are available at paths such as `~/.config/zsh` and `~/.config/ai/AGENTS.md`.
 
 At the time this configuration was created, it was running on Fedora Workstation 44 with Zsh.
 
-## Setup
+## TL;DR
 
-Clone this repository.
+This is the quick Fedora installation. Read the sections below for the preparation details and configuration-specific instructions.
 
 ```sh
+sudo dnf install -y zsh tmux eza bat ripgrep podman podman-compose
+sudo dnf copr enable -y pennbauman/ports
+sudo dnf install -y lf
+sudo dnf copr enable -y atim/starship
+sudo dnf install -y starship
+```
+
+Install [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), then clone and check out the repository into `$HOME`:
+
+```sh
+mkdir -p "$HOME/.local/share/fonts"
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
+  | tar -xJ -C "$HOME/.local/share/fonts"
+fc-cache -f
+
 cd ~
 git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
 ```
 
-The checkout creates the tracked `.config` directory and its configuration files in your home directory.
+## Setup
+
+This section covers the preparation steps, required tools, and application installation. The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44. Other operating systems may require different installation commands.
 
 Create the data directory used by the Nerd Fonts installation:
 
@@ -155,7 +174,20 @@ sudo dnf install -y podman podman-compose
 
 `git`, `nano`, `less`, `diff`, `df`, `mktemp`, `cat`, `rm`, and similar shell/core utilities are commonly available on major Linux distributions and macOS, so they do not need separate installation instructions.
 
-### AI Agent Configuration
+## Clone and Install This Repository
+
+Clone this repository as a bare repository and use the home directory as its working tree:
+
+```sh
+cd ~
+git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
+```
+
+The checkout places the tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `.config/zsh`, `.config/tmux`, and `.config/ai/AGENTS.md` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
+
+## AI Agent Configuration
 
 The shared AI agent guidelines are stored in [`$HOME/.config/ai/AGENTS.md`](.config/ai/AGENTS.md). The file contains the common rules used by all AI agents in this configuration.
 
