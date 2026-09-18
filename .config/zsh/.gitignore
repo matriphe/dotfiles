@@ -2,6 +2,12 @@
 *.zwc
 .zcompdump*
 
+# History files
+.history
+.zsh_history
+.zhistory
+.histfile
+
 # Machine-local overrides
 local.zsh
 
