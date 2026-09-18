@@ -32,3 +32,6 @@ export TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
 
 # Make personal commands available from any directory.
 export PATH="$HOME/.local/bin:$PATH"
+
+# Prevent Python virtualenv from polluting the prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
