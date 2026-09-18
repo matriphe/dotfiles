@@ -108,11 +108,11 @@ sudo dnf install -y ripgrep
 Install lf with DNF (Fedora):
 
 ```sh
-sudo dnf copr enable -y lsevcik/lf
+sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
 ```
 
-[Lf](https://github.com/gokcehan/lf) is a terminal file manager. It is needed by the `lf` navigation function. Fedora does not include `lf` in its standard repositories, so this installation uses the community-maintained [lsevcik/lf COPR](https://copr.fedorainfracloud.org/coprs/lsevcik/lf/).
+[Lf](https://github.com/gokcehan/lf) is a terminal file manager. It is needed by the `lf` navigation function. Fedora does not include `lf` in its standard repositories, so this installation uses the community-maintained [pennbauman/ports COPR](https://copr.fedorainfracloud.org/coprs/pennbauman/ports/).
 
 ### Starship
 
