@@ -154,7 +154,7 @@ sudo dnf install -y podman podman-compose
 
 ### Core Utilities
 
-Git, Zsh, Nano, `less`, `diff`, `df`, `mktemp`, `cat`, `rm`, and similar shell/core utilities are commonly available on major Linux distributions and macOS, so they do not need separate installation instructions.
+`git`, `nano`, `less`, `diff`, `df`, `mktemp`, `cat`, `rm`, and similar shell/core utilities are commonly available on major Linux distributions and macOS, so they do not need separate installation instructions.
 
 ## License
 
