@@ -32,6 +32,14 @@ git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUn
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
 ```
 
+After the first checkout, load the Zsh configuration to enable the `dotfiles` alias:
+
+```sh
+source "$HOME/.config/zsh/.zshrc"
+```
+
+You can also start a new Zsh session instead of sourcing the file manually.
+
 ## Setup
 
 This section covers the preparation steps, required tools, and application installation. The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44. Other operating systems may require different installation commands.
@@ -185,7 +193,29 @@ git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUn
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
 ```
 
+After the first checkout, load the Zsh configuration to enable the `dotfiles` alias:
+
+```sh
+source "$HOME/.config/zsh/.zshrc"
+```
+
+You can also start a new Zsh session instead of sourcing the file manually.
+
 The checkout places the tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `.config/zsh`, `.config/tmux`, and `.config/ai/AGENTS.md` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
+
+### Manage the dotfiles repository
+
+The Zsh configuration provides a `dotfiles` alias for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so regular Git commands can be run through the alias:
+
+```sh
+dotfiles status
+dotfiles checkout
+dotfiles add .config/zsh/aliases.zsh
+dotfiles commit -m "Update Zsh aliases"
+dotfiles push
+```
+
+Run these commands from `$HOME` when using relative paths. The alias is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh) by the Zsh configuration.
 
 ## AI Agent Configuration
 
