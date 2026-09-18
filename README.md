@@ -2,27 +2,31 @@
 
 This repository holds Muhammad Zamroni's dotfiles and configuration. It may change over time as his setup evolves.
 
-## Environment
+## Requirements
 
-At the time this configuration was created, it was running on Fedora 44 with
-Zsh and was tested on Fedora 44.
+At the time this configuration was created, it was running on Fedora Workstation 44 with Zsh.
 
-### Requirements
+### Zsh
 
-- `sudo` access
-- Zsh
+Install Zsh with DNF (Fedora):
 
-### Preparation
+```sh
+sudo dnf install zsh
+```
 
-Before using this configuration, add the following to the system-wide Zsh
-environment file. On Fedora, this file is `/etc/zshenv`; other systems may use
-a different path. This is a one-time setup step and requires `sudo`:
+Set Zsh as the default shell:
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
+Update the global Zsh configuration to point to `.config/zsh`. On Fedora, it is `/etc/zshenv`.
 
 ```sh
 sudoedit /etc/zshenv
 ```
 
-Add:
+Add the following:
 
 ```zsh
 if [[ -z "$XDG_CONFIG_HOME" ]]
@@ -37,21 +41,7 @@ then
 fi
 ```
 
-### Installation
-
-Install Zsh with DNF:
-
-```sh
-sudo dnf install zsh
-```
-
-Set Zsh as the default shell:
-
-```sh
-chsh -s "$(command -v zsh)"
-```
-
-Log out and back in for the change to take effect.
+Log out from the shell and back in for the change to take effect.
 
 ## License
 
