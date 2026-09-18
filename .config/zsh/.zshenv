@@ -21,8 +21,10 @@ elif command -v batcat >/dev/null 2>&1; then
   export MANPAGER="batcat -l man -p"
 fi
 
-# Keep GPG prompts attached to this terminal.
-export GPG_TTY=$(tty)
+# Keep GPG prompts attached to interactive terminals.
+if [[ -t 0 ]]; then
+  export GPG_TTY=$(tty)
+fi
 
 
 # Make personal commands available from any directory.

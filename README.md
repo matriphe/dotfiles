@@ -11,17 +11,16 @@ Clone this repository.
 ```sh
 cd ~
 git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
 ```
 
 The checkout creates the tracked `.config` directory and its configuration files in your home directory.
 
-Create the non-repository directories used by [`$HOME/.config/zsh/.zshenv`](.config/zsh/.zshenv):
+Create the data directory used by the Nerd Fonts installation:
 
 ```sh
-mkdir -p \
-  "$HOME/.cache" \
-  "$HOME/.local/share" \
-  "$HOME/.local/state"
+mkdir -p "$HOME/.local/share"
 ```
 
 ### Zsh
@@ -71,7 +70,7 @@ sudo dnf install -y tmux
 
 Tmux is a terminal multiplexer that lets you run multiple terminal sessions and panes in one window. It is needed for the Tmux configuration in this repo.
 
-The Tmux configuration is stored at [`$HOME/.config/tmux/tmux.conf`](.config/tmux/tmux.conf) and is loaded automatically when starting Tmux from Zsh.
+The Tmux configuration is stored at [`$HOME/.config/tmux/tmux.conf`](.config/tmux/tmux.conf) and is loaded automatically by Tmux from its XDG configuration path.
 
 ### Eza
 
