@@ -24,9 +24,6 @@ fi
 # Keep GPG prompts attached to this terminal.
 export GPG_TTY=$(tty)
 
-# Tell Starship where to find its configuration.
-export STARSHIP_CONFIG="$ZDOTDIR/starship/starship.toml"
-
 # Use the repository's Tmux configuration when starting Tmux.
 export TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
 
