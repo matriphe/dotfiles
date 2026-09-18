@@ -37,3 +37,23 @@ zstyle ':completion:*' menu select
 # Make completion case-insensitive
 # Example: "doc" can complete to "Documents"
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # lowercase input matches upper and lower
+
+# =========================================================
+# Modular Config Files
+# =========================================================
+
+# Maximum function nesting level
+FUNCNEST=100
+
+# Modules
+for module in "$XDG_CONFIG_HOME/zsh/modules/"*.zsh; do
+  [ -r "$module" ] && source "$module"
+done
+
+# =========================================================
+# User Custom Configurations
+# =========================================================
+
+if [[ -f "$ZDOTDIR/local.zsh" ]]; then
+  source "$ZDOTDIR/local.zsh"
+fi
