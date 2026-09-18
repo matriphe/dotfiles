@@ -26,20 +26,6 @@ mkdir -p \
 
 ### Zsh
 
-### Checkout
-
-This repository is managed as a bare Git repository in your home directory.
-Clone it from the repository root:
-
-```sh
-git clone --bare https://github.com/matriphe/dotfiles.git "$HOME/.dotfiles"
-git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
-git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
-```
-
-The checkout creates the tracked `.config` directory and its configuration
-files in your home directory.
-
 Install Zsh with DNF (Fedora):
 
 ```sh
@@ -74,6 +60,16 @@ fi
 ```
 
 Log out from the shell and back in for the change to take effect.
+
+### Tmux
+
+Install Tmux with DNF (Fedora):
+
+```sh
+sudo dnf install tmux
+```
+
+The Tmux configuration is stored at `.config/tmux/tmux.conf` and is loaded automatically when starting Tmux from Zsh.
 
 ## License
 
