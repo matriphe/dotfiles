@@ -32,6 +32,7 @@ fi
 
 if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
 then
+    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
     export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
 fi
 ```
