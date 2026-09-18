@@ -2,11 +2,43 @@
 
 This repository holds Muhammad Zamroni's dotfiles and configuration. It may change over time as his setup evolves.
 
-## Requirements
-
 At the time this configuration was created, it was running on Fedora Workstation 44 with Zsh.
 
+## Setup
+
+Clone this repository.
+
+```sh
+cd ~
+git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
+```
+
+The checkout creates the tracked `.config` directory and its configuration files in your home directory.
+
+Create the non-repository directories used by `.config/zsh/.zshenv`:
+
+```sh
+mkdir -p \
+  "$HOME/.cache" \
+  "$HOME/.local/share" \
+  "$HOME/.local/state"
+```
+
 ### Zsh
+
+### Checkout
+
+This repository is managed as a bare Git repository in your home directory.
+Clone it from the repository root:
+
+```sh
+git clone --bare https://github.com/matriphe/dotfiles.git "$HOME/.dotfiles"
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
+```
+
+The checkout creates the tracked `.config` directory and its configuration
+files in your home directory.
 
 Install Zsh with DNF (Fedora):
 
