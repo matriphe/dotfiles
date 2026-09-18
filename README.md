@@ -2,7 +2,7 @@
 
 This repository holds Muhammad Zamroni's personal dotfiles, shell, terminal, and application configuration. It also contains shared AI-agent guidelines for Codex, Claude Code, Gemini, Antigravity, OpenCode, and Cursor. The configuration is intended to provide a simple, reproducible starting point for a personal development environment.
 
-The repository is intended to be checked out as a bare Git repository from the home directory. The repository's working tree is therefore `$HOME` (`~`), so its root directory becomes the home directory and the tracked files are available at paths such as `~/.config/zsh` and `~/.config/ai/AGENTS.md`.
+The repository is intended to be checked out as a bare Git repository from the home directory. The repository's working tree is therefore `$HOME` (`~`), so its root directory becomes the home directory and the tracked files are available at paths such as `~/AGENTS.md` and `~/.config/zsh`.
 
 At the time this configuration was created, it was running on Fedora Workstation 44 with Zsh.
 
@@ -201,7 +201,7 @@ source "$HOME/.config/zsh/.zshrc"
 
 You can also start a new Zsh session instead of sourcing the file manually.
 
-The checkout places the tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `.config/zsh`, `.config/tmux`, and `.config/ai/AGENTS.md` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
+The checkout places the tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `AGENTS.md`, `.config/zsh`, and `.config/tmux` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
 
 ### Manage the dotfiles repository
 
@@ -219,7 +219,7 @@ Run these commands from `$HOME` when using relative paths. The alias is loaded f
 
 ## AI Agent Configuration
 
-The shared AI agent guidelines are stored in [`$HOME/.config/ai/AGENTS.md`](.config/ai/AGENTS.md). The file contains the common rules used by all AI agents in this configuration.
+The shared AI agent guidelines are stored in [`$HOME/AGENTS.md`](AGENTS.md). The file contains the common rules used by all AI agents in this configuration.
 
 The agent-specific files point to the shared guidelines:
 
@@ -230,7 +230,7 @@ The agent-specific files point to the shared guidelines:
 - `$HOME/.cursor/rules/ai-guidelines.mdc` is used by Cursor.
 - `$HOME/.agents/rules/ai-guidelines.md` is used by Google Antigravity for workspace rules.
 
-These files keep the agent-specific configuration small while using [`$HOME/.config/ai/AGENTS.md`](.config/ai/AGENTS.md) as the single source of truth.
+These files keep the agent-specific configuration small while using [`$HOME/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration; the root-level `AGENTS.md` contains the shared AI-agent guidance.
 
 ## Credits
 
