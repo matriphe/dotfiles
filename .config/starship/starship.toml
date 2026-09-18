@@ -1,13 +1,179 @@
-# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
+# Prompt layout
 add_newline = true
+palette = 'fedora'
+format = """
+$directory\
+$git_branch\
+$git_status\
+$php\
+$golang\
+$python\
+$rust\
+[](fg:cyan)\
+$fill\
+$cmd_duration\
+$localip\
+$os\
+$line_break\
+$character
+"""
 
-# Replace the '❯' symbol in the prompt with '➜'
-[character] # The name of the module we are configuring is 'character'
-success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# Prompt character
+[character]
+success_symbol = '[➜](bold blue)'
 
-# Disable the package module, hiding it from the prompt completely
+# Fedora-inspired colours
+[palettes.fedora]
+primary = '#3C6EB4'
+secondary = '#294172'
+blue = '#3C6EB4'
+
+# Git module colors
+git_primary = '#f14e32'
+git_secondary = '#0388a6'
+
+# Rust module color
+rust_orange = '#D34516'
+
+# PHP module color
+php_dark = '#474A8A'
+
+# Golang module color
+golang_blue = '#00ADD8'
+
+# Python module color
+python_yellow = '#FFE873'
+python_blue = '#4B8BBE'
+
+# Operating system module
+[os]
+disabled = false
+format = """
+[](fg:blue bg:yellow)\
+[ $symbol ](bg:primary fg:white)\
+[◢](bg:primary fg:secondary)\
+[ $version ](bg:secondary fg:white)\
+[◤](fg:secondary)\
+"""
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = ""
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# User and directory modules
+[username]
+show_always = true
+format = '[ $user ]($style)'
+style_user = 'yellow'
+
+[directory]
+format = """
+[◢](fg:cyan)\
+[ $path ](bg:cyan fg:black)\
+([ $read_only ](fg:red))\
+"""
+truncation_length = 3
+truncation_symbol = "󰉖 /"
+truncate_to_repo = false
+read_only = ''
+
+[directory.substitutions]
+Desktop = '󱂵 '
+Documents = '󱧶 '
+Downloads = '󰉍 '
+Music = '󱍙 '
+Pictures = '󰉏 '
+Public = '󱞊 '
+Templates = '󰉓 '
+Videos = '󱧺 '
+Projects = ' '
+
+[fill]
+symbol = '─'
+style = 'secondary'
+
+[cmd_duration]
+style = 'fg:230'
+format = ' 󱎫 [$duration ](fg:226)'
+
+# Git module
+[git_branch]
+symbol = ""
+format = """
+[](fg:cyan bg:git_primary)\
+[ $symbol $branch ](bg:git_primary fg:black)\
+"""
+
+[git_status]
+format = """
+[([◤](fg:git_primary bg:git_secondary)[$all_status$ahead_behind](bg:git_secondary fg:white)[](bg:git_primary fg:git_secondary))](fg:white)\
+[](bg:cyan fg:git_primary)\
+"""
+
+# Language modules
+[python]
+symbol = ""
+format = """
+[](fg:cyan bg:python_yellow)\
+[ $symbol( $version) ](bg:python_yellow fg:python_blue)\
+[](fg:python_yellow bg:cyan)\
+"""
+
+[rust]
+symbol = '󱘗'
+format = """
+[](fg:cyan bg:rust_orange)\
+[ $symbol( $version) ](bg:rust_orange fg:white)\
+[](fg:rust_orange bg:cyan)\
+"""
+
+[php]
+symbol = ''
+style = 'bg:#787CB5'
+format = """
+[](fg:cyan bg:php_dark)\
+[[ $symbol( $version) ](bg:php_dark fg:white)]($style)\
+[](fg:php_dark bg:cyan)\
+"""
+
+[golang]
+symbol = "󰟓"
+style = 'bg:#00ADD8'
+format = """
+[](fg:cyan bg:golang_blue)\
+[[ $symbol( $version) ](bg:golang_blue fg:black)]($style)\
+[](fg:golang_blue bg:cyan)\
+"""
+
+# Package information is not shown.
 [package]
 disabled = true
+
+# Local network information
+[localip]
+ssh_only = false
+disabled = false
+format = """
+[](fg:yellow)\
+[  ( $localipv4) ](bg:yellow fg:black)\
+"""
