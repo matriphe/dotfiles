@@ -12,6 +12,30 @@ Zsh and was tested on Fedora 44.
 - `sudo` access
 - Zsh
 
+### Preparation
+
+Before using this configuration, add the following to the system-wide Zsh
+environment file. On Fedora, this file is `/etc/zshenv`; other systems may use
+a different path. This is a one-time setup step and requires `sudo`:
+
+```sh
+sudoedit /etc/zshenv
+```
+
+Add:
+
+```zsh
+if [[ -z "$XDG_CONFIG_HOME" ]]
+then
+    export XDG_CONFIG_HOME="$HOME/.config/"
+fi
+
+if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
+then
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
+fi
+```
+
 ### Installation
 
 Install Zsh with DNF:
