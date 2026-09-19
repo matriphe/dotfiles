@@ -224,6 +224,7 @@ The shared AI agent guidelines are stored in [`~/AGENTS.md`](AGENTS.md). The fil
 The agent-specific files point to the shared guidelines:
 
 - `$HOME/.codex/AGENTS.md` references `~/AGENTS.md` for Codex.
+- `$HOME/.copilot/copilot-instructions.md` references `~/AGENTS.md` for GitHub Copilot.
 - `$HOME/.claude/CLAUDE.md` imports `~/AGENTS.md` for Claude Code.
 - `$HOME/.gemini/GEMINI.md` imports `~/AGENTS.md` for Gemini CLI and Google Antigravity.
 - `$HOME/.config/opencode/opencode.json` loads `~/AGENTS.md` for OpenCode.
