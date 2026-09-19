@@ -6,6 +6,26 @@ The repository is intended to be checked out as a bare Git repository from the h
 
 At the time this configuration was created, it was running on Fedora Workstation 44 with Zsh.
 
+## Contents
+
+- [TL;DR](#tldr)
+- [Setup](#setup)
+  - [Zsh](#zsh)
+  - [Tmux](#tmux)
+  - [Eza](#eza)
+  - [Bat](#bat)
+  - [Ripgrep](#ripgrep)
+  - [Lf](#lf)
+  - [Nerd Fonts](#nerd-fonts)
+  - [Starship](#starship)
+  - [Podman](#podman)
+  - [Core Utilities](#core-utilities)
+- [Clone and Install This Repository](#clone-and-install-this-repository)
+  - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
+- [AI Agent Configuration](#ai-agent-configuration)
+- [Credits](#credits)
+- [License](#license)
+
 ## TL;DR
 
 This is the quick Fedora installation. Read the sections below for the preparation details and configuration-specific instructions.
@@ -214,9 +234,12 @@ dotfiles add .config/zsh/aliases.zsh
 dotfiles commit -m "Update Zsh aliases"
 dotfiles push
 dotfiles update
+dotfiles reload
 ```
 
 `dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Use `dotfiles commit` and `dotfiles push` to commit and publish local changes.
+
+`dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
 
 Run these commands from `$HOME` when using relative paths. The helper is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh) by the Zsh configuration.
 
