@@ -1,5 +1,12 @@
 # Better ls
-alias ls='eza --icons'
+unalias ls 2>/dev/null
+ls() {
+    if [[ "$#" -eq 1 && "$1" == Backup && ! -e "$1" && -e "$HOME/Backup" ]]; then
+        command eza --icons=auto "$HOME/Backup"
+    else
+        command eza --icons=auto "$@"
+    fi
+}
 
 # Detailed listing
 alias ll='eza -lh --icons --git'
