@@ -205,7 +205,7 @@ The checkout places the tracked files directly in the home directory. The reposi
 
 ### Manage the dotfiles repository
 
-The Zsh configuration provides a `dotfiles` alias for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so regular Git commands can be run through the alias:
+The Zsh configuration provides a `dotfiles` helper for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so regular Git commands can be run through the helper:
 
 ```sh
 dotfiles status
@@ -213,9 +213,12 @@ dotfiles checkout
 dotfiles add .config/zsh/aliases.zsh
 dotfiles commit -m "Update Zsh aliases"
 dotfiles push
+dotfiles update
 ```
 
-Run these commands from `$HOME` when using relative paths. The alias is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh) by the Zsh configuration.
+`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Use `dotfiles commit` and `dotfiles push` to commit and publish local changes.
+
+Run these commands from `$HOME` when using relative paths. The helper is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh) by the Zsh configuration.
 
 ## AI Agent Configuration
 

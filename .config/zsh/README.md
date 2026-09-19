@@ -28,7 +28,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 - Interactive and case-insensitive command completion.
 - `eza`, `bat`, and ripgrep aliases for common command-line tools.
 - `lf` directory navigation that returns to the selected directory.
-- Git log shortcuts and a `dotfiles` command for the bare repository.
+- Git log shortcuts and a `dotfiles` helper for updating, committing, and pushing the bare repository.
 - Starship prompt initialization.
 - Conditional Docker-compatible aliases backed by Podman.
 
