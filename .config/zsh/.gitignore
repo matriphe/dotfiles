@@ -9,7 +9,7 @@
 .histfile
 
 # Machine-local overrides
-local.zsh
+local/
 
 # Plugins
 plugins/

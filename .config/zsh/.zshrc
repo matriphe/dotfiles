@@ -62,6 +62,6 @@ done
 # User Custom Configurations
 # =========================================================
 
-if [[ -f "$ZDOTDIR/local.zsh" ]]; then
-  source "$ZDOTDIR/local.zsh"
-fi
+for local_config in "$ZDOTDIR/local/"*.zsh; do
+  [[ -r "$local_config" ]] && source "$local_config"
+done

@@ -8,7 +8,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 
 1. `.zshenv` — loaded by every Zsh process.
 2. `.zshrc` — loaded by interactive Zsh shells.
-3. `local.zsh` — optional machine-specific settings loaded last.
+3. `local/*.zsh` — optional machine-specific settings loaded last.
 
 ## Files
 
@@ -16,7 +16,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 - `.zshrc` configures history, shell behavior, completion, aliases, modules, and local overrides.
 - `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, ripgrep, `lf`, Git, and navigation.
 - `modules/` contains optional configuration modules loaded automatically.
-- `local.zsh` can contain machine-specific settings and is ignored by Git.
+- `local/` can contain machine-specific settings split across any number of `.zsh` files and is ignored by Git.
 - `.history` stores Zsh command history and is ignored by Git.
 - `.zcompdump` stores the Zsh completion cache and is ignored by Git.
 - `.gitignore` excludes generated and machine-local files.
@@ -34,4 +34,4 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 
 ## Customization
 
-Add personal or machine-specific settings to `local.zsh`. It is loaded last so it can override the shared configuration without changing tracked files.
+Add personal or machine-specific settings as `.zsh` files in `local/`. They are loaded last, in filename order, so they can override the shared configuration without changing tracked files. The directory is intentionally ignored by Git because its contents are private and machine-specific.
