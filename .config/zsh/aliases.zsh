@@ -58,10 +58,14 @@ dotfiles() {
     if [[ "$1" == reload ]]; then
         source "$ZDOTDIR/.zshenv"
         source "$ZDOTDIR/.zshrc"
+        print "Zsh configuration reloaded."
         return
     elif [[ "$1" == update ]]; then
         shift
         git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" pull --ff-only "$@"
+        if (( $? == 0 )); then
+            print "Remember to run 'dotfiles reload' to reload the updated configuration."
+        fi
         return
     fi
 

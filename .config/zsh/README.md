@@ -38,4 +38,4 @@ Add personal or machine-specific settings as `.zsh` files in `local/`. They are 
 
 ## Reloading
 
-Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell after changing the configuration.
+Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell after changing the configuration. The command confirms when the reload completes. After a successful `dotfiles update`, the helper reminds you to run `dotfiles reload` so the updated configuration takes effect.
