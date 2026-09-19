@@ -55,7 +55,11 @@ alias glog='PAGER="less -F -X" git log'                              # -F quit i
 alias gadog='PAGER="less -F -X" git log --all --decorate --oneline --graph'
 
 dotfiles() {
-    if [[ "$1" == update ]]; then
+    if [[ "$1" == reload ]]; then
+        source "$ZDOTDIR/.zshenv"
+        source "$ZDOTDIR/.zshrc"
+        return
+    elif [[ "$1" == update ]]; then
         shift
         git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" pull --ff-only "$@"
         return

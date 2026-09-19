@@ -28,10 +28,14 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 - Interactive and case-insensitive command completion.
 - `eza`, `bat`, and ripgrep aliases for common command-line tools.
 - `lf` directory navigation that returns to the selected directory.
-- Git log shortcuts and a `dotfiles` helper for updating, committing, and pushing the bare repository.
+- Git log shortcuts and a `dotfiles` helper for reloading the Zsh environment, updating, committing, and pushing the bare repository.
 - Starship prompt initialization.
 - Conditional Docker-compatible aliases backed by Podman.
 
 ## Customization
 
 Add personal or machine-specific settings as `.zsh` files in `local/`. They are loaded last, in filename order, so they can override the shared configuration without changing tracked files. The directory is intentionally ignored by Git because its contents are private and machine-specific.
+
+## Reloading
+
+Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell after changing the configuration.
