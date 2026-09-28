@@ -20,10 +20,6 @@ $line_break\
 $character
 """
 
-# Prompt character
-[character]
-success_symbol = '[➜](bold blue)'
-
 # Fedora-inspired colours
 [palettes.fedora]
 primary = '#3C6EB4'
