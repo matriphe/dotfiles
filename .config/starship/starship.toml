@@ -86,7 +86,7 @@ style_user = 'yellow'
 format = """
 [◢](fg:cyan)\
 [ $path ](bg:cyan fg:black)\
-([ $read_only ](fg:red))\
+([ $read_only ](bg:cyan fg:red))\
 """
 truncation_length = 3
 truncation_symbol = "󰉖 /"
