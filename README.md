@@ -10,17 +10,11 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 - [TL;DR](#tldr)
 - [Setup](#setup)
-  - [Zsh](#zsh)
-  - [Zsh Plugins (Antidote)](#zsh-plugins-antidote)
-  - [Tmux](#tmux)
-  - [Eza](#eza)
-  - [Bat](#bat)
-  - [Ripgrep](#ripgrep)
-  - [Lf](#lf)
-  - [Nerd Fonts](#nerd-fonts)
-  - [Starship](#starship)
-  - [Container](#container)
-  - [Core Utilities](#core-utilities)
+  - [Install the required tools](#install-the-required-tools)
+  - [Configure Zsh](#configure-zsh)
+  - [Configure Antidote](#configure-antidote)
+  - [Install a Nerd Font](#install-a-nerd-font)
+  - [Container runtime](#container-runtime)
 - [Clone and Install This Repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
 - [AI Agent Configuration](#ai-agent-configuration)
@@ -50,7 +44,7 @@ mkdir -p "$HOME/.local/share/zsh"
 ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
 ```
 
-For containers on macOS, see the [Container](#container) section for Docker Desktop and Colima options.
+For containers on macOS, see the [Container runtime](#container-runtime) section for Docker Desktop and Colima options.
 
 Install [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), then clone and check out the repository into `$HOME`:
 
@@ -76,25 +70,48 @@ You can also start a new Zsh session instead of sourcing the file manually.
 
 ## Setup
 
-This section covers the preparation steps, required tools, and application installation.
+This section covers the required tools and the few platform-specific configuration steps.
 
 The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
 
-On macOS, install the same tools with Homebrew using the commands listed in each section. Other operating systems may require different installation commands.
+On macOS, use Homebrew for the same command-line tools. Other operating systems may require different installation commands.
 
-Create the data directory used by the Nerd Fonts installation:
+### Install the required tools
 
-```sh
-mkdir -p "$HOME/.local/share"
-```
-
-### Zsh
-
-Install Zsh with DNF (Fedora):
+On Fedora:
 
 ```sh
-sudo dnf install -y zsh
+sudo dnf install -y zsh tmux eza bat ripgrep podman podman-compose
+sudo dnf copr enable -y pennbauman/ports
+sudo dnf install -y lf
+sudo dnf copr enable -y atim/starship
+sudo dnf install -y starship
 ```
+
+On macOS with Homebrew:
+
+```sh
+brew install tmux eza bat ripgrep lf starship antidote
+brew install --cask font-hack-nerd-font
+```
+
+| Tool | Purpose |
+| --- | --- |
+| [Git](https://git-scm.com/) | Clones and manages this repository as a bare repository. |
+| [Zsh](https://www.zsh.org/) | Shell used by this configuration. |
+| [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer used by the Tmux configuration. |
+| [Antidote](https://antidote.sh/) | Installs and loads the Zsh plugins listed in `.zsh_plugins.txt`. |
+| [Eza](https://github.com/eza-community/eza) | Modern `ls` replacement used by the `ls`, `ll`, `la`, and `tree` aliases. |
+| [Bat](https://github.com/sharkdp/bat) | Syntax-highlighting `cat` replacement used by the `cat` alias. |
+| [Ripgrep](https://github.com/BurntSushi/ripgrep) | Fast standalone search tool; `grep` remains the system command because its flags differ. |
+| [Lf](https://github.com/gokcehan/lf) | Terminal file manager used by the `lf` navigation function. |
+| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provides the icons and glyphs used by the Starship prompt. |
+| [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
+| Podman / Docker | Container engine used by the Docker-compatible aliases. |
+
+Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories, and the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
+
+### Configure Zsh
 
 Set Zsh as the default shell:
 
@@ -146,7 +163,7 @@ EOF
 
 Log out from the shell and back in for the change to take effect.
 
-### Zsh Plugins (Antidote)
+### Configure Antidote
 
 This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins. Install it manually for the current user:
 
@@ -181,90 +198,7 @@ Antidote reads the manifest and generates a cached plugin bundle, so normal shel
 zsh-plugins-update
 ```
 
-### Tmux
-
-Install Tmux with DNF (Fedora):
-
-```sh
-sudo dnf install -y tmux
-```
-
-On macOS, install Tmux with Homebrew:
-
-```sh
-brew install tmux
-```
-
-Tmux is a terminal multiplexer that lets you run multiple terminal sessions and panes in one window. It is needed for the Tmux configuration in this repo.
-
-The Tmux configuration is stored at [`$HOME/.config/tmux/tmux.conf`](.config/tmux/tmux.conf) and is loaded automatically by Tmux from its XDG configuration path.
-
-### Eza
-
-Install eza with DNF (Fedora):
-
-```sh
-sudo dnf install -y eza
-```
-
-On macOS, install eza with Homebrew:
-
-```sh
-brew install eza
-```
-
-[Eza](https://github.com/eza-community/eza) is a modern replacement for `ls`. It is needed by the `ls`, `ll`, `la`, and `tree` aliases.
-
-### Bat
-
-Install bat with DNF (Fedora):
-
-```sh
-sudo dnf install -y bat
-```
-
-On macOS, install bat with Homebrew:
-
-```sh
-brew install bat
-```
-
-[Bat](https://github.com/sharkdp/bat) is a `cat` replacement with syntax highlighting. It is needed by the `cat` alias.
-
-### Ripgrep
-
-Install ripgrep with DNF (Fedora):
-
-```sh
-sudo dnf install -y ripgrep
-```
-
-On macOS, install ripgrep with Homebrew:
-
-```sh
-brew install ripgrep
-```
-
-[Ripgrep](https://github.com/BurntSushi/ripgrep) is a fast replacement for `grep`. It is installed as a standalone search tool; `grep` is not aliased to it because their flag alphabets differ (for example, rg's `-E` means `--encoding`, not extended regex).
-
-### Lf
-
-Install lf with DNF (Fedora):
-
-```sh
-sudo dnf copr enable -y pennbauman/ports
-sudo dnf install -y lf
-```
-
-[Lf](https://github.com/gokcehan/lf) is a terminal file manager. It is needed by the `lf` navigation function. Fedora does not include `lf` in its standard repositories, so this installation uses the community-maintained [pennbauman/ports COPR](https://copr.fedorainfracloud.org/coprs/pennbauman/ports/).
-
-On macOS, install lf with Homebrew:
-
-```sh
-brew install lf
-```
-
-### Nerd Fonts
+### Install a Nerd Font
 
 Nerd Fonts provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can use another available Nerd Font such as JetBrainsMono Nerd Font.
 
@@ -285,24 +219,7 @@ On macOS, install Hack Nerd Font with Homebrew's font casks:
 brew install --cask font-hack-nerd-font
 ```
 
-### Starship
-
-Install Starship with DNF (Fedora):
-
-```sh
-sudo dnf copr enable -y atim/starship
-sudo dnf install -y starship
-```
-
-On macOS, install Starship with Homebrew:
-
-```sh
-brew install starship
-```
-
-[Starship](https://github.com/starship/starship) is the shell prompt used by this configuration.
-
-### Container
+### Container runtime
 
 A container engine is needed for the Docker-compatible aliases in the Zsh configuration.
 
@@ -331,10 +248,6 @@ Homebrew installs the standalone `docker-compose` binary outside the Docker CLI 
 mkdir -p "$HOME/.docker/cli-plugins"
 ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
 ```
-
-### Core Utilities
-
-`git`, `nano`, `less`, `diff`, `df`, `mktemp`, `cat`, `rm`, and similar shell/core utilities are commonly available on major Linux distributions and macOS, so they do not need separate installation instructions.
 
 ## Clone and Install This Repository
 
