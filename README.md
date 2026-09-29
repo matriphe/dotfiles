@@ -110,6 +110,7 @@ On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the bl
 
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
+
 if [[ -z "$XDG_CONFIG_HOME" ]]
 then
     export XDG_CONFIG_HOME="$HOME/.config"
