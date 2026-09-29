@@ -53,12 +53,21 @@ When an AI agent creates or updates a pull request or merge request, it MUST:
 - Use a short, descriptive title.
 - Explain the changes, motivation, and linked issue when one exists.
 - Identify the AI agent and model in the description footer.
+- Include effort information when available.
 
-Use this footer format:
+Generic footer format:
 
 ```markdown
-🤖 Generated with the help of [Codex](https://openai.com/codex/) using model <model-id>.
+🤖 Generated with the help of [<agent-name>](<agent-link>) using model <model-id> (<effort, if available>).
 ```
+
+For example, a Codex footer may use:
+
+```markdown
+🤖 Generated with the help of [Codex](https://openai.com/codex/) using model gpt-5.6-luna (low).
+```
+
+The agent name, link, model, and effort MUST match the agent and configuration used for the pull request.
 
 ## Quality and style
 
