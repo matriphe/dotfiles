@@ -27,7 +27,7 @@ alias cat='bat'
 # Core utilities
 # =========================================================
 
-alias grep='rg --color=auto'
+# Don't alias grep to rg: flag alphabets differ (rg -E is --encoding, grep -E is extended regex)
 alias diff='diff --color=auto'
 alias df='df -h'
 
