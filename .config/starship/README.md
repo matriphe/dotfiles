@@ -13,6 +13,7 @@ The prompt displays:
 - The current directory and common directory icons.
 - Git branch and repository status.
 - PHP, Go, Python, and Rust versions when applicable.
+- The Kubernetes context and namespace when a cluster is active.
 - Command duration and local IP address.
 - The current operating system and user.
 - A Fedora-inspired colour palette.
