@@ -96,7 +96,36 @@ Install Zsh with DNF (Fedora):
 sudo dnf install -y zsh
 ```
 
+Set Zsh as the default shell:
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
 On macOS, Zsh is the default shell, so no installation is needed.
+
+Update the global Zsh configuration to point to `.config/zsh`. On Fedora, it is `/etc/zshenv`.
+
+```sh
+sudoedit /etc/zshenv
+```
+
+Add the following:
+
+```zsh
+if [[ -z "$XDG_CONFIG_HOME" ]]
+then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
+then
+    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+fi
+```
+
+Log out from the shell and back in for the change to take effect.
 
 ### Zsh Plugins (Antidote)
 
@@ -132,35 +161,6 @@ Antidote reads the manifest and generates a cached plugin bundle, so normal shel
 ```zsh
 zsh-plugins-update
 ```
-
-Set Zsh as the default shell:
-
-```sh
-chsh -s "$(command -v zsh)"
-```
-
-Update the global Zsh configuration to point to `.config/zsh`. On Fedora, it is `/etc/zshenv`.
-
-```sh
-sudoedit /etc/zshenv
-```
-
-Add the following:
-
-```zsh
-if [[ -z "$XDG_CONFIG_HOME" ]]
-then
-    export XDG_CONFIG_HOME="$HOME/.config"
-fi
-
-if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
-then
-    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
-    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-fi
-```
-
-Log out from the shell and back in for the change to take effect.
 
 ### Tmux
 
