@@ -245,7 +245,7 @@ On macOS, install ripgrep with Homebrew:
 brew install ripgrep
 ```
 
-[Ripgrep](https://github.com/BurntSushi/ripgrep) is a fast replacement for `grep`. It is needed by the `grep` alias.
+[Ripgrep](https://github.com/BurntSushi/ripgrep) is a fast replacement for `grep`. It is installed as a standalone search tool; `grep` is not aliased to it because their flag alphabets differ (for example, rg's `-E` means `--encoding`, not extended regex).
 
 ### Lf
 

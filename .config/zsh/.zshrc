@@ -60,7 +60,7 @@ fi
 FUNCNEST=100
 
 # Modules
-for module in "$XDG_CONFIG_HOME/zsh/modules/"*.zsh; do
+for module in "$XDG_CONFIG_HOME/zsh/modules/"*.zsh(N); do
   [ -r "$module" ] && source "$module"
 done
 
@@ -68,6 +68,6 @@ done
 # User Custom Configurations
 # =========================================================
 
-for local_config in "$ZDOTDIR/local/"*.zsh; do
+for local_config in "$ZDOTDIR/local/"*.zsh(N); do
   [[ -r "$local_config" ]] && source "$local_config"
 done
