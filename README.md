@@ -76,7 +76,11 @@ You can also start a new Zsh session instead of sourcing the file manually.
 
 ## Setup
 
-This section covers the preparation steps, required tools, and application installation. The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44. On macOS, install the same tools with Homebrew using the commands listed in each section. Other operating systems may require different installation commands.
+This section covers the preparation steps, required tools, and application installation.
+
+The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
+
+On macOS, install the same tools with Homebrew using the commands listed in each section. Other operating systems may require different installation commands.
 
 Create the data directory used by the Nerd Fonts installation:
 
