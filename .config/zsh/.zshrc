@@ -29,6 +29,10 @@ setopt NUMERIC_GLOB_SORT  # sort file10 after file9, not after file1
 # Plugins
 # =========================================================
 
+if [[ -r "$ZDOTDIR/homebrew.zsh" ]]; then
+  source "$ZDOTDIR/homebrew.zsh"
+fi
+
 source "$ZDOTDIR/plugins.zsh"
 
 # Load completion system after plugins have had a chance to add completions.
