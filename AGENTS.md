@@ -72,11 +72,20 @@ The agent name, link, model, and effort MUST match the agent and configuration u
 ## Quality and style
 
 - Prefer readable, maintainable changes over terseness.
-- Comments SHOULD explain why, not what.
 - JavaScript and TypeScript SHOULD follow the existing ESLint/Prettier configuration and modern ES conventions.
 - Python SHOULD follow PEP 8 and the project's formatter configuration.
 - PHP SHOULD follow PSR-12.
 - Go SHOULD follow official formatting and idioms.
+
+### Code comments
+
+- Comments MUST be short and concise.
+- Comments MUST explain why the code exists, not what it does.
+- Comments SHOULD document only non-obvious rationale, constraints, workarounds, side effects, or invariants.
+- Prefer self-documenting code through clear names and simple structure.
+- Improve the code instead of adding comments that merely narrate it.
+- Remove or update comments that become obsolete.
+- Avoid comments that restate the implementation, describe obvious operations, or add unnecessary noise.
 
 ## Supported integrations
 
