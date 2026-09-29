@@ -1,18 +1,31 @@
-_zplugin_load() {
-  local plugin_path="${ZPLUGINDIR}/${2}"
-  if [[ ! -d "$plugin_path" ]]; then
-    mkdir -p "$ZPLUGINDIR"
-    echo "Installing ${2}..."
-    git clone --depth=1 "https://github.com/${1}/${2}" "$plugin_path" \
-      || { echo "ERROR: failed to install ${2}" >&2; return 1; }
+# Antidote plugin loading.
+
+typeset -g ANTIDOTE_MANIFEST="${ZDOTDIR}/.zsh_plugins.txt"
+
+if [[ ! -r "${ANTIDOTE_HOME}/antidote.zsh" ]]; then
+  print -u2 "Antidote is not installed at ${ANTIDOTE_HOME}"
+else
+  source "${ANTIDOTE_HOME}/antidote.zsh"
+
+  mkdir -p "${ANTIDOTE_BUNDLE:h}"
+
+  if [[ ! -r "${ANTIDOTE_BUNDLE}" ||
+        "${ANTIDOTE_MANIFEST}" -nt "${ANTIDOTE_BUNDLE}" ]]; then
+    antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
   fi
-  source "${plugin_path}/${2}.plugin.zsh"
+
+  source "${ANTIDOTE_BUNDLE}"
+fi
+
+zsh-plugins-update() {
+  if (( ! $+functions[antidote] )); then
+    print -u2 "Antidote is not installed at ${ANTIDOTE_HOME}"
+    return 1
+  fi
+
+  antidote update
+  antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
 }
 
-zplugin-update() {
-  local dir
-  for dir in "${ZPLUGINDIR}"/*/; do
-    echo "Updating ${dir:t}..."
-    git -C "$dir" pull --ff-only
-  done
-}
+# Keep the previous helper name as a compatibility alias.
+alias zplugin-update='zsh-plugins-update'

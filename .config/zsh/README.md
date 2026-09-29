@@ -4,18 +4,20 @@ This directory contains the Zsh environment and interactive shell configuration.
 
 ## How it works
 
-The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads the files in this order:
+The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive startup flow is:
 
 1. `.zshenv` — loaded by every Zsh process.
 2. `.zshrc` — loaded by interactive Zsh shells.
-3. `plugins.zsh` — plugin loader sourced before aliases.
-4. `local/*.zsh` — optional machine-specific settings loaded last.
+   - `plugins.zsh` loads Antidote and the generated plugin bundle.
+   - `compinit` initializes completion after plugins have loaded.
+   - aliases, modules, and `local/*.zsh` are loaded afterward.
 
 ## Files
 
 - `.zshenv` sets XDG directories, the default editor, the man-page pager, GPG terminal handling, `PATH`, and Python virtualenv prompt behavior.
 - `.zshrc` configures history, shell behavior, completion, plugins, aliases, modules, and local overrides.
-- `plugins.zsh` provides helpers for installing plugins into `$ZPLUGINDIR` and updating installed plugins.
+- `plugins.zsh` loads Antidote and the generated plugin bundle, and provides a plugin update helper.
+- `.zsh_plugins.txt` lists the plugins managed by Antidote.
 - `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, ripgrep, `lf`, Git, and navigation.
 - `modules/` contains optional configuration modules loaded automatically.
 - `local/` can contain machine-specific settings split across any number of `.zsh` files and is ignored by Git.
@@ -41,3 +43,21 @@ Add personal or machine-specific settings as `.zsh` files in `local/`. They are 
 ## Reloading
 
 Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell after changing the configuration. The command confirms when the reload completes. After a successful `dotfiles update`, the helper reminds you to run `dotfiles reload` so the updated configuration takes effect.
+
+## Plugins
+
+Install Antidote once into the XDG data directory:
+
+```zsh
+mkdir -p "$XDG_DATA_HOME/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$XDG_DATA_HOME/zsh/antidote"
+```
+
+The plugin manifest is tracked in `.zsh_plugins.txt`. Antidote generates the
+static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup
+does not perform Git operations. Update installed plugins with:
+
+```zsh
+zsh-plugins-update
+```

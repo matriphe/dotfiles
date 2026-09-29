@@ -78,6 +78,14 @@ Install Zsh with DNF (Fedora):
 sudo dnf install -y zsh
 ```
 
+Install Antidote for the Zsh plugins:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$HOME/.local/share/zsh/antidote"
+```
+
 Set Zsh as the default shell:
 
 ```sh
