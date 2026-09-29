@@ -19,7 +19,7 @@ At the time this configuration was created, it was running on Fedora Workstation
   - [Lf](#lf)
   - [Nerd Fonts](#nerd-fonts)
   - [Starship](#starship)
-  - [Podman](#podman)
+  - [Container](#container)
   - [Core Utilities](#core-utilities)
 - [Clone and Install This Repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
@@ -44,18 +44,13 @@ sudo dnf install -y starship
 On macOS with Homebrew:
 
 ```sh
-brew install tmux eza bat ripgrep lf starship antidote podman podman-compose
+brew install tmux eza bat ripgrep lf starship antidote
 brew install --cask font-hack-nerd-font
 mkdir -p "$HOME/.local/share/zsh"
 ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
 ```
 
-Podman on macOS also needs a virtual machine:
-
-```sh
-podman machine init
-podman machine start
-```
+For containers on macOS, see the [Container](#container) section for Docker Desktop and Colima options.
 
 Install [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), then clone and check out the repository into `$HOME`:
 
@@ -284,30 +279,24 @@ brew install starship
 
 [Starship](https://github.com/starship/starship) is the shell prompt used by this configuration.
 
-### Podman
+### Container
 
-Install Podman and podman-compose with DNF (Fedora):
+A container engine is needed for the Docker-compatible aliases in the Zsh configuration.
+
+On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are missing:
 
 ```sh
 sudo dnf install -y podman podman-compose
 ```
 
-On macOS, install Podman with Homebrew:
-
-```sh
-brew install podman podman-compose
-```
-
-macOS does not support Podman containers natively, so after installing, create and start a Linux virtual machine that runs the containers:
-
-```sh
-podman machine init
-podman machine start
-```
-
-[Podman](https://podman.io/) is a container engine. Fedora uses Podman by default instead of Docker.
-
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+
+On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead. Docker Desktop provides `docker` and `docker-compose` in one application. With Colima, install the Docker CLI through Homebrew and start the virtual machine:
+
+```sh
+brew install docker docker-compose colima
+colima start
+```
 
 ### Core Utilities
 
