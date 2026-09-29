@@ -9,6 +9,7 @@ At the time this configuration was created, it was running on Fedora Workstation
 ## Contents
 
 - [Zsh](#zsh)
+  - [Install Zsh](#install-zsh)
   - [Configure Zsh](#configure-zsh)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
@@ -23,7 +24,9 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 ## Zsh
 
-### Fedora
+### Install Zsh
+
+#### Fedora
 
 Install Zsh using package manager:
 
@@ -37,7 +40,7 @@ Then set Zsh as the default shell:
 chsh -s "$(command -v zsh)"
 ```
 
-### macOS
+#### macOS
 
 On macOS, Zsh is the default shell, so no installation is needed.
 
