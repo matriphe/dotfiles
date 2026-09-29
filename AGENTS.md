@@ -26,14 +26,25 @@ When an AI agent writes or commits changes in this repository, it MUST:
 - Clearly identify that the changes were written with the help of and committed by AI.
 - Add the AI agent as a co-author using a `Co-authored-by:` trailer.
 
-Example:
+Generic template:
+
+```text
+AI: <imperative change summary>
+
+Written with the help of and committed by AI using model <model-id> (<effort, if available>).
+Co-authored-by: <agent-name> <agent-email>
+```
+
+For example, a Codex commit may use:
 
 ```text
 AI: update configuration documentation
 
-Written with the help of and committed by AI using model <model-id> (<effort>).
+Written with the help of and committed by AI using model gpt-5.6-luna (low).
 Co-authored-by: Codex <noreply@openai.com>
 ```
+
+The co-author name and email MUST match the AI agent that performed the work.
 
 ### Pull requests and merge requests
 
