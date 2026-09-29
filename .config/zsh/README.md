@@ -18,7 +18,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 - `.zshrc` configures history, shell behavior, completion, plugins, aliases, modules, and local overrides.
 - `plugins.zsh` loads Antidote and the generated plugin bundle, and provides a plugin update helper.
 - `.zsh_plugins.txt` lists the plugins managed by Antidote.
-- `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, ripgrep, `lf`, Git, and navigation.
+- `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, `lf`, Git, and navigation.
 - `modules/` contains optional configuration modules loaded automatically.
 - `local/` can contain machine-specific settings split across any number of `.zsh` files and is ignored by Git.
 - `.history` stores Zsh command history and is ignored by Git.
@@ -30,7 +30,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 - XDG-based configuration, cache, data, and state paths.
 - Persistent history with duplicate and whitespace filtering.
 - Interactive and case-insensitive command completion.
-- `eza`, `bat`, and ripgrep aliases for common command-line tools.
+- `eza` and `bat` aliases for common command-line tools; ripgrep installed as a standalone search tool (`grep` is not aliased to it because their flags differ).
 - `lf` directory navigation that returns to the selected directory.
 - Git log shortcuts and a `dotfiles` helper for reloading the Zsh environment, updating, committing, and pushing the bare repository.
 - Starship prompt initialization.
