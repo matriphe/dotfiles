@@ -9,9 +9,9 @@ At the time this configuration was created, it was running on Fedora Workstation
 ## Contents
 
 - [Zsh](#zsh)
+  - [Configure Zsh](#configure-zsh)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
-  - [Configure Zsh](#configure-zsh)
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Container runtime](#container-runtime)
