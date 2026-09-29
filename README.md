@@ -104,7 +104,9 @@ chsh -s "$(command -v zsh)"
 
 On macOS, Zsh is the default shell, so no installation is needed.
 
-Update the global Zsh configuration to point to `.config/zsh`. On Fedora, it is `/etc/zshenv`.
+Update the global Zsh configuration to point to `.config/zsh`.
+
+On Fedora, it is `/etc/zshenv`.
 
 ```sh
 sudoedit /etc/zshenv
