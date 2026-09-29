@@ -13,6 +13,7 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
   - [Configure Zsh](#configure-zsh)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
+  - [Optional container runtime](#optional-container-runtime)
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
 - [Clone and install this repository](#clone-and-install-this-repository)
@@ -139,7 +140,7 @@ This section covers the required tools and platform-specific configuration steps
 
 The commands below are grouped by operating system because package names, package managers, and system-wide Zsh configuration paths differ.
 
-The Zsh configuration does not define Docker or Podman aliases, so a container runtime is not required to use these dotfiles. Install Docker separately if your own workflow needs it.
+The Zsh configuration does not define Docker or Podman aliases, so a container runtime is not required to use these dotfiles. If your own workflow needs one, see [Optional container runtime](#optional-container-runtime).
 
 ### Install the required tools
 
@@ -191,6 +192,27 @@ fi
 ```
 
 If a package is unavailable in the enabled repositories, enable the distribution's `universe`/equivalent repository or follow the installation instructions from the tool's project page.
+
+### Optional container runtime
+
+The container runtime is optional and is not required by the Zsh configuration. Install the runtime for your platform only if your own workflow needs it.
+
+#### Fedora
+
+Install Podman and its Compose provider with DNF:
+
+```sh
+sudo dnf install -y podman podman-compose
+```
+
+#### Debian/Ubuntu
+
+Debian and Ubuntu do not include Docker by default. Install Docker Engine and Docker Compose from Docker's official repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then verify the installation:
+
+```sh
+sudo systemctl enable --now docker
+sudo docker run hello-world
+```
 
 #### macOS
 
