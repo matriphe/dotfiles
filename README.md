@@ -11,7 +11,7 @@ At the time this configuration was created, it was running on Fedora Workstation
 - [TL;DR](#tldr)
 - [Setup](#setup)
   - [Zsh](#zsh)
-    - [Zsh Plugins](#zsh-plugins)
+  - [Zsh Plugins (Antidote)](#zsh-plugins-antidote)
   - [Tmux](#tmux)
   - [Eza](#eza)
   - [Bat](#bat)
@@ -98,7 +98,7 @@ sudo dnf install -y zsh
 
 On macOS, Zsh is the default shell, so no installation is needed.
 
-#### Zsh Plugins
+### Zsh Plugins (Antidote)
 
 This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins. Install it manually for the current user:
 
