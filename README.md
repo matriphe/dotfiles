@@ -19,7 +19,7 @@ At the time this configuration was created, it was running on Fedora Workstation
   - [Lf](#lf)
   - [Nerd Fonts](#nerd-fonts)
   - [Starship](#starship)
-  - [Podman](#podman)
+  - [Container](#container)
   - [Core Utilities](#core-utilities)
 - [Clone and Install This Repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
@@ -29,7 +29,9 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 ## TL;DR
 
-This is the quick Fedora installation. Read the sections below for the preparation details and configuration-specific instructions.
+This is the quick installation. Read the sections below for the preparation details and configuration-specific instructions.
+
+On Fedora:
 
 ```sh
 sudo dnf install -y zsh tmux eza bat ripgrep podman podman-compose
@@ -38,6 +40,17 @@ sudo dnf install -y lf
 sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
+
+On macOS with Homebrew:
+
+```sh
+brew install tmux eza bat ripgrep lf starship antidote
+brew install --cask font-hack-nerd-font
+mkdir -p "$HOME/.local/share/zsh"
+ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
+```
+
+For containers on macOS, see the [Container](#container) section for Docker Desktop and Colima options.
 
 Install [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), then clone and check out the repository into `$HOME`:
 
@@ -63,7 +76,11 @@ You can also start a new Zsh session instead of sourcing the file manually.
 
 ## Setup
 
-This section covers the preparation steps, required tools, and application installation. The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44. Other operating systems may require different installation commands.
+This section covers the preparation steps, required tools, and application installation.
+
+The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
+
+On macOS, install the same tools with Homebrew using the commands listed in each section. Other operating systems may require different installation commands.
 
 Create the data directory used by the Nerd Fonts installation:
 
@@ -79,6 +96,8 @@ Install Zsh with DNF (Fedora):
 sudo dnf install -y zsh
 ```
 
+On macOS, Zsh is the default shell, so no installation is needed.
+
 #### Zsh Plugins
 
 This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins. Install it manually for the current user:
@@ -87,6 +106,19 @@ This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins. 
 mkdir -p "$HOME/.local/share/zsh"
 git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
+```
+
+On macOS, Antidote can be installed with Homebrew instead:
+
+```sh
+brew install antidote
+```
+
+Homebrew places Antidote under the Homebrew prefix, while the configuration loads it from `$XDG_DATA_HOME/zsh/antidote`. Symlink the Homebrew installation to the expected path so the configuration works unchanged:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
 ```
 
 The loaded plugins are listed in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
@@ -138,6 +170,12 @@ Install Tmux with DNF (Fedora):
 sudo dnf install -y tmux
 ```
 
+On macOS, install Tmux with Homebrew:
+
+```sh
+brew install tmux
+```
+
 Tmux is a terminal multiplexer that lets you run multiple terminal sessions and panes in one window. It is needed for the Tmux configuration in this repo.
 
 The Tmux configuration is stored at [`$HOME/.config/tmux/tmux.conf`](.config/tmux/tmux.conf) and is loaded automatically by Tmux from its XDG configuration path.
@@ -150,6 +188,12 @@ Install eza with DNF (Fedora):
 sudo dnf install -y eza
 ```
 
+On macOS, install eza with Homebrew:
+
+```sh
+brew install eza
+```
+
 [Eza](https://github.com/eza-community/eza) is a modern replacement for `ls`. It is needed by the `ls`, `ll`, `la`, and `tree` aliases.
 
 ### Bat
@@ -160,6 +204,12 @@ Install bat with DNF (Fedora):
 sudo dnf install -y bat
 ```
 
+On macOS, install bat with Homebrew:
+
+```sh
+brew install bat
+```
+
 [Bat](https://github.com/sharkdp/bat) is a `cat` replacement with syntax highlighting. It is needed by the `cat` alias.
 
 ### Ripgrep
@@ -168,6 +218,12 @@ Install ripgrep with DNF (Fedora):
 
 ```sh
 sudo dnf install -y ripgrep
+```
+
+On macOS, install ripgrep with Homebrew:
+
+```sh
+brew install ripgrep
 ```
 
 [Ripgrep](https://github.com/BurntSushi/ripgrep) is a fast replacement for `grep`. It is needed by the `grep` alias.
@@ -182,6 +238,12 @@ sudo dnf install -y lf
 ```
 
 [Lf](https://github.com/gokcehan/lf) is a terminal file manager. It is needed by the `lf` navigation function. Fedora does not include `lf` in its standard repositories, so this installation uses the community-maintained [pennbauman/ports COPR](https://copr.fedorainfracloud.org/coprs/pennbauman/ports/).
+
+On macOS, install lf with Homebrew:
+
+```sh
+brew install lf
+```
 
 ### Nerd Fonts
 
@@ -198,6 +260,12 @@ fc-cache -f
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
+On macOS, install Hack Nerd Font with Homebrew's font casks:
+
+```sh
+brew install --cask font-hack-nerd-font
+```
+
 ### Starship
 
 Install Starship with DNF (Fedora):
@@ -207,19 +275,43 @@ sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
 
+On macOS, install Starship with Homebrew:
+
+```sh
+brew install starship
+```
+
 [Starship](https://github.com/starship/starship) is the shell prompt used by this configuration.
 
-### Podman
+### Container
 
-Install Podman and podman-compose with DNF (Fedora):
+A container engine is needed for the Docker-compatible aliases in the Zsh configuration.
+
+On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are missing:
 
 ```sh
 sudo dnf install -y podman podman-compose
 ```
 
-[Podman](https://podman.io/) is a container engine. Fedora uses Podman by default instead of Docker.
-
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+
+On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
+
+With Docker Desktop, `docker` and `docker-compose` are bundled in one application, so install it from the link above and enable the Docker CLI in its settings.
+
+With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
+
+```sh
+brew install docker docker-compose colima
+colima start
+```
+
+Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path, so link it into the CLI plugin directory so the `docker compose` subcommand works:
+
+```sh
+mkdir -p "$HOME/.docker/cli-plugins"
+ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
+```
 
 ### Core Utilities
 
