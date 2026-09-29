@@ -9,8 +9,12 @@ else
 
   mkdir -p "${ANTIDOTE_BUNDLE:h}"
 
+  # Regenerate when the manifest is newer, or when the antidote install
+  # changed (the cached bundle can hold stale absolute paths after a
+  # version bump or a move between machines).
   if [[ ! -r "${ANTIDOTE_BUNDLE}" ||
-        "${ANTIDOTE_MANIFEST}" -nt "${ANTIDOTE_BUNDLE}" ]]; then
+        "${ANTIDOTE_MANIFEST}" -nt "${ANTIDOTE_BUNDLE}" ||
+        "${ANTIDOTE_HOME}/antidote.zsh" -nt "${ANTIDOTE_BUNDLE}" ]]; then
     antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
   fi
 
