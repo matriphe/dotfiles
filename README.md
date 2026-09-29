@@ -10,7 +10,11 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
+    - [Fedora](#fedora)
+    - [macOS](#macos)
   - [Configure Zsh](#configure-zsh)
+    - [Fedora](#fedora-1)
+    - [macOS](#macos-1)
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Container runtime](#container-runtime)
@@ -44,7 +48,7 @@ On macOS, use Homebrew for the same command-line tools. Other operating systems 
 | [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
 | Podman / Docker | Container engine used by the Docker-compatible aliases. |
 
-#### Fedora:
+#### Fedora
 
 Using `dnf`:
 
@@ -69,15 +73,19 @@ brew install --cask font-hack-nerd-font
 
 ### Configure Zsh
 
+Update the global Zsh configuration to point to `$HOME/.config/zsh`.
+
+#### Fedora
+
 Set Zsh as the default shell:
 
 ```sh
 chsh -s "$(command -v zsh)"
 ```
 
-On macOS, Zsh is the default shell, so no installation is needed.
+#### macOS
 
-Update the global Zsh configuration to point to `.config/zsh`.
+On macOS, Zsh is the default shell, so no installation is needed.
 
 On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the block if it does:
 
