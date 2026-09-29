@@ -292,6 +292,29 @@ brew install --cask font-hack-nerd-font
 ```
 
 
+### Optional container runtime
+
+The container runtime is optional and is not required by the Zsh configuration. Install or configure it only if your own workflow needs it.
+
+#### Fedora
+
+Podman is installed by default on Fedora. Install the Compose provider if you need Compose support:
+
+```sh
+sudo dnf install -y podman-compose
+```
+
+#### Debian/Ubuntu
+
+Debian and Ubuntu do not include Docker by default. Install Docker Engine and Docker Compose from Docker's official repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then verify the installation:
+
+```sh
+sudo systemctl enable --now docker
+sudo docker run hello-world
+```
+
+
+
 ## Clone and install this repository
 
 Clone this repository as a bare repository and use your home directory as its working tree:
@@ -460,28 +483,6 @@ dotfiles reload
 `dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
 
 Run these commands from `$HOME` when using relative paths. The Zsh configuration loads the helper from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
-
-### Optional container runtime
-
-The container runtime is optional and is not required by the Zsh configuration. Install or configure it only if your own workflow needs it.
-
-#### Fedora
-
-Podman is installed by default on Fedora. Install the Compose provider if you need Compose support:
-
-```sh
-sudo dnf install -y podman-compose
-```
-
-#### Debian/Ubuntu
-
-Debian and Ubuntu do not include Docker by default. Install Docker Engine and Docker Compose from Docker's official repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then verify the installation:
-
-```sh
-sudo systemctl enable --now docker
-sudo docker run hello-world
-```
-
 
 ## AI agent configuration
 
