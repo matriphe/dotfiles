@@ -22,6 +22,7 @@ When an AI agent writes or commits changes in this repository:
 
 - Prefix every Git commit subject with `AI:`.
 - Identify the model used in the commit message body.
+- Add the effort information if available.
 - Clearly identify that the changes were written with the help of and committed by AI.
 - Add the AI agent as a co-author using a `Co-authored-by:` trailer.
 
@@ -30,7 +31,7 @@ Example:
 ```text
 AI: update configuration documentation
 
-Written with the help of and committed by AI using model <model-id>.
+Written with the help of and committed by AI using model gpt-5.6-luna (low).
 Co-authored-by: Codex <noreply@openai.com>
 ```
 
