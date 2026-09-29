@@ -306,12 +306,16 @@ sudo dnf install -y podman-compose
 
 #### Debian/Ubuntu
 
-Debian and Ubuntu do not include Docker by default. Install Docker Engine and Docker Compose from Docker's official repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then verify the installation:
+Debian and Ubuntu do not include Docker by default. First configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
 
 ```sh
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl enable --now docker
 sudo docker run hello-world
+docker compose version
 ```
+
+The official package is `docker-compose-plugin`, which provides the `docker compose` command. The standalone `docker-compose` package is legacy.
 
 
 
