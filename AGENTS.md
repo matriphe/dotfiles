@@ -69,6 +69,12 @@ For example, a Codex footer may use:
 
 The agent name, link, model, and effort MUST match the agent and configuration used for the pull request.
 
+#### Draft-first workflow
+
+- Create every new pull request or merge request as a draft first.
+- Keep it in draft status while implementation, validation, or review is incomplete.
+- Mark it ready for review only after the changes and description are complete and the required checks pass.
+
 ## Quality and style
 
 - Prefer readable, maintainable changes over terseness.
