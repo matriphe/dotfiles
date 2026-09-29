@@ -177,7 +177,7 @@ Install the required tools with APT:
 ```sh
 sudo apt update
 sudo apt install -y ca-certificates curl fontconfig git lf ripgrep tmux \
-  eza bat starship podman podman-compose
+  eza bat starship docker.io docker-compose
 ```
 
 On Debian-based systems, the `bat` executable may be installed as `batcat`. If the `cat` alias cannot find `bat`, create a user-level compatibility link:
@@ -304,14 +304,16 @@ sudo dnf install -y podman podman-compose
 
 #### Debian/Ubuntu
 
-Install Podman and Podman Compose if they are not already installed:
+Docker is not installed by default on Debian or Ubuntu. Install Docker Engine and Docker Compose from the distribution repositories:
 
 ```sh
 sudo apt update
-sudo apt install -y podman podman-compose
+sudo apt install -y docker.io docker-compose
+sudo systemctl enable --now docker
+sudo usermod -aG docker "$USER"
 ```
 
-[Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+[Docker Compose](https://docs.docker.com/compose/) provides Compose-compatible commands. Log out and back in after adding your user to the `docker` group, then verify the installation with `docker run hello-world`.
 
 #### macOS
 
