@@ -13,9 +13,11 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
   - [Configure Zsh](#configure-zsh)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
-  - [Optional container runtime](#optional-container-runtime)
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
+  - [Optional container runtime](#optional-container-runtime)
+    - [Fedora](#fedora-3)
+    - [Debian/Ubuntu](#debianubuntu-3)
 - [Clone and install this repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
 - [AI agent configuration](#ai-agent-configuration)
@@ -193,27 +195,6 @@ fi
 
 If a package is unavailable in the enabled repositories, enable the distribution's `universe`/equivalent repository or follow the installation instructions from the tool's project page.
 
-### Optional container runtime
-
-The container runtime is optional and is not required by the Zsh configuration. Install the runtime for your platform only if your own workflow needs it.
-
-#### Fedora
-
-Install Podman and its Compose provider with DNF:
-
-```sh
-sudo dnf install -y podman podman-compose
-```
-
-#### Debian/Ubuntu
-
-Debian and Ubuntu do not include Docker by default. Install Docker Engine and Docker Compose from Docker's official repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then verify the installation:
-
-```sh
-sudo systemctl enable --now docker
-sudo docker run hello-world
-```
-
 #### macOS
 
 Install with Homebrew:
@@ -222,6 +203,135 @@ Install with Homebrew:
 brew install tmux eza bat ripgrep lf starship antidote
 brew install --cask font-hack-nerd-font
 ```
+
+### Configure Antidote
+
+This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins.
+
+The loaded plugins are listed in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
+
+- [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
+- [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
+- [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
+
+Antidote reads the manifest and generates a cached plugin bundle, so normal shell startup does not perform Git operations. Update the installed plugins and regenerate the bundle with:
+
+```zsh
+zsh-plugins-update
+```
+
+#### Fedora
+
+Install it manually for the current user:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$HOME/.local/share/zsh/antidote"
+```
+
+#### Debian/Ubuntu
+
+Install Antidote manually for the current user:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$HOME/.local/share/zsh/antidote"
+```
+
+#### macOS
+
+On macOS, Antidote can be installed with Homebrew instead:
+
+```sh
+brew install antidote
+```
+
+Homebrew places Antidote under the Homebrew prefix, while the configuration loads it from `$XDG_DATA_HOME/zsh/antidote`. Symlink the Homebrew installation to the expected path so the configuration works unchanged:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
+```
+
+### Install a Nerd Font
+
+Nerd Fonts provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can use another available Nerd Font such as JetBrainsMono Nerd Font.
+
+Install Hack Nerd Font for the current user using the instructions for your platform:
+
+#### Fedora
+
+```sh
+mkdir -p "$HOME/.local/share/fonts"
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
+  | tar -xJ -C "$HOME/.local/share/fonts"
+fc-cache -f
+```
+
+Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
+
+#### Debian/Ubuntu
+
+```sh
+mkdir -p "$HOME/.local/share/fonts"
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
+  | tar -xJ -C "$HOME/.local/share/fonts"
+fc-cache -f
+```
+
+Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
+
+#### macOS
+
+On macOS, install Hack Nerd Font with Homebrew's font casks:
+
+```sh
+brew install --cask font-hack-nerd-font
+```
+
+
+## Clone and install this repository
+
+Clone this repository as a bare repository and use your home directory as its working tree:
+
+```sh
+cd ~
+git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
+```
+
+After the first checkout, load the Zsh configuration to enable the `dotfiles` alias:
+
+```sh
+source "$HOME/.config/zsh/.zshrc"
+```
+
+You can also start a new Zsh session instead of sourcing the file manually.
+
+The checkout places tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `AGENTS.md`, `.config/zsh`, and `.config/tmux` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
+
+### Manage the dotfiles repository
+
+The Zsh configuration provides a `dotfiles` helper for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so you can run regular Git commands through the helper:
+
+```sh
+dotfiles status
+dotfiles checkout
+dotfiles add .config/zsh/aliases.zsh
+dotfiles commit -m "Update Zsh aliases"
+dotfiles push
+dotfiles update
+dotfiles reload
+```
+
+`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Use `dotfiles commit` and `dotfiles push` to commit and publish your local changes.
+
+`dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
+
+Run these commands from `$HOME` when using relative paths. The Zsh configuration loads the helper from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
 
 ### Configure Antidote
 
@@ -350,6 +460,28 @@ dotfiles reload
 `dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
 
 Run these commands from `$HOME` when using relative paths. The Zsh configuration loads the helper from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
+
+### Optional container runtime
+
+The container runtime is optional and is not required by the Zsh configuration. Install or configure it only if your own workflow needs it.
+
+#### Fedora
+
+Podman is installed by default on Fedora. Install the Compose provider if you need Compose support:
+
+```sh
+sudo dnf install -y podman-compose
+```
+
+#### Debian/Ubuntu
+
+Debian and Ubuntu do not include Docker by default. Install Docker Engine and Docker Compose from Docker's official repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then verify the installation:
+
+```sh
+sudo systemctl enable --now docker
+sudo docker run hello-world
+```
+
 
 ## AI agent configuration
 
