@@ -173,13 +173,22 @@ disabled = true
 [kubernetes]
 disabled = false
 symbol = ''
+style = 'fg:yellow bg:kubernetes_blue'
 format = """
 [](bg:yellow fg:kubernetes_blue)\
 [ $symbol ](bg:kubernetes_blue fg:white)\
-[$context ](fg:yellow bg:kubernetes_blue)\
+[$context ](bold $style)\
 [◢](fg:yellow bg:kubernetes_blue)\
 [ $namespace ](bg:yellow fg:kubernetes_blue)\
 """
+
+[[kubernetes.contexts]]
+context_pattern = ".*live.*"
+style = 'fg:red bg:kubernetes_blue'
+
+[[kubernetes.contexts]]
+context_pattern = ".*staging.*"
+style = 'fg:cyan bg:kubernetes_blue'
 
 # Local network information
 [localip]
