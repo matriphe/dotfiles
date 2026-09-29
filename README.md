@@ -8,7 +8,6 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 ## Contents
 
-- [TL;DR](#tldr)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
   - [Configure Zsh](#configure-zsh)
@@ -20,53 +19,6 @@ At the time this configuration was created, it was running on Fedora Workstation
 - [AI Agent Configuration](#ai-agent-configuration)
 - [Credits](#credits)
 - [License](#license)
-
-## TL;DR
-
-This is the quick installation. Read the sections below for the preparation details and configuration-specific instructions.
-
-On Fedora:
-
-```sh
-sudo dnf install -y zsh tmux eza bat ripgrep podman podman-compose
-sudo dnf copr enable -y pennbauman/ports
-sudo dnf install -y lf
-sudo dnf copr enable -y atim/starship
-sudo dnf install -y starship
-```
-
-On macOS with Homebrew:
-
-```sh
-brew install tmux eza bat ripgrep lf starship antidote
-brew install --cask font-hack-nerd-font
-mkdir -p "$HOME/.local/share/zsh"
-ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
-```
-
-For containers on macOS, see the [Container runtime](#container-runtime) section for Docker Desktop and Colima options.
-
-Install [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), then clone and check out the repository into `$HOME`:
-
-```sh
-mkdir -p "$HOME/.local/share/fonts"
-curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
-  | tar -xJ -C "$HOME/.local/share/fonts"
-fc-cache -f
-
-cd ~
-git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
-git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
-git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
-```
-
-After the first checkout, load the Zsh configuration to enable the `dotfiles` alias:
-
-```sh
-source "$HOME/.config/zsh/.zshrc"
-```
-
-You can also start a new Zsh session instead of sourcing the file manually.
 
 ## Setup
 
