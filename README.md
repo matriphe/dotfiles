@@ -8,13 +8,10 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 ## Contents
 
+- [Zsh](#zsh)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
-    - [Fedora](#fedora)
-    - [macOS](#macos)
   - [Configure Zsh](#configure-zsh)
-    - [Fedora](#fedora-1)
-    - [macOS](#macos-1)
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Container runtime](#container-runtime)
@@ -23,6 +20,26 @@ At the time this configuration was created, it was running on Fedora Workstation
 - [AI Agent Configuration](#ai-agent-configuration)
 - [Credits](#credits)
 - [License](#license)
+
+## Zsh
+
+### Fedora
+
+Install Zsh using package manager:
+
+```sh
+sudo dnf install -y zsh
+```
+
+Then set Zsh as the default shell:
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
+### macOS
+
+On macOS, Zsh is the default shell, so no installation is needed.
 
 ## Setup
 
@@ -53,7 +70,7 @@ On macOS, use Homebrew for the same command-line tools. Other operating systems 
 Using `dnf`:
 
 ```sh
-sudo dnf install -y zsh tmux eza bat ripgrep podman podman-compose
+sudo dnf install -y tmux eza bat ripgrep podman podman-compose
 sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
 sudo dnf copr enable -y atim/starship
@@ -77,17 +94,7 @@ Update the global Zsh configuration to point to `$HOME/.config/zsh`.
 
 #### Fedora
 
-Set Zsh as the default shell:
-
-```sh
-chsh -s "$(command -v zsh)"
-```
-
-#### macOS
-
-On macOS, Zsh is the default shell, so no installation is needed.
-
-On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the block if it does:
+On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the below to the end of the file if it does:
 
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
@@ -106,7 +113,13 @@ fi
 EOF
 ```
 
-On macOS, the global Zsh configuration is `/etc/zshrc`, which already exists and is managed by Apple. Append the block above to the end of the file, after the last line, so Apple's defaults stay intact and these exports take precedence:
+Then log out from the shell and back in for the change to take effect.
+
+#### macOS
+
+On macOS, the global Zsh configuration is `/etc/zshrc`, which already exists and is managed by Apple.
+
+Append the block below to the end of the file, after the last line, so Apple's defaults stay intact and these exports take precedence:
 
 ```sh
 sudo tee -a /etc/zshrc > /dev/null <<'EOF'
@@ -125,17 +138,35 @@ fi
 EOF
 ```
 
-Log out from the shell and back in for the change to take effect.
+Then log out from the shell and back in for the change to take effect.
 
 ### Configure Antidote
 
-This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins. Install it manually for the current user:
+This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins.
+
+The loaded plugins are listed in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
+
+- [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
+- [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
+- [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
+
+Antidote reads the manifest and generates a cached plugin bundle, so normal shell startup does not perform Git operations. Update the installed plugins and regenerate the bundle with:
+
+```zsh
+zsh-plugins-update
+```
+
+#### Fedora
+
+Install it manually for the current user:
 
 ```sh
 mkdir -p "$HOME/.local/share/zsh"
 git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
+
+#### macOS
 
 On macOS, Antidote can be installed with Homebrew instead:
 
@@ -150,23 +181,13 @@ mkdir -p "$HOME/.local/share/zsh"
 ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
 ```
 
-The loaded plugins are listed in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
-
-- [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
-- [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
-- [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
-
-Antidote reads the manifest and generates a cached plugin bundle, so normal shell startup does not perform Git operations. Update the installed plugins and regenerate the bundle with:
-
-```zsh
-zsh-plugins-update
-```
-
 ### Install a Nerd Font
 
 Nerd Fonts provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can use another available Nerd Font such as JetBrainsMono Nerd Font.
 
 Install Hack Nerd Font for the current user:
+
+#### Fedora
 
 ```sh
 mkdir -p "$HOME/.local/share/fonts"
@@ -176,6 +197,8 @@ fc-cache -f
 ```
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
+
+#### macOS
 
 On macOS, install Hack Nerd Font with Homebrew's font casks:
 
@@ -187,6 +210,8 @@ brew install --cask font-hack-nerd-font
 
 A container engine is needed for the Docker-compatible aliases in the Zsh configuration.
 
+#### Fedora
+
 On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are missing:
 
 ```sh
@@ -194,6 +219,8 @@ sudo dnf install -y podman podman-compose
 ```
 
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+
+#### macOS
 
 On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
 
