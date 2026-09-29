@@ -15,7 +15,6 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
   - [Install the required tools](#install-the-required-tools)
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
-  - [Container runtime](#container-runtime)
 - [Clone and install this repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
 - [AI agent configuration](#ai-agent-configuration)
@@ -140,6 +139,8 @@ This section covers the required tools and platform-specific configuration steps
 
 The commands below are grouped by operating system because package names, package managers, and system-wide Zsh configuration paths differ.
 
+The Zsh configuration does not define Docker or Podman aliases, so a container runtime is not required to use these dotfiles. Install Docker separately if your own workflow needs it.
+
 ### Install the required tools
 
 | Tool | Purpose |
@@ -154,21 +155,20 @@ The commands below are grouped by operating system because package names, packag
 | [Lf](https://github.com/gokcehan/lf) | Terminal file manager used by the `lf` navigation function. |
 | [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provides the icons and glyphs used by the Starship prompt. |
 | [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
-| Podman / Docker | Container engine used by the Docker-compatible aliases. |
 
 #### Fedora
 
 Install with DNF:
 
 ```sh
-sudo dnf install -y tmux eza bat ripgrep podman podman-compose
+sudo dnf install -y tmux eza bat ripgrep
 sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
 sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
 
-Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
+Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship.
 
 #### Debian/Ubuntu
 
@@ -177,7 +177,7 @@ Install the required tools with APT:
 ```sh
 sudo apt update
 sudo apt install -y ca-certificates curl fontconfig git lf ripgrep tmux \
-  eza bat starship docker.io docker-compose
+  eza bat starship
 ```
 
 On Debian-based systems, the `bat` executable may be installed as `batcat`. If the `cat` alias cannot find `bat`, create a user-level compatibility link:
@@ -286,53 +286,6 @@ On macOS, install Hack Nerd Font with Homebrew's font casks:
 
 ```sh
 brew install --cask font-hack-nerd-font
-```
-
-### Container runtime
-
-A container engine is required by the Docker-compatible aliases in the Zsh configuration.
-
-#### Fedora
-
-On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are not already installed:
-
-```sh
-sudo dnf install -y podman podman-compose
-```
-
-[Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
-
-#### Debian/Ubuntu
-
-Docker is not installed by default on Debian or Ubuntu. Install Docker Engine and Docker Compose from the distribution repositories:
-
-```sh
-sudo apt update
-sudo apt install -y docker.io docker-compose
-sudo systemctl enable --now docker
-sudo usermod -aG docker "$USER"
-```
-
-[Docker Compose](https://docs.docker.com/compose/) provides Compose-compatible commands. Log out and back in after adding your user to the `docker` group, then verify the installation with `docker run hello-world`.
-
-#### macOS
-
-On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
-
-With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings.
-
-With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
-
-```sh
-brew install docker docker-compose colima
-colima start
-```
-
-Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path. Link it into the CLI plugin directory so the `docker compose` subcommand works:
-
-```sh
-mkdir -p "$HOME/.docker/cli-plugins"
-ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
 ```
 
 ## Clone and install this repository
