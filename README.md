@@ -11,6 +11,7 @@ At the time this configuration was created, it was running on Fedora Workstation
 - [TL;DR](#tldr)
 - [Setup](#setup)
   - [Zsh](#zsh)
+    - [Zsh Plugins](#zsh-plugins)
   - [Tmux](#tmux)
   - [Eza](#eza)
   - [Bat](#bat)
@@ -78,12 +79,26 @@ Install Zsh with DNF (Fedora):
 sudo dnf install -y zsh
 ```
 
-Install Antidote manually for the Zsh plugins:
+#### Zsh Plugins
+
+This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins. Install it manually for the current user:
 
 ```sh
 mkdir -p "$HOME/.local/share/zsh"
 git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
+```
+
+The loaded plugins are listed in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
+
+- [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
+- [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
+- [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
+
+Antidote reads the manifest and generates a cached plugin bundle, so normal shell startup does not perform Git operations. Update the installed plugins and regenerate the bundle with:
+
+```zsh
+zsh-plugins-update
 ```
 
 Set Zsh as the default shell:
