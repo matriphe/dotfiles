@@ -40,6 +40,21 @@ Then set Zsh as the default shell:
 chsh -s "$(command -v zsh)"
 ```
 
+#### Debian/Ubuntu
+
+Install Zsh using APT:
+
+```sh
+sudo apt update
+sudo apt install -y zsh
+```
+
+Then set Zsh as the default shell:
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
 #### macOS
 
 On macOS, Zsh is the default shell, so no installation is needed.
@@ -54,6 +69,29 @@ On Fedora, the global configuration file is `/etc/zshenv`. Create it if it does 
 
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
+
+# Dotfiles (https://github.com/matriphe/dotfiles)
+if [[ -z "$XDG_CONFIG_HOME" ]]
+then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
+then
+    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+fi
+EOF
+```
+
+Then log out from the shell and back in for the change to take effect.
+
+#### Debian/Ubuntu
+
+On Debian and Ubuntu, the global configuration file is `/etc/zsh/zshenv`. Create it if it does not exist, or append the block below if it does:
+
+```sh
+sudo tee -a /etc/zsh/zshenv > /dev/null <<'EOF'
 
 # Dotfiles (https://github.com/matriphe/dotfiles)
 if [[ -z "$XDG_CONFIG_HOME" ]]
@@ -100,9 +138,7 @@ Then log out from the shell and back in for the change to take effect.
 
 This section covers the required tools and platform-specific configuration steps.
 
-The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
-
-On macOS, use Homebrew to install the same command-line tools. Other operating systems may require different commands.
+The commands below are grouped by operating system because package names, package managers, and system-wide Zsh configuration paths differ.
 
 ### Install the required tools
 
@@ -134,6 +170,28 @@ sudo dnf install -y starship
 
 Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
 
+#### Debian/Ubuntu
+
+Install the required tools with APT:
+
+```sh
+sudo apt update
+sudo apt install -y ca-certificates curl fontconfig git lf ripgrep tmux \
+  eza bat starship podman podman-compose
+```
+
+On Debian-based systems, the `bat` executable may be installed as `batcat`. If the `cat` alias cannot find `bat`, create a user-level compatibility link:
+
+```sh
+mkdir -p "$HOME/.local/bin"
+if command -v batcat > /dev/null 2>&1 && ! command -v bat > /dev/null 2>&1
+then
+    ln -sfn "$(command -v batcat)" "$HOME/.local/bin/bat"
+fi
+```
+
+If a package is unavailable in the enabled repositories, enable the distribution's `universe`/equivalent repository or follow the installation instructions from the tool's project page.
+
 #### macOS
 
 Install with Homebrew:
@@ -162,6 +220,16 @@ zsh-plugins-update
 #### Fedora
 
 Install it manually for the current user:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$HOME/.local/share/zsh/antidote"
+```
+
+#### Debian/Ubuntu
+
+Install Antidote manually for the current user:
 
 ```sh
 mkdir -p "$HOME/.local/share/zsh"
@@ -201,6 +269,17 @@ fc-cache -f
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
+#### Debian/Ubuntu
+
+```sh
+mkdir -p "$HOME/.local/share/fonts"
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
+  | tar -xJ -C "$HOME/.local/share/fonts"
+fc-cache -f
+```
+
+Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
+
 #### macOS
 
 On macOS, install Hack Nerd Font with Homebrew's font casks:
@@ -219,6 +298,17 @@ On Fedora, [Podman](https://podman.io/) is the default container engine and is u
 
 ```sh
 sudo dnf install -y podman podman-compose
+```
+
+[Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+
+#### Debian/Ubuntu
+
+Install Podman and Podman Compose if they are not already installed:
+
+```sh
+sudo apt update
+sudo apt install -y podman podman-compose
 ```
 
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
