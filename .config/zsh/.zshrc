@@ -25,7 +25,13 @@ setopt NUMERIC_GLOB_SORT  # sort file10 after file9, not after file1
 # Completion
 # =========================================================
 
-# Load completion system
+# =========================================================
+# Plugins
+# =========================================================
+
+source "$ZDOTDIR/plugins.zsh"
+
+# Load completion system after plugins have had a chance to add completions.
 autoload -Uz compinit
 
 # Initialize completion with cached metadata file
