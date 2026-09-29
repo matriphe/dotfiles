@@ -125,6 +125,24 @@ then
 fi
 ```
 
+On macOS, the global Zsh configuration is `/etc/zshrc`, which already exists and is managed by Apple. Append the block above to the end of the file, after the last line, so Apple's defaults stay intact and these exports take precedence:
+
+```sh
+sudo tee -a /etc/zshrc > /dev/null <<'EOF'
+
+if [[ -z "$XDG_CONFIG_HOME" ]]
+then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
+then
+    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+fi
+EOF
+```
+
 Log out from the shell and back in for the change to take effect.
 
 ### Zsh Plugins (Antidote)
