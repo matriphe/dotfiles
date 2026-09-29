@@ -56,6 +56,7 @@ $RECYCLE.BIN/
 *.temp
 
 # Agent configuration
+AGENTS.md
 .agents/
 .claude/
 .codex/
