@@ -15,6 +15,7 @@ $rust\
 $fill\
 $cmd_duration\
 $localip\
+$kubernetes\
 $os\
 $line_break\
 $character
@@ -42,6 +43,9 @@ golang_blue = '#00ADD8'
 # Python module color
 python_yellow = '#FFE873'
 python_blue = '#4B8BBE'
+
+# Kubernetes module color
+kubernetes_blue = '#326CE5'
 
 # Operating system module
 [os]
@@ -164,6 +168,18 @@ format = """
 # Package information is not shown.
 [package]
 disabled = true
+
+# Kubernetes
+[kubernetes]
+disabled = false
+symbol = ''
+format = """
+[](bg:yellow fg:kubernetes_blue)\
+[ $symbol ](bg:kubernetes_blue fg:white)\
+[$context ](fg:yellow bg:kubernetes_blue)\
+[◢](fg:yellow bg:kubernetes_blue)\
+[ $namespace ](bg:yellow fg:kubernetes_blue)\
+"""
 
 # Local network information
 [localip]
