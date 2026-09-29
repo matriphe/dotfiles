@@ -291,11 +291,22 @@ sudo dnf install -y podman podman-compose
 
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
 
-On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead. Docker Desktop provides `docker` and `docker-compose` in one application. With Colima, install the Docker CLI through Homebrew and start the virtual machine:
+On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
+
+With Docker Desktop, `docker` and `docker-compose` are bundled in one application, so install it from the link above and enable the Docker CLI in its settings.
+
+With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
 
 ```sh
 brew install docker docker-compose colima
 colima start
+```
+
+Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path, so link it into the CLI plugin directory so the `docker compose` subcommand works:
+
+```sh
+mkdir -p "$HOME/.docker/cli-plugins"
+ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
 ```
 
 ### Core Utilities
