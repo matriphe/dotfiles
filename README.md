@@ -106,15 +106,10 @@ On macOS, Zsh is the default shell, so no installation is needed.
 
 Update the global Zsh configuration to point to `.config/zsh`.
 
-On Fedora, it is `/etc/zshenv`.
+On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the block if it does:
 
 ```sh
-sudoedit /etc/zshenv
-```
-
-Add the following:
-
-```sh
+sudo tee -a /etc/zshenv > /dev/null <<'EOF'
 if [[ -z "$XDG_CONFIG_HOME" ]]
 then
     export XDG_CONFIG_HOME="$HOME/.config"
@@ -125,6 +120,7 @@ then
     # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
     export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 fi
+EOF
 ```
 
 On macOS, the global Zsh configuration is `/etc/zshrc`, which already exists and is managed by Apple. Append the block above to the end of the file, after the last line, so Apple's defaults stay intact and these exports take precedence:
