@@ -8,12 +8,14 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. Zsh then loads t
 
 1. `.zshenv` — loaded by every Zsh process.
 2. `.zshrc` — loaded by interactive Zsh shells.
-3. `local/*.zsh` — optional machine-specific settings loaded last.
+3. `plugins.zsh` — plugin loader sourced before aliases.
+4. `local/*.zsh` — optional machine-specific settings loaded last.
 
 ## Files
 
 - `.zshenv` sets XDG directories, the default editor, the man-page pager, GPG terminal handling, `PATH`, and Python virtualenv prompt behavior.
-- `.zshrc` configures history, shell behavior, completion, aliases, modules, and local overrides.
+- `.zshrc` configures history, shell behavior, completion, plugins, aliases, modules, and local overrides.
+- `plugins.zsh` provides helpers for installing plugins into `$ZPLUGINDIR` and updating installed plugins.
 - `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, ripgrep, `lf`, Git, and navigation.
 - `modules/` contains optional configuration modules loaded automatically.
 - `local/` can contain machine-specific settings split across any number of `.zsh` files and is ignored by Git.

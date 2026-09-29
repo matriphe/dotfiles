@@ -32,3 +32,6 @@ export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # Prevent Python virtualenv from polluting the prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# Plugins
+export ZPLUGINDIR="${ZDOTDIR:-$HOME/.config/zsh}/plugins"

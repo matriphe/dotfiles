@@ -39,6 +39,12 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # lowercase input matches upper and lower
 
 # =========================================================
+# Plugins
+# =========================================================
+
+source "$ZDOTDIR/plugins.zsh"
+
+# =========================================================
 # Aliases Configurations
 # =========================================================
 
