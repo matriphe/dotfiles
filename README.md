@@ -111,6 +111,7 @@ On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the bl
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
 
+# Dotfiles (https://github.com/matriphe/dotfiles)
 if [[ -z "$XDG_CONFIG_HOME" ]]
 then
     export XDG_CONFIG_HOME="$HOME/.config"
@@ -129,6 +130,7 @@ On macOS, the global Zsh configuration is `/etc/zshrc`, which already exists and
 ```sh
 sudo tee -a /etc/zshrc > /dev/null <<'EOF'
 
+# Dotfiles (https://github.com/matriphe/dotfiles)
 if [[ -z "$XDG_CONFIG_HOME" ]]
 then
     export XDG_CONFIG_HOME="$HOME/.config"
