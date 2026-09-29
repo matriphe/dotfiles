@@ -1,12 +1,12 @@
 # dotfiles
 
-This repository holds Muhammad Zamroni's personal dotfiles, shell, terminal, and application configuration. It also contains shared AI-agent guidelines for Codex, Claude Code, Gemini, Antigravity, OpenCode, and Cursor. The configuration is intended to provide a simple, reproducible starting point for a personal development environment.
+This repository contains Muhammad Zamroni's personal dotfiles, shell, terminal, and application configuration. It also contains shared AI-agent guidelines for Codex, Claude Code, Gemini, Antigravity, OpenCode, and Cursor. The configuration provides a simple, reproducible starting point for a personal development environment.
 
-The repository is intended to be checked out as a bare Git repository from the home directory. The repository's working tree is therefore `$HOME` (`~`), so its root directory becomes the home directory and the tracked files are available at paths such as `~/AGENTS.md` and `~/.config/zsh`.
+The repository is checked out as a bare Git repository from the home directory. Its working tree is therefore `$HOME` (`~`), so the repository root becomes the home directory and tracked files are available at paths such as `~/AGENTS.md` and `~/.config/zsh`.
 
-At the time this configuration was created, it was running on Fedora Workstation 44 with Zsh.
+This configuration was created and tested on Fedora Workstation 44 with Zsh.
 
-## Contents
+## Table of contents
 
 - [Zsh](#zsh)
   - [Install Zsh](#install-zsh)
@@ -16,9 +16,9 @@ At the time this configuration was created, it was running on Fedora Workstation
   - [Configure Antidote](#configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Container runtime](#container-runtime)
-- [Clone and Install This Repository](#clone-and-install-this-repository)
+- [Clone and install this repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
-- [AI Agent Configuration](#ai-agent-configuration)
+- [AI agent configuration](#ai-agent-configuration)
 - [Credits](#credits)
 - [License](#license)
 
@@ -28,7 +28,7 @@ At the time this configuration was created, it was running on Fedora Workstation
 
 #### Fedora
 
-Install Zsh using package manager:
+Install Zsh using the package manager:
 
 ```sh
 sudo dnf install -y zsh
@@ -46,11 +46,11 @@ On macOS, Zsh is the default shell, so no installation is needed.
 
 ### Configure Zsh
 
-Update the global Zsh configuration to point to `$HOME/.config/zsh`.
+Configure the global Zsh startup file to use `$HOME/.config/zsh`.
 
 #### Fedora
 
-On Fedora, it is `/etc/zshenv`. Create it if it does not exist, or append the below to the end of the file if it does:
+On Fedora, the global configuration file is `/etc/zshenv`. Create it if it does not exist, or append the block below if it does:
 
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
@@ -73,7 +73,7 @@ Then log out from the shell and back in for the change to take effect.
 
 #### macOS
 
-On macOS, the global Zsh configuration is `/etc/zshrc`, which already exists and is managed by Apple.
+On macOS, the global Zsh configuration file is `/etc/zshrc`, which already exists and is managed by Apple.
 
 Append the block below to the end of the file, after the last line, so Apple's defaults stay intact and these exports take precedence:
 
@@ -98,11 +98,11 @@ Then log out from the shell and back in for the change to take effect.
 
 ## Setup
 
-This section covers the required tools and the few platform-specific configuration steps.
+This section covers the required tools and platform-specific configuration steps.
 
 The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
 
-On macOS, use Homebrew for the same command-line tools. Other operating systems may require different installation commands.
+On macOS, use Homebrew to install the same command-line tools. Other operating systems may require different commands.
 
 ### Install the required tools
 
@@ -122,7 +122,7 @@ On macOS, use Homebrew for the same command-line tools. Other operating systems 
 
 #### Fedora
 
-Using `dnf`:
+Install with DNF:
 
 ```sh
 sudo dnf install -y tmux eza bat ripgrep podman podman-compose
@@ -132,11 +132,11 @@ sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
 
-Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories, and the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
+Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
 
 #### macOS
 
-Using Homebrew:
+Install with Homebrew:
 
 ```sh
 brew install tmux eza bat ripgrep lf starship antidote
@@ -188,7 +188,7 @@ ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/ant
 
 Nerd Fonts provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can use another available Nerd Font such as JetBrainsMono Nerd Font.
 
-Install Hack Nerd Font for the current user:
+Install Hack Nerd Font for the current user using the instructions for your platform:
 
 #### Fedora
 
@@ -211,11 +211,11 @@ brew install --cask font-hack-nerd-font
 
 ### Container runtime
 
-A container engine is needed for the Docker-compatible aliases in the Zsh configuration.
+A container engine is required by the Docker-compatible aliases in the Zsh configuration.
 
 #### Fedora
 
-On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are missing:
+On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are not already installed:
 
 ```sh
 sudo dnf install -y podman podman-compose
@@ -227,7 +227,7 @@ sudo dnf install -y podman podman-compose
 
 On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
 
-With Docker Desktop, `docker` and `docker-compose` are bundled in one application, so install it from the link above and enable the Docker CLI in its settings.
+With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings.
 
 With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
 
@@ -236,16 +236,16 @@ brew install docker docker-compose colima
 colima start
 ```
 
-Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path, so link it into the CLI plugin directory so the `docker compose` subcommand works:
+Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path. Link it into the CLI plugin directory so the `docker compose` subcommand works:
 
 ```sh
 mkdir -p "$HOME/.docker/cli-plugins"
 ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
 ```
 
-## Clone and Install This Repository
+## Clone and install this repository
 
-Clone this repository as a bare repository and use the home directory as its working tree:
+Clone this repository as a bare repository and use your home directory as its working tree:
 
 ```sh
 cd ~
@@ -262,11 +262,11 @@ source "$HOME/.config/zsh/.zshrc"
 
 You can also start a new Zsh session instead of sourcing the file manually.
 
-The checkout places the tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `AGENTS.md`, `.config/zsh`, and `.config/tmux` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
+The checkout places tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `AGENTS.md`, `.config/zsh`, and `.config/tmux` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
 
 ### Manage the dotfiles repository
 
-The Zsh configuration provides a `dotfiles` helper for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so regular Git commands can be run through the helper:
+The Zsh configuration provides a `dotfiles` helper for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so you can run regular Git commands through the helper:
 
 ```sh
 dotfiles status
@@ -278,15 +278,15 @@ dotfiles update
 dotfiles reload
 ```
 
-`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Use `dotfiles commit` and `dotfiles push` to commit and publish local changes.
+`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Use `dotfiles commit` and `dotfiles push` to commit and publish your local changes.
 
 `dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
 
-Run these commands from `$HOME` when using relative paths. The helper is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh) by the Zsh configuration.
+Run these commands from `$HOME` when using relative paths. The Zsh configuration loads the helper from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
 
-## AI Agent Configuration
+## AI agent configuration
 
-The shared AI agent guidelines are stored in [`~/AGENTS.md`](AGENTS.md). The file contains the common rules used by all AI agents in this configuration.
+The shared AI-agent guidelines are stored in [`~/AGENTS.md`](AGENTS.md). This file contains the common rules used by all AI agents in this configuration.
 
 The agent-specific files point to the shared guidelines:
 
@@ -298,7 +298,7 @@ The agent-specific files point to the shared guidelines:
 - `$HOME/.cursor/rules/ai-guidelines.mdc` references `~/AGENTS.md` for Cursor.
 - `$HOME/.agents/rules/ai-guidelines.md` references `~/AGENTS.md` for Google Antigravity workspace rules.
 
-These files keep the agent-specific configuration small while using [`~/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration; the root-level `AGENTS.md` contains the shared AI-agent guidance.
+These files keep the agent-specific configuration small while using [`~/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration, while the root-level `AGENTS.md` contains the shared AI-agent guidance.
 
 ## Credits
 
