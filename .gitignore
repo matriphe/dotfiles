@@ -54,11 +54,3 @@ $RECYCLE.BIN/
 # General temporary files
 *.tmp
 *.temp
-
-# Agent configuration (host-local)
-.agents/
-.claude/
-.codex/
-.copilot/
-.cursor/
-.gemini/
