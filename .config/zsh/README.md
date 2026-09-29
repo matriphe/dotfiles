@@ -46,10 +46,11 @@ Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell
 
 ## Plugins
 
-Install Antidote separately at `$XDG_DATA_HOME/zsh/antidote`. The plugin
-manifest is tracked in `.zsh_plugins.txt`. Antidote generates the static bundle
-in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not
-perform Git operations. Update installed plugins with:
+Install Antidote manually at `$XDG_DATA_HOME/zsh/antidote` using the command
+in the root README. The plugin manifest is tracked in `.zsh_plugins.txt`.
+Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`,
+so normal shell startup does not perform Git operations. Update installed
+plugins with:
 
 ```zsh
 zsh-plugins-update
