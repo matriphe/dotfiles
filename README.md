@@ -44,7 +44,7 @@ sudo dnf install -y starship
 On macOS with Homebrew:
 
 ```sh
-brew install zsh tmux eza bat ripgrep lf starship antidote podman podman-compose
+brew install tmux eza bat ripgrep lf starship antidote podman podman-compose
 brew install --cask font-hack-nerd-font
 mkdir -p "$HOME/.local/share/zsh"
 ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
@@ -97,13 +97,7 @@ Install Zsh with DNF (Fedora):
 sudo dnf install -y zsh
 ```
 
-On macOS, install Zsh with Homebrew:
-
-```sh
-brew install zsh
-```
-
-macOS already ships with an older Zsh at `/bin/zsh`; the Homebrew version installs to `/opt/homebrew/bin/zsh` on Apple Silicon and `/usr/local/bin/zsh` on Intel Macs.
+On macOS, Zsh is the default shell, so no installation is needed.
 
 #### Zsh Plugins
 
