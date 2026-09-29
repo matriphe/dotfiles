@@ -2,7 +2,7 @@
 
 This is the canonical guidance for AI agents working in this repository and its supported integrations. Agent-specific entrypoints refer to this file so all integrations use the same rules.
 
-## Working in this repository
+## Working on the Git repository
 
 - Read the relevant repository guidance before making changes.
 - Create a branch for feature or documentation work; keep the default branch stable.
