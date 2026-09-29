@@ -22,16 +22,8 @@ setopt NOBEEP
 setopt NUMERIC_GLOB_SORT  # sort file10 after file9, not after file1
 
 # =========================================================
-# Completion
-# =========================================================
-
-# =========================================================
 # Plugins
 # =========================================================
-
-if [[ -r "$ZDOTDIR/homebrew.zsh" ]]; then
-  source "$ZDOTDIR/homebrew.zsh"
-fi
 
 source "$ZDOTDIR/plugins.zsh"
 
@@ -47,6 +39,12 @@ zstyle ':completion:*' menu select
 # Make completion case-insensitive
 # Example: "doc" can complete to "Documents"
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # lowercase input matches upper and lower
+
+# =========================================================
+# Homebrew (macOS) Configurations
+# =========================================================
+
+source "$ZDOTDIR/homebrew.zsh"
 
 # =========================================================
 # Aliases Configurations
