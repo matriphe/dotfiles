@@ -41,53 +41,6 @@ chsh -s "$(command -v zsh)"
 
 On macOS, Zsh is the default shell, so no installation is needed.
 
-## Setup
-
-This section covers the required tools and the few platform-specific configuration steps.
-
-The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
-
-On macOS, use Homebrew for the same command-line tools. Other operating systems may require different installation commands.
-
-### Install the required tools
-
-| Tool | Purpose |
-| --- | --- |
-| [Git](https://git-scm.com/) | Clones and manages this repository as a bare repository. |
-| [Zsh](https://www.zsh.org/) | Shell used by this configuration. |
-| [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer used by the Tmux configuration. |
-| [Antidote](https://antidote.sh/) | Installs and loads the Zsh plugins listed in `.zsh_plugins.txt`. |
-| [Eza](https://github.com/eza-community/eza) | Modern `ls` replacement used by the `ls`, `ll`, `la`, and `tree` aliases. |
-| [Bat](https://github.com/sharkdp/bat) | Syntax-highlighting `cat` replacement used by the `cat` alias. |
-| [Ripgrep](https://github.com/BurntSushi/ripgrep) | Fast standalone search tool; `grep` remains the system command because its flags differ. |
-| [Lf](https://github.com/gokcehan/lf) | Terminal file manager used by the `lf` navigation function. |
-| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provides the icons and glyphs used by the Starship prompt. |
-| [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
-| Podman / Docker | Container engine used by the Docker-compatible aliases. |
-
-#### Fedora
-
-Using `dnf`:
-
-```sh
-sudo dnf install -y tmux eza bat ripgrep podman podman-compose
-sudo dnf copr enable -y pennbauman/ports
-sudo dnf install -y lf
-sudo dnf copr enable -y atim/starship
-sudo dnf install -y starship
-```
-
-Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories, and the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
-
-#### macOS
-
-Using Homebrew:
-
-```sh
-brew install tmux eza bat ripgrep lf starship antidote
-brew install --cask font-hack-nerd-font
-```
-
 ### Configure Zsh
 
 Update the global Zsh configuration to point to `$HOME/.config/zsh`.
@@ -139,6 +92,53 @@ EOF
 ```
 
 Then log out from the shell and back in for the change to take effect.
+
+## Setup
+
+This section covers the required tools and the few platform-specific configuration steps.
+
+The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
+
+On macOS, use Homebrew for the same command-line tools. Other operating systems may require different installation commands.
+
+### Install the required tools
+
+| Tool | Purpose |
+| --- | --- |
+| [Git](https://git-scm.com/) | Clones and manages this repository as a bare repository. |
+| [Zsh](https://www.zsh.org/) | Shell used by this configuration. |
+| [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer used by the Tmux configuration. |
+| [Antidote](https://antidote.sh/) | Installs and loads the Zsh plugins listed in `.zsh_plugins.txt`. |
+| [Eza](https://github.com/eza-community/eza) | Modern `ls` replacement used by the `ls`, `ll`, `la`, and `tree` aliases. |
+| [Bat](https://github.com/sharkdp/bat) | Syntax-highlighting `cat` replacement used by the `cat` alias. |
+| [Ripgrep](https://github.com/BurntSushi/ripgrep) | Fast standalone search tool; `grep` remains the system command because its flags differ. |
+| [Lf](https://github.com/gokcehan/lf) | Terminal file manager used by the `lf` navigation function. |
+| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provides the icons and glyphs used by the Starship prompt. |
+| [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
+| Podman / Docker | Container engine used by the Docker-compatible aliases. |
+
+#### Fedora
+
+Using `dnf`:
+
+```sh
+sudo dnf install -y tmux eza bat ripgrep podman podman-compose
+sudo dnf copr enable -y pennbauman/ports
+sudo dnf install -y lf
+sudo dnf copr enable -y atim/starship
+sudo dnf install -y starship
+```
+
+Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories, and the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
+
+#### macOS
+
+Using Homebrew:
+
+```sh
+brew install tmux eza bat ripgrep lf starship antidote
+brew install --cask font-hack-nerd-font
+```
 
 ### Configure Antidote
 
