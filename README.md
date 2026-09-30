@@ -111,12 +111,12 @@ Then log out from the shell and back in for the change to take effect.
 
 #### macOS
 
-On macOS, the global Zsh configuration file is `/etc/zshrc`, which already exists and is managed by Apple.
+On macOS, use the same approach as Fedora: create `/etc/zshenv` with the block below. Zsh reads `/etc/zshenv` in every shell — interactive, login, and non-interactive — before the `.zshenv` stage, so `$ZDOTDIR/.zshenv` and `$ZDOTDIR/.zshrc` always load with `ZDOTDIR` already set.
 
-Append the block below to the end of the file, after the last line, so Apple's defaults stay intact and these exports take precedence:
+Do not put the block in `/etc/zshrc`: that file only runs for interactive shells, which is too late for the `.zshenv` stage and leaves non-interactive shells without `ZDOTDIR`.
 
 ```sh
-sudo tee -a /etc/zshrc > /dev/null <<'EOF'
+sudo tee -a /etc/zshenv > /dev/null <<'EOF'
 
 # Dotfiles (https://github.com/matriphe/dotfiles)
 if [[ -z "$XDG_CONFIG_HOME" ]]
