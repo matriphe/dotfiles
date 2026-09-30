@@ -36,7 +36,7 @@ Install Zsh using the package manager:
 sudo dnf install -y zsh
 ```
 
-#### Debian/Ubuntu/Linux Mint
+#### Debian, Ubuntu, and Linux Mint
 
 Linux Mint uses Ubuntu as its package base, while Linux Mint Debian Edition
 (LMDE) uses Debian. All of these distributions use APT.
@@ -98,7 +98,7 @@ fi
 EOF
 ```
 
-#### Debian/Ubuntu/Linux Mint
+#### Debian, Ubuntu, and Linux Mint
 
 On Debian, Ubuntu, and Linux Mint, the global configuration file is `/etc/zsh/zshenv`. Create it if it does not exist, or append the block below if it does:
 
@@ -164,7 +164,7 @@ sudo dnf install -y starship
 
 Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's standard repositories. Enable the `atim/starship` COPR to install Starship. Use Podman as the recommended Fedora container engine.
 
-#### Debian/Ubuntu/Linux Mint
+#### Debian, Ubuntu, and Linux Mint
 
 Install the required packages with APT:
 
@@ -233,7 +233,7 @@ fc-cache -f
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
-#### Debian/Ubuntu/Linux Mint
+#### Debian, Ubuntu, and Linux Mint
 
 Install Fontconfig first so the `fc-cache` command is available:
 
@@ -274,7 +274,7 @@ sudo dnf install -y podman podman-compose
 
 Use [Podman Compose](https://github.com/containers/podman-compose) for Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
 
-#### Debian/Ubuntu/Linux Mint
+#### Debian, Ubuntu, and Linux Mint
 
 On Debian, Ubuntu, and Linux Mint, configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
 
