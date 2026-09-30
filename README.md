@@ -76,6 +76,12 @@ chsh -s "$(command -v zsh)"
 On Fedora and macOS, the global configuration file is `/etc/zshenv`. Create it
 if it does not exist, or append the block below if it does:
 
+On macOS, Zsh reads `/etc/zshenv` in every shell — interactive, login, and
+non-interactive — before the `.zshenv` stage, so `$ZDOTDIR/.zshenv` and
+`$ZDOTDIR/.zshrc` always load with `ZDOTDIR` already set. Do not put the block
+in `/etc/zshrc`: that file only runs for interactive shells, which is too late
+for the `.zshenv` stage and leaves non-interactive shells without `ZDOTDIR`.
+
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
 
@@ -115,12 +121,6 @@ EOF
 ```
 
 Log out from the shell and back in after updating the global configuration.
-
-On macOS, Zsh reads `/etc/zshenv` in every shell — interactive, login, and
-non-interactive — before the `.zshenv` stage, so `$ZDOTDIR/.zshenv` and
-`$ZDOTDIR/.zshrc` always load with `ZDOTDIR` already set. Do not put the block
-in `/etc/zshrc`: that file only runs for interactive shells, which is too late
-for the `.zshenv` stage and leaves non-interactive shells without `ZDOTDIR`.
 
 ### Zsh modules
 
