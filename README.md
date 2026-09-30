@@ -136,10 +136,10 @@ Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repo
 
 #### macOS
 
-Install with Homebrew:
+Install with Homebrew. Antidote itself is better installed from source (see [Configure Antidote](#configure-antidote)), so it is left out here:
 
 ```sh
-brew install tmux eza bat ripgrep lf starship antidote
+brew install tmux eza bat ripgrep lf starship
 brew install --cask font-hack-nerd-font
 ```
 
@@ -171,18 +171,21 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
 
 #### macOS
 
-On macOS, Antidote can be installed with Homebrew instead:
+On macOS, install Antidote the same way as on Fedora — from source. This is the recommended setup: it keeps both the loader and the plugin clones inside `$XDG_DATA_HOME/zsh/antidote`, so Homebrew upgrades cannot wipe the plugins.
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$HOME/.local/share/zsh/antidote"
+```
+
+As an alternative, Antidote can be installed with Homebrew:
 
 ```sh
 brew install antidote
 ```
 
-Homebrew places Antidote under the Homebrew prefix, while the configuration loads it from `$XDG_DATA_HOME/zsh/antidote`. Symlink the Homebrew installation to the expected path so the configuration works unchanged:
-
-```sh
-mkdir -p "$HOME/.local/share/zsh"
-ln -s "$(brew --prefix)/opt/antidote/share/antidote" "$HOME/.local/share/zsh/antidote"
-```
+With Homebrew, the configuration automatically finds the loader under the Homebrew prefix (`/opt/homebrew` or `/usr/local`) on macOS; no symlink is needed. Note that the loader then lives inside the Homebrew Cellar — do not point `ANTIDOTE_HOME` (or a symlink) at the Homebrew installation, because every `brew upgrade antidote` replaces that path and would break the plugin clones.
 
 ### Install a Nerd Font
 
