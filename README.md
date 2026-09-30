@@ -185,8 +185,6 @@ brew install --cask font-hack-nerd-font
 
 ### Install and Configure Antidote
 
-#### Install from Git
-
 Install Antidote from the Git repository using a shallow clone. This works on
 Linux and macOS and keeps the loader and plugin clones in a stable user
 directory:
