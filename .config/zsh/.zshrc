@@ -1,5 +1,7 @@
-# Re-source .zshenv so env vars it exports are defined even when ZDOTDIR is
-# set too late for Zsh to load it itself (e.g. ZDOTDIR set in /etc/zshrc).
+# Re-source .zshenv so exported vars are always defined. On macOS ZDOTDIR is
+# set in /etc/zshrc (interactive shells only), which is too late for Zsh to
+# load $ZDOTDIR/.zshenv itself; on Linux /etc/zshenv sets it in time, so this
+# is a no-op there.
 source "$ZDOTDIR/.zshenv"
 
 # =========================================================
