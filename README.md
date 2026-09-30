@@ -241,7 +241,6 @@ Select `Hack Nerd Font` in your terminal emulator. To use another font, replace 
 Install Fontconfig first so the `fc-cache` command is available:
 
 ```sh
-sudo apt update
 sudo apt install -y fontconfig
 ```
 
