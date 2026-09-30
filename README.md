@@ -181,6 +181,17 @@ sudo dnf install -y starship
 
 Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
 
+#### Debian/Ubuntu
+
+Install the required packages with APT:
+
+```sh
+sudo apt update
+sudo apt install -y git zsh tmux eza bat ripgrep lf starship
+```
+
+Antidote is installed separately in [Configure Antidote](#configure-antidote), and Hack Nerd Font is installed in [Install a Nerd Font](#install-a-nerd-font). If your Debian or Ubuntu release does not provide `eza` or `starship`, install those tools using their upstream instructions: [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
+
 #### macOS
 
 Install with Homebrew. Antidote itself is better installed from source (see [Configure Antidote](#configure-antidote)), so it is left out here:
