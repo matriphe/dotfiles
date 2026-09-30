@@ -113,9 +113,9 @@ EOF
 
 Then log out from the shell and back in for the change to take effect.
 
-#### Debian/Ubuntu
+#### Debian/Ubuntu/Linux Mint
 
-On Debian and Ubuntu, the global configuration file is `/etc/zsh/zshenv`. Create it if it does not exist, or append the block below if it does:
+On Debian, Ubuntu, and Linux Mint, the global configuration file is `/etc/zsh/zshenv`. Create it if it does not exist, or append the block below if it does:
 
 ```sh
 sudo tee -a /etc/zsh/zshenv > /dev/null <<'EOF'
@@ -207,7 +207,7 @@ sudo dnf install -y starship
 
 Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
 
-#### Debian/Ubuntu
+#### Debian/Ubuntu/Linux Mint
 
 Install the required packages with APT:
 
@@ -216,7 +216,7 @@ sudo apt update
 sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
 ```
 
-Antidote is installed separately in [Configure Antidote](#configure-antidote), and Hack Nerd Font is installed in [Install a Nerd Font](#install-a-nerd-font). If your Debian or Ubuntu release does not provide `eza` or `starship`, install those tools using their upstream instructions: [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
+Antidote is installed separately in [Configure Antidote](#configure-antidote), and Hack Nerd Font is installed in [Install a Nerd Font](#install-a-nerd-font). If your Debian, Ubuntu, or Linux Mint release does not provide `eza` or `starship`, install those tools using their upstream instructions: [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
 
 #### macOS
 
@@ -253,7 +253,7 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
 
-#### Debian/Ubuntu
+#### Debian/Ubuntu/Linux Mint
 
 Install Antidote manually for the current user:
 
@@ -298,7 +298,7 @@ fc-cache -f
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
-#### Debian/Ubuntu
+#### Debian/Ubuntu/Linux Mint
 
 Install Fontconfig first so the `fc-cache` command is available:
 
@@ -340,9 +340,9 @@ sudo dnf install -y podman podman-compose
 
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
 
-#### Debian/Ubuntu
+#### Debian/Ubuntu/Linux Mint
 
-Debian and Ubuntu do not include Docker by default. First configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
+Debian, Ubuntu, and Linux Mint do not include Docker by default. First configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
 
 ```sh
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
