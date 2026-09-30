@@ -176,7 +176,7 @@ Install Antidote separately in [Configure Antidote](#configure-antidote), and in
 
 #### macOS
 
-Install the tools with Homebrew. Install Antidote from source as described in [Configure Antidote](#configure-antidote):
+Install the tools with Homebrew:
 
 ```sh
 brew install git curl tmux eza bat ripgrep lf starship
