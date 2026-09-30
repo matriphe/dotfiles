@@ -14,7 +14,7 @@ configuration.
   - [Zsh modules](#zsh-modules)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
-  - [Configure Antidote](#configure-antidote)
+  - [Install and Configure Antidote](#install-and-configure-antidote)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Container runtime](#container-runtime)
 - [Clone and install this repository](#clone-and-install-this-repository)
@@ -172,7 +172,7 @@ Install the required packages with APT:
 sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
 ```
 
-Install Antidote separately in [Configure Antidote](#configure-antidote), and install Hack Nerd Font in [Install a Nerd Font](#install-a-nerd-font). If your release does not provide `eza` or `starship`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
+Install Antidote separately in [Install and Configure Antidote](#install-and-configure-antidote), and install Hack Nerd Font in [Install a Nerd Font](#install-a-nerd-font). If your release does not provide `eza` or `starship`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
 
 #### macOS
 
@@ -183,7 +183,7 @@ brew install git curl tmux eza bat ripgrep lf starship
 brew install --cask font-hack-nerd-font
 ```
 
-### Configure Antidote
+### Install and Configure Antidote
 
 Use [Antidote](https://antidote.sh/) to manage the Zsh plugins.
 
