@@ -79,6 +79,33 @@ Then set Zsh as the default shell:
 chsh -s "$(command -v zsh)"
 ```
 
+#### Linux Mint
+
+Linux Mint uses Ubuntu as its package base, while Linux Mint Debian Edition
+(LMDE) uses Debian. Both use APT, so install Zsh with:
+
+```sh
+sudo apt update
+sudo apt install -y zsh
+```
+
+On the first launch, Zsh may display the `zsh-newuser-install` configuration
+menu because no startup files exist. Select `q` when it shows:
+
+```text
+(q) Quit and do nothing. The function will be run again next time.
+```
+
+This avoids creating a generated Zsh configuration; see the [official Zsh
+documentation](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html)
+for details.
+
+Then set Zsh as the default shell:
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
 #### macOS
 
 On macOS, Zsh is the default shell, so no installation is needed.
