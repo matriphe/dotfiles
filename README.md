@@ -36,6 +36,17 @@ Install Zsh using the package manager:
 sudo dnf install -y zsh
 ```
 
+On the first launch, Zsh may display the `zsh-newuser-install` configuration
+menu because no startup files exist. Select `q` when it shows:
+
+```text
+(q) Quit and do nothing. The function will be run again next time.
+```
+
+This avoids creating a generated Zsh configuration; see the [official Zsh
+documentation](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html)
+for details.
+
 Then set Zsh as the default shell:
 
 ```sh
@@ -50,6 +61,17 @@ Install Zsh using APT:
 sudo apt update
 sudo apt install -y zsh
 ```
+
+On the first launch, Zsh may display the `zsh-newuser-install` configuration
+menu because no startup files exist. Select `q` when it shows:
+
+```text
+(q) Quit and do nothing. The function will be run again next time.
+```
+
+This avoids creating a generated Zsh configuration; see the [official Zsh
+documentation](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html)
+for details.
 
 Then set Zsh as the default shell:
 
