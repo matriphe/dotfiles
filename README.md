@@ -44,7 +44,6 @@ Linux Mint uses Ubuntu as its package base, while Linux Mint Debian Edition
 Install Zsh using APT:
 
 ```sh
-sudo apt update
 sudo apt install -y zsh
 ```
 
@@ -170,7 +169,6 @@ Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's sta
 Install the required packages with APT:
 
 ```sh
-sudo apt update
 sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
 ```
 
