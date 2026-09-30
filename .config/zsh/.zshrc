@@ -1,7 +1,9 @@
-# Re-source .zshenv so exported vars are always defined. On macOS ZDOTDIR is
-# set in /etc/zshrc (interactive shells only), which is too late for Zsh to
-# load $ZDOTDIR/.zshenv itself; on Linux /etc/zshenv sets it in time, so this
-# is a no-op there.
+# Re-source .zshenv so exported vars are always defined. Zsh reads only one
+# .zshenv, at $ZDOTDIR if already set. The Linux setup puts ZDOTDIR in
+# /etc/zshenv, which runs before the .zshenv stage in every shell, so Zsh
+# loads it itself. The macOS setup puts ZDOTDIR in /etc/zshrc instead, which
+# only runs for interactive shells — too late for the .zshenv stage — so it
+# is sourced here.
 source "$ZDOTDIR/.zshenv"
 
 # =========================================================
