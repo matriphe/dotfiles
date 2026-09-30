@@ -106,7 +106,9 @@ dotfiles() {
         if (( ${#to_reset} )); then
             ${=g} checkout -- "${to_reset[@]}"
         fi
-        ${=g} pull --ff-only "$@" && \
+        # FETCH_HEAD is already fetched above; merging directly avoids a
+        # second fetch inside pull.
+        ${=g} merge --ff-only FETCH_HEAD && \
             print "Remember to run 'dotfiles reload' to reload the updated configuration."
         return
     fi
