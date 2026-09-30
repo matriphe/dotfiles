@@ -2,10 +2,25 @@
 
 typeset -g ANTIDOTE_MANIFEST="${ZDOTDIR}/.zsh_plugins.txt"
 
-if [[ ! -r "${ANTIDOTE_HOME}/antidote.zsh" ]]; then
-  print -u2 "Antidote is not installed at ${ANTIDOTE_HOME}"
+# Locate the antidote.zsh loader. ANTIDOTE_HOME is the plugin data dir; a
+# git-clone install keeps the loader there. On macOS, Homebrew installs the
+# loader under its share directory instead.
+typeset -g ANTIDOTE_ZSH=""
+if [[ -r "${ANTIDOTE_HOME}/antidote.zsh" ]]; then
+  ANTIDOTE_ZSH="${ANTIDOTE_HOME}/antidote.zsh"
+elif [[ "${OSTYPE}" == darwin* ]]; then
+  for _brew_prefix in /opt/homebrew /usr/local; do
+    if [[ -r "${_brew_prefix}/opt/antidote/share/antidote/antidote.zsh" ]]; then
+      ANTIDOTE_ZSH="${_brew_prefix}/opt/antidote/share/antidote/antidote.zsh"
+      break
+    fi
+  done
+fi
+
+if [[ -z "${ANTIDOTE_ZSH}" ]]; then
+  print -u2 "Antidote is not installed (checked ${ANTIDOTE_HOME})"
 else
-  source "${ANTIDOTE_HOME}/antidote.zsh"
+  source "${ANTIDOTE_ZSH}"
 
   mkdir -p "${ANTIDOTE_BUNDLE:h}"
 
@@ -14,7 +29,7 @@ else
   # version bump or a move between machines).
   if [[ ! -r "${ANTIDOTE_BUNDLE}" ||
         "${ANTIDOTE_MANIFEST}" -nt "${ANTIDOTE_BUNDLE}" ||
-        "${ANTIDOTE_HOME}/antidote.zsh" -nt "${ANTIDOTE_BUNDLE}" ]]; then
+        "${ANTIDOTE_ZSH}" -nt "${ANTIDOTE_BUNDLE}" ]]; then
     antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
   fi
 
@@ -22,8 +37,8 @@ else
 fi
 
 zsh-plugins-update() {
-  if (( ! $+functions[antidote] )); then
-    print -u2 "Antidote is not installed at ${ANTIDOTE_HOME}"
+  if [[ -z "${ANTIDOTE_ZSH}" ]]; then
+    print -u2 "Antidote is not installed (checked ${ANTIDOTE_HOME})"
     return 1
   fi
 
