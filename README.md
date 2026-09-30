@@ -228,7 +228,15 @@ sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
 
-#### Debian, Ubuntu, and Linux Mint
+#### Debian and Ubuntu
+
+Install Starship with APT:
+
+```sh
+sudo apt install -y starship
+```
+
+#### Linux Mint
 
 Install Starship with the official installer:
 
