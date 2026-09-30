@@ -348,10 +348,13 @@ dotfiles add .config/zsh/aliases.zsh
 dotfiles commit -m "Update Zsh aliases"
 dotfiles push
 dotfiles update
+dotfiles update-force
 dotfiles reload
 ```
 
-`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Use `dotfiles commit` and `dotfiles push` to commit and publish your local changes.
+`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Files whose local content is already identical to the upstream version are reset automatically so they do not block the update; genuine local edits are kept and listed if they would be overwritten.
+
+`dotfiles update-force` resets every tracked file in `$HOME` to the repository state, discarding local changes to tracked files. It asks for confirmation first; pass `-y` to skip it (`dotfiles update-force -y`). Use it when the work tree has drifted from the repository and a normal update refuses to proceed. Skip-worktree files are left untouched.
 
 `dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
 

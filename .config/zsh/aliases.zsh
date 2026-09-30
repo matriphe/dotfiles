@@ -56,19 +56,60 @@ alias glog='PAGER="less -F -X" git log'                              # -F quit i
 alias gadog='PAGER="less -F -X" git log --all --decorate --oneline --graph'
 
 dotfiles() {
+    local g="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
     if [[ "$1" == reload ]]; then
         source "$ZDOTDIR/.zshenv"
         source "$ZDOTDIR/.zshrc"
         print "Zsh configuration reloaded."
         return
+    elif [[ "$1" == update-force ]]; then
+        shift
+        local -a yes=(n)
+        [[ "${#argv}" -gt 0 && "${argv[1]}" == -y ]] && { yes=(y); shift; }
+        print "This resets every tracked file in $HOME to the repository state."
+        print "Local changes to tracked files will be LOST."
+        if [[ "${yes}" != y ]]; then
+            printf 'Continue? [y/N] '
+            read -r answer
+            [[ "$answer" == y ]] || return 1
+        fi
+        ${=g} fetch origin
+        # Checkout with a tree-ish updates both work-tree and index; HEAD is
+        # fast-forwarded afterwards. Skip-worktree files are left untouched.
+        ${=g} checkout FETCH_HEAD -- . 2>&1 | grep -v "sparse-checkout" 1>&2
+        ${=g} merge --ff-only FETCH_HEAD
+        print "Tracked files reset to the repository state."
+        print "Remember to run 'dotfiles reload' to reload the updated configuration."
+        return
     elif [[ "$1" == update ]]; then
         shift
-        git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" pull --ff-only "$@"
-        if (( $? == 0 )); then
-            print "Remember to run 'dotfiles reload' to reload the updated configuration."
+        ${=g} fetch origin
+        local -a to_reset=() conflicts=()
+        local f
+        # A dirty work-tree file whose content already matches the incoming
+        # version would needlessly block the pull; reset only those, keep real edits.
+        for f in $(${=g} diff --name-only HEAD FETCH_HEAD -- 2>/dev/null); do
+            if ${=g} diff --quiet HEAD -- "$f" && [[ -e "$f" ]]; then
+                continue
+            elif [[ "$(${=g} hash-object "$f" 2>/dev/null)" == "$(${=g} rev-parse "FETCH_HEAD:$f" 2>/dev/null)" ]]; then
+                to_reset+=("$f")
+            else
+                conflicts+=("$f")
+            fi
+        done
+        if (( ${#conflicts} )); then
+            print -u2 "dotfiles update: local changes would be overwritten by merge:"
+            printf '  %s\n' "${conflicts[@]}" 1>&2
+            print -u2 "Commit, stash, or remove these changes, then retry."
+            return 1
         fi
+        if (( ${#to_reset} )); then
+            ${=g} checkout -- "${to_reset[@]}"
+        fi
+        ${=g} pull --ff-only "$@" && \
+            print "Remember to run 'dotfiles reload' to reload the updated configuration."
         return
     fi
 
-    git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" "$@"
+    ${=g} "$@"
 }
