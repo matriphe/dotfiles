@@ -48,10 +48,6 @@ sudo apt update
 sudo apt install -y zsh
 ```
 
-#### macOS
-
-On macOS, Zsh is the default shell, so no installation is needed.
-
 On Linux, the first launch may display the `zsh-newuser-install` configuration
 menu because no startup files exist. Select `q` when it shows:
 
@@ -66,6 +62,10 @@ for details. Then set Zsh as the default shell:
 ```sh
 chsh -s "$(command -v zsh)"
 ```
+
+#### macOS
+
+On macOS, Zsh is the default shell, so no installation is needed.
 
 ### Configure Zsh
 
