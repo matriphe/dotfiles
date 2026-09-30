@@ -157,7 +157,7 @@ Install the required tools and complete the platform-specific configuration step
 Install with DNF:
 
 ```sh
-sudo dnf install -y git curl tmux eza bat ripgrep podman podman-compose
+sudo dnf install -y git curl tmux eza bat ripgrep
 sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
 ```
@@ -221,9 +221,10 @@ varies by distribution.
 
 #### Fedora
 
-Install Starship with DNF:
+Enable the Starship COPR and install Starship with DNF:
 
 ```sh
+sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
 
