@@ -185,20 +185,6 @@ brew install --cask font-hack-nerd-font
 
 ### Install and Configure Antidote
 
-Use [Antidote](https://antidote.sh/) to manage the Zsh plugins.
-
-Review the loaded plugins in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
-
-- [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
-- [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
-- [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
-
-Antidote reads the manifest and generates a cached plugin bundle. Update the installed plugins and regenerate the bundle with:
-
-```zsh
-zsh-plugins-update
-```
-
 #### Install from Git
 
 Install Antidote from the Git repository using a shallow clone. This works on
@@ -215,6 +201,20 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
 > On macOS, avoid installing Antidote with Homebrew. Homebrew upgrades can
 > replace the Cellar path and invalidate the plugin installation. Use the Git
 > installation above instead.
+
+Use [Antidote](https://antidote.sh/) to manage the Zsh plugins.
+
+Review the loaded plugins in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
+
+- [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
+- [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
+- [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
+
+Antidote reads the manifest and generates a cached plugin bundle. Update the installed plugins and regenerate the bundle with:
+
+```zsh
+zsh-plugins-update
+```
 
 ### Install a Nerd Font
 
