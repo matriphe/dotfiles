@@ -1,3 +1,7 @@
+# Re-source .zshenv so env vars it exports are defined even when ZDOTDIR is
+# set too late for Zsh to load it itself (e.g. ZDOTDIR set in /etc/zshrc).
+source "$ZDOTDIR/.zshenv"
+
 # =========================================================
 # History
 # =========================================================
