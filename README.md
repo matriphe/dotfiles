@@ -14,10 +14,10 @@ configuration.
   - [Zsh modules](#zsh-modules)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
-  - [Install and Configure Antidote](#install-and-configure-antidote)
+  - [Install Antidote](#install-antidote)
   - [Install Starship](#install-starship)
-  - [Install a Nerd Font](#install-a-nerd-font)
-  - [Container runtime](#container-runtime)
+  - [Install Nerd Font](#install-nerd-font)
+  - [Install Podman/Docker](#install-podmandocker)
 - [Clone and install this repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
 - [AI agent configuration](#ai-agent-configuration)
@@ -148,8 +148,9 @@ Install the required tools and complete the platform-specific configuration step
 | [Bat](https://github.com/sharkdp/bat) | Replace `cat` with syntax highlighting through the `cat` alias. |
 | [Ripgrep](https://github.com/BurntSushi/ripgrep) | Search quickly with a standalone tool; keep `grep` for its different flags. |
 | [Lf](https://github.com/gokcehan/lf) | Browse files through the `lf` navigation function. |
-| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provide the icons and glyphs used by the Starship prompt. |
+| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provide the icons and glyphs used by the Starship prompt; install it in [Install Nerd Font](#install-nerd-font). |
 | [Starship](https://starship.rs/) | Display the configured shell prompt. |
+| Podman / Docker | Provide the container engine; install it in [Install Podman/Docker](#install-podmandocker). |
 
 #### Fedora
 
@@ -171,7 +172,7 @@ Install the required packages with APT:
 sudo apt install -y git curl zsh tmux eza bat ripgrep lf
 ```
 
-Install Antidote separately in [Install and Configure Antidote](#install-and-configure-antidote), and install Hack Nerd Font in [Install a Nerd Font](#install-a-nerd-font). If your release does not provide `eza`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza).
+Install Antidote separately in [Install Antidote](#install-antidote), and install Hack Nerd Font in [Install Nerd Font](#install-nerd-font). If your release does not provide `eza`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza).
 
 #### macOS
 
@@ -182,7 +183,7 @@ brew install git curl tmux eza bat ripgrep lf starship
 brew install --cask font-hack-nerd-font
 ```
 
-### Install and Configure Antidote
+### Install Antidote
 
 Install Antidote from the Git repository using a shallow clone. This works on
 Linux and macOS and keeps the loader and plugin clones in a stable user
@@ -239,7 +240,7 @@ curl -sS https://starship.rs/install.sh | sh
 Install Starship with Homebrew as shown in [Install the required
 tools](#install-the-required-tools).
 
-### Install a Nerd Font
+### Install Nerd Font
 
 Install a Nerd Font to provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can choose another available Nerd Font such as JetBrainsMono Nerd Font.
 
@@ -283,7 +284,7 @@ On macOS, install Hack Nerd Font with Homebrew's font casks:
 brew install --cask font-hack-nerd-font
 ```
 
-### Container runtime
+### Install Podman/Docker
 
 Install a container engine before using the Docker-compatible aliases in the Zsh configuration.
 
