@@ -199,21 +199,17 @@ Antidote reads the manifest and generates a cached plugin bundle. Update the ins
 zsh-plugins-update
 ```
 
-#### Install from Git
+#### Install from Git on Linux and macOS
 
 Install Antidote from the Git repository on Fedora, Debian/Ubuntu/Linux Mint,
-and macOS. This keeps the loader and plugin clones in a stable user directory:
+and macOS. Use a shallow clone to keep the loader and plugin clones in a
+stable user directory:
 
 ```sh
 mkdir -p "$HOME/.local/share/zsh"
 git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
-
-#### macOS
-
-Run the Git installation above on macOS as well. Keep the loader and plugin
-clones outside the Homebrew Cellar so Homebrew upgrades cannot replace them.
 
 #### Homebrew alternative
 
