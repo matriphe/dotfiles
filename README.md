@@ -1,10 +1,10 @@
 # dotfiles
 
-This repository contains Muhammad Zamroni's personal dotfiles, shell, terminal, and application configuration. It also contains shared AI-agent guidelines for Codex, Claude Code, Gemini, Antigravity, OpenCode, and Cursor. The configuration provides a simple, reproducible starting point for a personal development environment.
+Personal dotfiles for Zsh, terminal, application, and AI-agent configuration.
 
-The repository is checked out as a bare Git repository from the home directory. Its working tree is therefore `$HOME` (`~`), so the repository root becomes the home directory and tracked files are available at paths such as `~/AGENTS.md` and `~/.config/zsh`.
-
-This configuration was created and tested on Fedora Workstation 44 with Zsh.
+Check out this repository as a bare Git repository from `$HOME` (`~`). Follow
+the platform-specific setup instructions to install the tools and apply the
+configuration.
 
 ## Table of contents
 
@@ -124,34 +124,32 @@ for the `.zshenv` stage and leaves non-interactive shells without `ZDOTDIR`.
 
 ### Zsh modules
 
-The files in [`.config/zsh/modules`](.config/zsh/modules) are loaded automatically by `.zshrc` after the shared aliases and plugins. They keep optional integrations separate from the core shell configuration:
+Use the files in [`.config/zsh/modules`](.config/zsh/modules) for optional integrations. `.zshrc` loads them after the shared aliases and plugins:
 
 - [`homebrew.zsh`](.config/zsh/modules/homebrew.zsh) initializes Homebrew when it is installed, including the standard `/opt/homebrew` and `/usr/local` locations on macOS.
-- [`podman.zsh`](.config/zsh/modules/podman.zsh) maps `docker` to `podman` and `docker-compose` to `podman-compose` only when both Podman commands are available. It also disables Podman Compose's warning log output.
+- [`podman.zsh`](.config/zsh/modules/podman.zsh) maps `docker` to `podman` and `docker-compose` to `podman-compose` when both Podman commands are available. It also disables Podman Compose's warning log output.
 
-Modules are loaded only when their files are present, so optional tools can be installed or omitted without changing the main Zsh startup files.
+Add or remove module files as needed; `.zshrc` loads only modules that are present.
 
 ## Setup
 
-This section covers the required tools and platform-specific configuration steps.
-
-The commands below are grouped by operating system because package names, package managers, and system-wide Zsh configuration paths differ.
+Install the required tools and complete the platform-specific configuration steps below. The commands are grouped by operating system because package names, package managers, and system-wide Zsh configuration paths differ.
 
 ### Install the required tools
 
 | Tool | Purpose |
 | --- | --- |
-| [Git](https://git-scm.com/) | Clones and manages this repository as a bare repository. |
-| [curl](https://curl.se/) | Downloads installation files and release assets. |
-| [Zsh](https://www.zsh.org/) | Shell used by this configuration. |
-| [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer used by the Tmux configuration. |
-| [Antidote](https://antidote.sh/) | Installs and loads the Zsh plugins listed in `.zsh_plugins.txt`. |
-| [Eza](https://github.com/eza-community/eza) | Modern `ls` replacement used by the `ls`, `ll`, `la`, and `tree` aliases. |
-| [Bat](https://github.com/sharkdp/bat) | Syntax-highlighting `cat` replacement used by the `cat` alias. |
-| [Ripgrep](https://github.com/BurntSushi/ripgrep) | Fast standalone search tool; `grep` remains the system command because its flags differ. |
-| [Lf](https://github.com/gokcehan/lf) | Terminal file manager used by the `lf` navigation function. |
-| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provides the icons and glyphs used by the Starship prompt. |
-| [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
+| [Git](https://git-scm.com/) | Clone and manage this repository as a bare repository. |
+| [curl](https://curl.se/) | Download installation files and release assets. |
+| [Zsh](https://www.zsh.org/) | Run the configured shell. |
+| [Tmux](https://github.com/tmux/tmux) | Run the configured terminal multiplexer. |
+| [Antidote](https://antidote.sh/) | Install and load the Zsh plugins listed in `.zsh_plugins.txt`. |
+| [Eza](https://github.com/eza-community/eza) | Replace `ls` with the `ls`, `ll`, `la`, and `tree` aliases. |
+| [Bat](https://github.com/sharkdp/bat) | Replace `cat` with syntax highlighting through the `cat` alias. |
+| [Ripgrep](https://github.com/BurntSushi/ripgrep) | Search quickly with a standalone tool; keep `grep` for its different flags. |
+| [Lf](https://github.com/gokcehan/lf) | Browse files through the `lf` navigation function. |
+| [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provide the icons and glyphs used by the Starship prompt. |
+| [Starship](https://starship.rs/) | Display the configured shell prompt. |
 
 #### Fedora
 
@@ -165,7 +163,7 @@ sudo dnf copr enable -y atim/starship
 sudo dnf install -y starship
 ```
 
-Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
+Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's standard repositories. Enable the `atim/starship` COPR to install Starship. Use Podman as the recommended Fedora container engine.
 
 #### Debian/Ubuntu/Linux Mint
 
@@ -176,11 +174,11 @@ sudo apt update
 sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
 ```
 
-Antidote is installed separately in [Configure Antidote](#configure-antidote), and Hack Nerd Font is installed in [Install a Nerd Font](#install-a-nerd-font). If your Debian, Ubuntu, or Linux Mint release does not provide `eza` or `starship`, install those tools using their upstream instructions: [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
+Install Antidote separately in [Configure Antidote](#configure-antidote), and install Hack Nerd Font in [Install a Nerd Font](#install-a-nerd-font). If your release does not provide `eza` or `starship`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
 
 #### macOS
 
-Install with Homebrew. Antidote itself is better installed from source (see [Configure Antidote](#configure-antidote)), so it is left out here:
+Install the tools with Homebrew. Install Antidote from source as described in [Configure Antidote](#configure-antidote):
 
 ```sh
 brew install git curl tmux eza bat ripgrep lf starship
@@ -189,21 +187,21 @@ brew install --cask font-hack-nerd-font
 
 ### Configure Antidote
 
-This configuration uses [Antidote](https://antidote.sh/) to manage Zsh plugins.
+Use [Antidote](https://antidote.sh/) to manage the Zsh plugins.
 
-The loaded plugins are listed in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
+Review the loaded plugins in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt):
 
 - [`zsh-users/zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions) displays suggestions from your command history as you type.
 - [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
 - [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
 
-Antidote reads the manifest and generates a cached plugin bundle, so normal shell startup does not perform Git operations. Update the installed plugins and regenerate the bundle with:
+Antidote reads the manifest and generates a cached plugin bundle. Update the installed plugins and regenerate the bundle with:
 
 ```zsh
 zsh-plugins-update
 ```
 
-Install Antidote manually for the current user on Linux and macOS:
+Install Antidote manually for your user on Linux and macOS:
 
 ```sh
 mkdir -p "$HOME/.local/share/zsh"
@@ -211,10 +209,9 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
 
-On macOS, this source installation keeps both the loader and plugin clones
-outside Homebrew, so Homebrew upgrades cannot replace them.
+On macOS, keep the loader and plugin clones outside Homebrew so Homebrew upgrades cannot replace them.
 
-As an alternative, Antidote can be installed with Homebrew:
+Alternatively, install Antidote with Homebrew:
 
 ```sh
 brew install antidote
@@ -224,7 +221,7 @@ With Homebrew, the configuration automatically finds the loader under the Homebr
 
 ### Install a Nerd Font
 
-Nerd Fonts provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can use another available Nerd Font such as JetBrainsMono Nerd Font.
+Install a Nerd Font to provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can choose another available Nerd Font such as JetBrainsMono Nerd Font.
 
 Install Hack Nerd Font for the current user using the instructions for your platform:
 
@@ -255,7 +252,7 @@ curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.ta
 fc-cache -f -v "$HOME/.local/share/fonts"
 ```
 
-If `fc-cache` is still unavailable after installing `fontconfig`, open a new shell or run `hash -r` so the shell refreshes its command lookup. Verify the installation with `fc-list | grep -i 'Hack Nerd Font'`.
+If `fc-cache` is still unavailable after installing `fontconfig`, open a new shell or run `hash -r` to refresh the shell's command lookup. Verify the installation with `fc-list | grep -i 'Hack Nerd Font'`.
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
@@ -269,21 +266,21 @@ brew install --cask font-hack-nerd-font
 
 ### Container runtime
 
-A container engine is required by the Docker-compatible aliases in the Zsh configuration.
+Install a container engine before using the Docker-compatible aliases in the Zsh configuration.
 
 #### Fedora
 
-On Fedora, [Podman](https://podman.io/) is the default container engine and is usually preinstalled. Install Podman and Podman Compose if they are not already installed:
+Use [Podman](https://podman.io/) as the Fedora container engine. Install Podman and Podman Compose if they are not already installed:
 
 ```sh
 sudo dnf install -y podman podman-compose
 ```
 
-[Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+Use [Podman Compose](https://github.com/containers/podman-compose) for Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
 
 #### Debian/Ubuntu/Linux Mint
 
-Debian, Ubuntu, and Linux Mint do not include Docker by default. First configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
+On Debian, Ubuntu, and Linux Mint, configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
 
 ```sh
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -292,22 +289,22 @@ sudo docker run hello-world
 docker compose version
 ```
 
-The official package is `docker-compose-plugin`, which provides the `docker compose` command. The standalone `docker-compose` package is legacy.
+Use the `docker-compose-plugin` package for the `docker compose` command. Avoid the legacy standalone `docker-compose` package.
 
 #### macOS
 
-On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
+On macOS, choose [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima).
 
-With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings. The Podman module does not override these commands unless both `podman` and `podman-compose` are installed.
+With Docker Desktop, use the bundled `docker` and `docker-compose` commands and enable the Docker CLI in its settings. The Podman module does not override these commands unless both `podman` and `podman-compose` are installed.
 
-With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
+With Colima, install the Docker CLI, the standalone Compose binary, and Colima, then start the virtual machine:
 
 ```sh
 brew install docker docker-compose colima
 colima start
 ```
 
-Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path. Link it into the CLI plugin directory so the `docker compose` subcommand works:
+Homebrew installs the standalone `docker-compose` binary outside the Docker CLI plugin path. Link it into the CLI plugin directory so `docker compose` works:
 
 ```sh
 mkdir -p "$HOME/.docker/cli-plugins"
@@ -325,19 +322,19 @@ git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUn
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
 ```
 
-After the first checkout, load the Zsh configuration to enable the `dotfiles` alias:
+After the first checkout, load the Zsh configuration to enable the `dotfiles` helper:
 
 ```sh
 source "$HOME/.config/zsh/.zshrc"
 ```
 
-You can also start a new Zsh session instead of sourcing the file manually.
+Alternatively, start a new Zsh session.
 
-The checkout places tracked files directly in the home directory. The repository root becomes `$HOME` (`~`), so files such as `AGENTS.md`, `.config/zsh`, and `.config/tmux` are available at their normal home-directory paths. The bare Git repository itself is stored separately at `~/.dotfiles`.
+The checkout places tracked files directly in your home directory. Use the normal paths for files such as `AGENTS.md`, `.config/zsh`, and `.config/tmux`; Git stores the bare repository separately at `~/.dotfiles`.
 
 ### Manage the dotfiles repository
 
-The Zsh configuration provides a `dotfiles` helper for the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree, so you can run regular Git commands through the helper:
+Use the `dotfiles` helper to manage the bare repository. It uses `~/.dotfiles` as the Git directory and `$HOME` as the working tree:
 
 ```sh
 dotfiles status
@@ -350,19 +347,19 @@ dotfiles update-force
 dotfiles reload
 ```
 
-`dotfiles update` pulls the latest upstream changes with fast-forward-only behavior. Files whose local content is already identical to the upstream version are reset automatically so they do not block the update; genuine local edits are kept and listed if they would be overwritten.
+Run `dotfiles update` to pull the latest upstream changes with fast-forward-only behavior. The helper resets files whose local content already matches upstream; it keeps and lists genuine local edits that would be overwritten.
 
-`dotfiles update-force` resets every tracked file in `$HOME` to the repository state, discarding local changes to tracked files. It asks for confirmation first; pass `-y` to skip it (`dotfiles update-force -y`). Use it when the work tree has drifted from the repository and a normal update refuses to proceed. Skip-worktree files are left untouched.
+Run `dotfiles update-force` to reset every tracked file in `$HOME` to the repository state. The command asks for confirmation; pass `-y` to skip it (`dotfiles update-force -y`). Use it when the work tree has drifted and a normal update refuses to proceed. Skip-worktree files remain untouched.
 
-`dotfiles reload` reloads both `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
+Run `dotfiles reload` to reload `.zshenv` and `.zshrc` in the current Zsh shell after configuration changes.
 
 Run these commands from `$HOME` when using relative paths. The Zsh configuration loads the helper from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
 
 ## AI agent configuration
 
-The shared AI-agent guidelines are stored in [`~/AGENTS.md`](AGENTS.md). This file contains the common rules used by all AI agents in this configuration.
+Read the shared AI-agent guidelines in [`~/AGENTS.md`](AGENTS.md). This file contains the common rules for all AI agents in this configuration.
 
-The agent-specific files point to the shared guidelines:
+Use these agent-specific files to load the shared guidelines:
 
 - `$HOME/.codex/AGENTS.md` references `~/AGENTS.md` for Codex.
 - `$HOME/.copilot/copilot-instructions.md` references `~/AGENTS.md` for GitHub Copilot.
@@ -372,11 +369,11 @@ The agent-specific files point to the shared guidelines:
 - `$HOME/.cursor/rules/ai-guidelines.mdc` references `~/AGENTS.md` for Cursor.
 - `$HOME/.agents/rules/ai-guidelines.md` references `~/AGENTS.md` for Google Antigravity workspace rules.
 
-These files keep the agent-specific configuration small while using [`~/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration, while the root-level `AGENTS.md` contains the shared AI-agent guidance.
+Keep agent-specific configuration small by using [`~/AGENTS.md`](AGENTS.md) as the single source of truth. Store application and shell configuration under `.config`; keep shared AI-agent guidance in the root-level `AGENTS.md`.
 
 ## Component documentation
 
-Each major configuration has a focused README with its startup behavior, available features, and customization points:
+Read the focused README for each major configuration:
 
 - [Zsh configuration](.config/zsh/README.md)
 - [Starship prompt](.config/starship/README.md)
@@ -384,8 +381,8 @@ Each major configuration has a focused README with its startup behavior, availab
 
 ## Credits
 
-This repository is inspired by [Radley Lewis's dotfiles](https://github.com/radleylewis/dotfiles).
+See [Radley Lewis's dotfiles](https://github.com/radleylewis/dotfiles) for the original inspiration.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+Use this project under the MIT License. Read [LICENSE](LICENSE) for details.
