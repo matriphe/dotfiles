@@ -210,8 +210,10 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
 
-On macOS, use this Git installation instead of placing Antidote inside the
-Homebrew Cellar.
+#### macOS
+
+Run the Git installation above on macOS as well. Keep the loader and plugin
+clones outside the Homebrew Cellar so Homebrew upgrades cannot replace them.
 
 #### Homebrew alternative
 
