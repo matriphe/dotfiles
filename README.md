@@ -156,6 +156,7 @@ The commands below are grouped by operating system because package names, packag
 | Tool | Purpose |
 | --- | --- |
 | [Git](https://git-scm.com/) | Clones and manages this repository as a bare repository. |
+| [curl](https://curl.se/) | Downloads installation files and release assets. |
 | [Zsh](https://www.zsh.org/) | Shell used by this configuration. |
 | [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer used by the Tmux configuration. |
 | [Antidote](https://antidote.sh/) | Installs and loads the Zsh plugins listed in `.zsh_plugins.txt`. |
@@ -172,7 +173,7 @@ The commands below are grouped by operating system because package names, packag
 Install with DNF:
 
 ```sh
-sudo dnf install -y tmux eza bat ripgrep podman podman-compose
+sudo dnf install -y git curl tmux eza bat ripgrep podman podman-compose
 sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
 sudo dnf copr enable -y atim/starship
@@ -187,7 +188,7 @@ Install the required packages with APT:
 
 ```sh
 sudo apt update
-sudo apt install -y git zsh tmux eza bat ripgrep lf starship
+sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
 ```
 
 Antidote is installed separately in [Configure Antidote](#configure-antidote), and Hack Nerd Font is installed in [Install a Nerd Font](#install-a-nerd-font). If your Debian or Ubuntu release does not provide `eza` or `starship`, install those tools using their upstream instructions: [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
@@ -197,7 +198,7 @@ Antidote is installed separately in [Configure Antidote](#configure-antidote), a
 Install with Homebrew. Antidote itself is better installed from source (see [Configure Antidote](#configure-antidote)), so it is left out here:
 
 ```sh
-brew install tmux eza bat ripgrep lf starship
+brew install git curl tmux eza bat ripgrep lf starship
 brew install --cask font-hack-nerd-font
 ```
 
