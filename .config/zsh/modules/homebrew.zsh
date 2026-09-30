@@ -1,4 +1,4 @@
-# Initialize Homebrew when installed.
+# Initialize Homebrew when available.
 
 if (( $+commands[brew] )); then
   eval "$(brew shellenv)"
