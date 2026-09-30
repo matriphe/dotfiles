@@ -20,6 +20,7 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
 - [Clone and install this repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
 - [AI agent configuration](#ai-agent-configuration)
+- [Component documentation](#component-documentation)
 - [Credits](#credits)
 - [License](#license)
 
@@ -385,6 +386,14 @@ The agent-specific files point to the shared guidelines:
 - `$HOME/.agents/rules/ai-guidelines.md` references `~/AGENTS.md` for Google Antigravity workspace rules.
 
 These files keep the agent-specific configuration small while using [`~/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration, while the root-level `AGENTS.md` contains the shared AI-agent guidance.
+
+## Component documentation
+
+Each major configuration has a focused README with its startup behavior, available features, and customization points:
+
+- [Zsh configuration](.config/zsh/README.md)
+- [Starship prompt](.config/starship/README.md)
+- [Tmux configuration](.config/tmux/README.md)
 
 ## Credits
 

@@ -10,7 +10,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 2. `.zshrc` — loaded by interactive Zsh shells.
    - `plugins.zsh` loads Antidote and the generated plugin bundle.
    - `compinit` initializes completion after plugins have loaded.
-   - aliases, modules, and `local/*.zsh` are loaded afterward.
+   - `aliases.zsh`, `modules/*.zsh`, and `local/*.zsh` are loaded afterward, in that order.
 
 ## Files
 
@@ -19,7 +19,9 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 - `plugins.zsh` loads Antidote and the generated plugin bundle, and provides a plugin update helper.
 - `.zsh_plugins.txt` lists the plugins managed by Antidote.
 - `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, `lf`, Git, and navigation.
-- `modules/` contains optional configuration modules loaded automatically.
+- `modules/homebrew.zsh` initializes Homebrew when the `brew` command or a standard macOS Homebrew installation is available.
+- `modules/podman.zsh` maps `docker` and `docker-compose` to Podman when both Podman commands are installed.
+- `modules/starship.zsh` configures and initializes the Starship prompt.
 - `local/` can contain machine-specific settings split across any number of `.zsh` files and is ignored by Git.
 - `.history` stores Zsh command history and is ignored by Git.
 - `.zcompdump` stores the Zsh completion cache and is ignored by Git.
@@ -33,8 +35,8 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 - `eza` and `bat` aliases for common command-line tools; ripgrep installed as a standalone search tool (`grep` is not aliased to it because their flags differ).
 - `lf` directory navigation that returns to the selected directory.
 - Git log shortcuts and a `dotfiles` helper for reloading the Zsh environment, updating, committing, and pushing the bare repository.
-- Starship prompt initialization.
-- No Docker or Podman aliases are included; install a container runtime separately if your workflow needs one.
+- Starship prompt initialization with the tracked configuration in `$XDG_CONFIG_HOME/starship/starship.toml`.
+- Optional Docker-compatible Podman aliases when both `podman` and `podman-compose` are available.
 
 ## Customization
 

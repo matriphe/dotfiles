@@ -4,19 +4,19 @@ This directory contains the [Starship](https://starship.rs/) prompt configuratio
 
 ## How it works
 
-The Zsh Starship module sets `STARSHIP_CONFIG` to `$XDG_CONFIG_HOME/starship/starship.toml` and initializes Starship for Zsh.
+The Zsh Starship module sets `STARSHIP_CONFIG` to `$XDG_CONFIG_HOME/starship/starship.toml` and initializes Starship for Zsh when the shell starts. The module is loaded automatically from `.config/zsh/modules/`.
 
 ## Prompt features
 
 The prompt displays:
 
-- The current directory and common directory icons.
+- The current directory, username, and common directory icons.
 - Git branch and repository status.
 - PHP, Go, Python, and Rust versions when applicable.
 - The Kubernetes context and namespace when a cluster is active.
 - Command duration and local IP address.
 - The current operating system and user.
-- A Fedora-inspired colour palette.
+- A Fedora-inspired colour palette with a two-line prompt layout.
 
 The prompt uses Nerd Font glyphs for its icons. Hack Nerd Font is the selected font for this configuration, but another compatible Nerd Font can be used.
 

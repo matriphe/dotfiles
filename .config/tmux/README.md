@@ -2,9 +2,7 @@
 
 This directory contains the Tmux configuration used by this dotfiles repository. Tmux automatically loads `tmux.conf` from `$XDG_CONFIG_HOME/tmux/tmux.conf`.
 
-## Prefix
-
-The default Tmux prefix is `Ctrl-b`. `Ctrl-B` is also configured as a secondary prefix.
+The configuration uses a 1-based index for windows and panes, keeps the default `Ctrl-b` prefix, and supports `Ctrl-B` as a secondary prefix.
 
 ## Key bindings
 
