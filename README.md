@@ -40,6 +40,21 @@ Then set Zsh as the default shell:
 chsh -s "$(command -v zsh)"
 ```
 
+#### Debian/Ubuntu
+
+Install Zsh using APT:
+
+```sh
+sudo apt update
+sudo apt install -y zsh
+```
+
+Then set Zsh as the default shell:
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
 #### macOS
 
 On macOS, Zsh is the default shell, so no installation is needed.
@@ -54,6 +69,29 @@ On Fedora, the global configuration file is `/etc/zshenv`. Create it if it does 
 
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
+
+# Dotfiles (https://github.com/matriphe/dotfiles)
+if [[ -z "$XDG_CONFIG_HOME" ]]
+then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
+then
+    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+fi
+EOF
+```
+
+Then log out from the shell and back in for the change to take effect.
+
+#### Debian/Ubuntu
+
+On Debian and Ubuntu, the global configuration file is `/etc/zsh/zshenv`. Create it if it does not exist, or append the block below if it does:
+
+```sh
+sudo tee -a /etc/zsh/zshenv > /dev/null <<'EOF'
 
 # Dotfiles (https://github.com/matriphe/dotfiles)
 if [[ -z "$XDG_CONFIG_HOME" ]]
@@ -100,9 +138,7 @@ Then log out from the shell and back in for the change to take effect.
 
 This section covers the required tools and platform-specific configuration steps.
 
-The commands use Fedora's DNF package manager because this configuration was created and tested on Fedora Workstation 44.
-
-On macOS, use Homebrew to install the same command-line tools. Other operating systems may require different commands.
+The commands below are grouped by operating system because package names, package managers, and system-wide Zsh configuration paths differ.
 
 ### Install the required tools
 
@@ -169,6 +205,16 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
 
+#### Debian/Ubuntu
+
+Install Antidote manually for the current user:
+
+```sh
+mkdir -p "$HOME/.local/share/zsh"
+git clone --depth=1 https://github.com/mattmc3/antidote.git \
+  "$HOME/.local/share/zsh/antidote"
+```
+
 #### macOS
 
 On macOS, install Antidote the same way as on Fedora — from source. This is the recommended setup: it keeps both the loader and the plugin clones inside `$XDG_DATA_HOME/zsh/antidote`, so Homebrew upgrades cannot wipe the plugins.
@@ -204,6 +250,17 @@ fc-cache -f
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
+#### Debian/Ubuntu
+
+```sh
+mkdir -p "$HOME/.local/share/fonts"
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
+  | tar -xJ -C "$HOME/.local/share/fonts"
+fc-cache -f
+```
+
+Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
+
 #### macOS
 
 On macOS, install Hack Nerd Font with Homebrew's font casks:
@@ -225,6 +282,19 @@ sudo dnf install -y podman podman-compose
 ```
 
 [Podman Compose](https://github.com/containers/podman-compose) provides Compose-compatible commands. The Podman module maps `docker` to `podman` and `docker-compose` to `podman-compose`.
+
+#### Debian/Ubuntu
+
+Debian and Ubuntu do not include Docker by default. First configure Docker's official APT repository by following the distribution-specific instructions in the [Docker Engine installation guide](https://docs.docker.com/engine/install/). Then install Docker Engine and the Docker Compose plugin:
+
+```sh
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable --now docker
+sudo docker run hello-world
+docker compose version
+```
+
+The official package is `docker-compose-plugin`, which provides the `docker compose` command. The standalone `docker-compose` package is legacy.
 
 #### macOS
 

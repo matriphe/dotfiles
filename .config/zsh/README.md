@@ -34,7 +34,7 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 - `lf` directory navigation that returns to the selected directory.
 - Git log shortcuts and a `dotfiles` helper for reloading the Zsh environment, updating, committing, and pushing the bare repository.
 - Starship prompt initialization.
-- Conditional Docker-compatible aliases backed by Podman.
+- No Docker or Podman aliases are included; install a container runtime separately if your workflow needs one.
 
 ## Customization
 
