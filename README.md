@@ -238,8 +238,11 @@ curl -sS https://starship.rs/install.sh | sh
 
 #### macOS
 
-Install Starship with Homebrew as shown in [Install the required
-tools](#install-the-required-tools).
+Install Starship with Homebrew:
+
+```sh
+brew install starship
+```
 
 ### Install Nerd Font
 
