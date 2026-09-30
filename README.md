@@ -143,13 +143,13 @@ Install the required tools and complete the platform-specific configuration step
 | [curl](https://curl.se/) | Download installation files and release assets. |
 | [Zsh](https://www.zsh.org/) | Run the configured shell. |
 | [Tmux](https://github.com/tmux/tmux) | Run the configured terminal multiplexer. |
-| [Antidote](https://antidote.sh/) | Install and load the Zsh plugins listed in `.zsh_plugins.txt`. |
+| [Antidote](https://antidote.sh/) | Install and load the Zsh plugins listed in `.zsh_plugins.txt`; configure it in [Install Antidote](#install-antidote). |
 | [Eza](https://github.com/eza-community/eza) | Replace `ls` with the `ls`, `ll`, `la`, and `tree` aliases. |
 | [Bat](https://github.com/sharkdp/bat) | Replace `cat` with syntax highlighting through the `cat` alias. |
 | [Ripgrep](https://github.com/BurntSushi/ripgrep) | Search quickly with a standalone tool; keep `grep` for its different flags. |
 | [Lf](https://github.com/gokcehan/lf) | Browse files through the `lf` navigation function. |
 | [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provide the icons and glyphs used by the Starship prompt; install it in [Install Nerd Font](#install-nerd-font). |
-| [Starship](https://starship.rs/) | Display the configured shell prompt. |
+| [Starship](https://starship.rs/) | Display the configured shell prompt; install it in [Install Starship](#install-starship). |
 | Podman / Docker | Provide the container engine; install it in [Install Podman/Docker](#install-podmandocker). |
 
 #### Fedora
@@ -242,7 +242,7 @@ tools](#install-the-required-tools).
 
 ### Install Nerd Font
 
-Install a Nerd Font to provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can choose another available Nerd Font such as JetBrainsMono Nerd Font.
+Install Nerd Font to provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can choose another available Nerd Font such as JetBrainsMono Nerd Font.
 
 Install Hack Nerd Font for the current user using the instructions for your platform:
 
