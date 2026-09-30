@@ -11,6 +11,7 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
 - [Zsh](#zsh)
   - [Install Zsh](#install-zsh)
   - [Configure Zsh](#configure-zsh)
+  - [Zsh modules](#zsh-modules)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
   - [Configure Antidote](#configure-antidote)
@@ -133,6 +134,15 @@ EOF
 ```
 
 Then log out from the shell and back in for the change to take effect.
+
+### Zsh modules
+
+The files in [`.config/zsh/modules`](.config/zsh/modules) are loaded automatically by `.zshrc` after the shared aliases and plugins. They keep optional integrations separate from the core shell configuration:
+
+- [`homebrew.zsh`](.config/zsh/modules/homebrew.zsh) initializes Homebrew when it is installed, including the standard `/opt/homebrew` and `/usr/local` locations on macOS.
+- [`podman.zsh`](.config/zsh/modules/podman.zsh) maps `docker` to `podman` and `docker-compose` to `podman-compose` only when both Podman commands are available. It also disables Podman Compose's warning log output.
+
+Modules are loaded only when their files are present, so optional tools can be installed or omitted without changing the main Zsh startup files.
 
 ## Setup
 
@@ -300,7 +310,7 @@ The official package is `docker-compose-plugin`, which provides the `docker comp
 
 On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
 
-With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings.
+With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings. The Podman module does not override these commands unless both `podman` and `podman-compose` are installed.
 
 With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
 
