@@ -15,6 +15,7 @@ configuration.
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
   - [Install and Configure Antidote](#install-and-configure-antidote)
+  - [Install Starship](#install-starship)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Container runtime](#container-runtime)
 - [Clone and install this repository](#clone-and-install-this-repository)
@@ -158,21 +159,19 @@ Install with DNF:
 sudo dnf install -y git curl tmux eza bat ripgrep podman podman-compose
 sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
-sudo dnf copr enable -y atim/starship
-sudo dnf install -y starship
 ```
 
-Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's standard repositories. Enable the `atim/starship` COPR to install Starship. Use Podman as the recommended Fedora container engine.
+Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's standard repositories. Use Podman as the recommended Fedora container engine.
 
 #### Debian, Ubuntu, and Linux Mint
 
 Install the required packages with APT:
 
 ```sh
-sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
+sudo apt install -y git curl zsh tmux eza bat ripgrep lf
 ```
 
-Install Antidote separately in [Install and Configure Antidote](#install-and-configure-antidote), and install Hack Nerd Font in [Install a Nerd Font](#install-a-nerd-font). If your release does not provide `eza` or `starship`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
+Install Antidote separately in [Install and Configure Antidote](#install-and-configure-antidote), and install Hack Nerd Font in [Install a Nerd Font](#install-a-nerd-font). If your release does not provide `eza`, follow the upstream instructions for [Eza](https://github.com/eza-community/eza).
 
 #### macOS
 
@@ -213,6 +212,32 @@ Antidote reads the manifest and generates a cached plugin bundle. Update the ins
 ```zsh
 zsh-plugins-update
 ```
+
+### Install Starship
+
+Install [Starship](https://starship.rs/) separately because package availability
+varies by distribution.
+
+#### Fedora
+
+Install Starship with DNF:
+
+```sh
+sudo dnf install -y starship
+```
+
+#### Debian, Ubuntu, and Linux Mint
+
+Install Starship with the official installer:
+
+```sh
+curl -sS https://starship.rs/install.sh | sh
+```
+
+#### macOS
+
+Install Starship with Homebrew as shown in [Install the required
+tools](#install-the-required-tools).
 
 ### Install a Nerd Font
 
