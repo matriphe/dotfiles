@@ -41,12 +41,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # lowercase input matches upper and lower
 
 # =========================================================
-# Homebrew (macOS) Configurations
-# =========================================================
-
-source "$ZDOTDIR/homebrew.zsh"
-
-# =========================================================
 # Aliases Configurations
 # =========================================================
 

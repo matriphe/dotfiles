@@ -39,16 +39,18 @@ alias df='df -h'
 alias -- -='cd -'  # -- prevents - being parsed as a flag; cd - jumps to previous directory
 
 lf() { # zsh follow lf navigation
-    tmp=$(mktemp)
+    local tmp dir
+
+    tmp=$(mktemp) || return 1
     command lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir=$(cat "$tmp")
+    if [[ -f "$tmp" ]]; then
+        dir=$(<"$tmp")
         rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+        [[ -d "$dir" && "$dir" != "$PWD" ]] && cd -- "$dir"
     fi
 }
 
-# =========================================================(if the)
+# =========================================================
 # Git
 # =========================================================
 

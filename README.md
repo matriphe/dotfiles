@@ -11,6 +11,7 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
 - [Zsh](#zsh)
   - [Install Zsh](#install-zsh)
   - [Configure Zsh](#configure-zsh)
+  - [Zsh modules](#zsh-modules)
 - [Setup](#setup)
   - [Install the required tools](#install-the-required-tools)
   - [Configure Antidote](#configure-antidote)
@@ -19,6 +20,7 @@ This configuration was created and tested on Fedora Workstation 44 with Zsh.
 - [Clone and install this repository](#clone-and-install-this-repository)
   - [Manage the dotfiles repository](#manage-the-dotfiles-repository)
 - [AI agent configuration](#ai-agent-configuration)
+- [Component documentation](#component-documentation)
 - [Credits](#credits)
 - [License](#license)
 
@@ -134,6 +136,15 @@ EOF
 
 Then log out from the shell and back in for the change to take effect.
 
+### Zsh modules
+
+The files in [`.config/zsh/modules`](.config/zsh/modules) are loaded automatically by `.zshrc` after the shared aliases and plugins. They keep optional integrations separate from the core shell configuration:
+
+- [`homebrew.zsh`](.config/zsh/modules/homebrew.zsh) initializes Homebrew when it is installed, including the standard `/opt/homebrew` and `/usr/local` locations on macOS.
+- [`podman.zsh`](.config/zsh/modules/podman.zsh) maps `docker` to `podman` and `docker-compose` to `podman-compose` only when both Podman commands are available. It also disables Podman Compose's warning log output.
+
+Modules are loaded only when their files are present, so optional tools can be installed or omitted without changing the main Zsh startup files.
+
 ## Setup
 
 This section covers the required tools and platform-specific configuration steps.
@@ -145,6 +156,7 @@ The commands below are grouped by operating system because package names, packag
 | Tool | Purpose |
 | --- | --- |
 | [Git](https://git-scm.com/) | Clones and manages this repository as a bare repository. |
+| [curl](https://curl.se/) | Downloads installation files and release assets. |
 | [Zsh](https://www.zsh.org/) | Shell used by this configuration. |
 | [Tmux](https://github.com/tmux/tmux) | Terminal multiplexer used by the Tmux configuration. |
 | [Antidote](https://antidote.sh/) | Installs and loads the Zsh plugins listed in `.zsh_plugins.txt`. |
@@ -161,7 +173,7 @@ The commands below are grouped by operating system because package names, packag
 Install with DNF:
 
 ```sh
-sudo dnf install -y tmux eza bat ripgrep podman podman-compose
+sudo dnf install -y git curl tmux eza bat ripgrep podman podman-compose
 sudo dnf copr enable -y pennbauman/ports
 sudo dnf install -y lf
 sudo dnf copr enable -y atim/starship
@@ -170,12 +182,23 @@ sudo dnf install -y starship
 
 Fedora uses the `pennbauman/ports` COPR because `lf` is not in the standard repositories. It uses the `atim/starship` COPR for Starship. Podman is the recommended Fedora container engine.
 
+#### Debian/Ubuntu
+
+Install the required packages with APT:
+
+```sh
+sudo apt update
+sudo apt install -y git curl zsh tmux eza bat ripgrep lf starship
+```
+
+Antidote is installed separately in [Configure Antidote](#configure-antidote), and Hack Nerd Font is installed in [Install a Nerd Font](#install-a-nerd-font). If your Debian or Ubuntu release does not provide `eza` or `starship`, install those tools using their upstream instructions: [Eza](https://github.com/eza-community/eza) and [Starship](https://starship.rs/install/).
+
 #### macOS
 
 Install with Homebrew. Antidote itself is better installed from source (see [Configure Antidote](#configure-antidote)), so it is left out here:
 
 ```sh
-brew install tmux eza bat ripgrep lf starship
+brew install git curl tmux eza bat ripgrep lf starship
 brew install --cask font-hack-nerd-font
 ```
 
@@ -252,12 +275,21 @@ Select `Hack Nerd Font` in your terminal emulator. To use another font, replace 
 
 #### Debian/Ubuntu
 
+Install Fontconfig first so the `fc-cache` command is available:
+
+```sh
+sudo apt update
+sudo apt install -y fontconfig
+```
+
 ```sh
 mkdir -p "$HOME/.local/share/fonts"
 curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz \
   | tar -xJ -C "$HOME/.local/share/fonts"
-fc-cache -f
+fc-cache -f -v "$HOME/.local/share/fonts"
 ```
+
+If `fc-cache` is still unavailable after installing `fontconfig`, open a new shell or run `hash -r` so the shell refreshes its command lookup. Verify the installation with `fc-list | grep -i 'Hack Nerd Font'`.
 
 Select `Hack Nerd Font` in your terminal emulator. To use another font, replace `Hack.tar.xz` with the matching archive from the [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases).
 
@@ -300,7 +332,7 @@ The official package is `docker-compose-plugin`, which provides the `docker comp
 
 On macOS, use [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Colima](https://github.com/abiosoft/colima) instead.
 
-With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings.
+With Docker Desktop, `docker` and `docker-compose` are bundled in one application. Install it from the link above and enable the Docker CLI in its settings. The Podman module does not override these commands unless both `podman` and `podman-compose` are installed.
 
 With Colima, install the Docker CLI, the standalone Compose binary, and Colima itself, then start the virtual machine:
 
@@ -375,6 +407,14 @@ The agent-specific files point to the shared guidelines:
 - `$HOME/.agents/rules/ai-guidelines.md` references `~/AGENTS.md` for Google Antigravity workspace rules.
 
 These files keep the agent-specific configuration small while using [`~/AGENTS.md`](AGENTS.md) as the single source of truth. The `.config` directory is reserved for application and shell configuration, while the root-level `AGENTS.md` contains the shared AI-agent guidance.
+
+## Component documentation
+
+Each major configuration has a focused README with its startup behavior, available features, and customization points:
+
+- [Zsh configuration](.config/zsh/README.md)
+- [Starship prompt](.config/starship/README.md)
+- [Tmux configuration](.config/tmux/README.md)
 
 ## Credits
 
