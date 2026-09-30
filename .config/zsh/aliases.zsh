@@ -62,6 +62,25 @@ dotfiles() {
         source "$ZDOTDIR/.zshrc"
         print "Zsh configuration reloaded."
         return
+    elif [[ "$1" == update-force ]]; then
+        shift
+        local -a yes=(n)
+        [[ "${#argv}" -gt 0 && "${argv[1]}" == -y ]] && { yes=(y); shift; }
+        print "This resets every tracked file in $HOME to the repository state."
+        print "Local changes to tracked files will be LOST."
+        if [[ "${yes}" != y ]]; then
+            printf 'Continue? [y/N] '
+            read -r answer
+            [[ "$answer" == y ]] || return 1
+        fi
+        ${=g} fetch origin
+        # Checkout with a tree-ish updates both work-tree and index; HEAD is
+        # fast-forwarded afterwards. Skip-worktree files are left untouched.
+        ${=g} checkout FETCH_HEAD -- . 2>&1 | grep -v "sparse-checkout" 1>&2
+        ${=g} merge --ff-only FETCH_HEAD
+        print "Tracked files reset to the repository state."
+        print "Remember to run 'dotfiles reload' to reload the updated configuration."
+        return
     elif [[ "$1" == update ]]; then
         shift
         ${=g} fetch origin
