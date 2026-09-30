@@ -36,23 +36,6 @@ Install Zsh using the package manager:
 sudo dnf install -y zsh
 ```
 
-On the first launch, Zsh may display the `zsh-newuser-install` configuration
-menu because no startup files exist. Select `q` when it shows:
-
-```text
-(q) Quit and do nothing. The function will be run again next time.
-```
-
-This avoids creating a generated Zsh configuration; see the [official Zsh
-documentation](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html)
-for details.
-
-Then set Zsh as the default shell:
-
-```sh
-chsh -s "$(command -v zsh)"
-```
-
 #### Debian/Ubuntu/Linux Mint
 
 Linux Mint uses Ubuntu as its package base, while Linux Mint Debian Edition
@@ -65,7 +48,11 @@ sudo apt update
 sudo apt install -y zsh
 ```
 
-On the first launch, Zsh may display the `zsh-newuser-install` configuration
+#### macOS
+
+On macOS, Zsh is the default shell, so no installation is needed.
+
+On Linux, the first launch may display the `zsh-newuser-install` configuration
 menu because no startup files exist. Select `q` when it shows:
 
 ```text
@@ -74,25 +61,20 @@ menu because no startup files exist. Select `q` when it shows:
 
 This avoids creating a generated Zsh configuration; see the [official Zsh
 documentation](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html)
-for details.
-
-Then set Zsh as the default shell:
+for details. Then set Zsh as the default shell:
 
 ```sh
 chsh -s "$(command -v zsh)"
 ```
 
-#### macOS
-
-On macOS, Zsh is the default shell, so no installation is needed.
-
 ### Configure Zsh
 
 Configure the global Zsh startup file to use `$HOME/.config/zsh`.
 
-#### Fedora
+#### Fedora and macOS
 
-On Fedora, the global configuration file is `/etc/zshenv`. Create it if it does not exist, or append the block below if it does:
+On Fedora and macOS, the global configuration file is `/etc/zshenv`. Create it
+if it does not exist, or append the block below if it does:
 
 ```sh
 sudo tee -a /etc/zshenv > /dev/null <<'EOF'
@@ -110,8 +92,6 @@ then
 fi
 EOF
 ```
-
-Then log out from the shell and back in for the change to take effect.
 
 #### Debian/Ubuntu/Linux Mint
 
@@ -134,32 +114,13 @@ fi
 EOF
 ```
 
-Then log out from the shell and back in for the change to take effect.
+Log out from the shell and back in after updating the global configuration.
 
-#### macOS
-
-On macOS, use the same approach as Fedora: create `/etc/zshenv` with the block below. Zsh reads `/etc/zshenv` in every shell — interactive, login, and non-interactive — before the `.zshenv` stage, so `$ZDOTDIR/.zshenv` and `$ZDOTDIR/.zshrc` always load with `ZDOTDIR` already set.
-
-Do not put the block in `/etc/zshrc`: that file only runs for interactive shells, which is too late for the `.zshenv` stage and leaves non-interactive shells without `ZDOTDIR`.
-
-```sh
-sudo tee -a /etc/zshenv > /dev/null <<'EOF'
-
-# Dotfiles (https://github.com/matriphe/dotfiles)
-if [[ -z "$XDG_CONFIG_HOME" ]]
-then
-    export XDG_CONFIG_HOME="$HOME/.config"
-fi
-
-if [[ -d "$XDG_CONFIG_HOME/zsh" ]]
-then
-    # ZDOTDIR tells Zsh where to find startup files such as .zshrc.
-    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-fi
-EOF
-```
-
-Then log out from the shell and back in for the change to take effect.
+On macOS, Zsh reads `/etc/zshenv` in every shell — interactive, login, and
+non-interactive — before the `.zshenv` stage, so `$ZDOTDIR/.zshenv` and
+`$ZDOTDIR/.zshrc` always load with `ZDOTDIR` already set. Do not put the block
+in `/etc/zshrc`: that file only runs for interactive shells, which is too late
+for the `.zshenv` stage and leaves non-interactive shells without `ZDOTDIR`.
 
 ### Zsh modules
 
@@ -191,7 +152,6 @@ The commands below are grouped by operating system because package names, packag
 | [Lf](https://github.com/gokcehan/lf) | Terminal file manager used by the `lf` navigation function. |
 | [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) | Provides the icons and glyphs used by the Starship prompt. |
 | [Starship](https://starship.rs/) | Shell prompt used by this configuration. |
-| Podman / Docker | Container engine used by the Docker-compatible aliases. |
 
 #### Fedora
 
@@ -243,9 +203,7 @@ Antidote reads the manifest and generates a cached plugin bundle, so normal shel
 zsh-plugins-update
 ```
 
-#### Fedora
-
-Install it manually for the current user:
+Install Antidote manually for the current user on Linux and macOS:
 
 ```sh
 mkdir -p "$HOME/.local/share/zsh"
@@ -253,25 +211,8 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
 
-#### Debian/Ubuntu/Linux Mint
-
-Install Antidote manually for the current user:
-
-```sh
-mkdir -p "$HOME/.local/share/zsh"
-git clone --depth=1 https://github.com/mattmc3/antidote.git \
-  "$HOME/.local/share/zsh/antidote"
-```
-
-#### macOS
-
-On macOS, install Antidote the same way as on Fedora — from source. This is the recommended setup: it keeps both the loader and the plugin clones inside `$XDG_DATA_HOME/zsh/antidote`, so Homebrew upgrades cannot wipe the plugins.
-
-```sh
-mkdir -p "$HOME/.local/share/zsh"
-git clone --depth=1 https://github.com/mattmc3/antidote.git \
-  "$HOME/.local/share/zsh/antidote"
-```
+On macOS, this source installation keeps both the loader and plugin clones
+outside Homebrew, so Homebrew upgrades cannot replace them.
 
 As an alternative, Antidote can be installed with Homebrew:
 
