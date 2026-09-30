@@ -179,7 +179,7 @@ Install Antidote separately in [Install Antidote](#install-antidote), and instal
 Install the tools with Homebrew:
 
 ```sh
-brew install git curl tmux eza bat ripgrep lf starship
+brew install git curl tmux eza bat ripgrep lf
 brew install --cask font-hack-nerd-font
 ```
 
