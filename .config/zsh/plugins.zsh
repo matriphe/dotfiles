@@ -67,3 +67,8 @@ zsh-plugin-install() {
 
 # Keep the previous helper name as a compatibility alias.
 alias zplugin-update='zsh-plugins-update'
+
+# Accept common singular, plural, and misspelled command variants.
+alias zsh-plugins-install='zsh-plugin-install'
+alias zsh-plugin-update='zsh-plugins-update'
+alias zsh-pluins-update='zsh-plugins-update'
