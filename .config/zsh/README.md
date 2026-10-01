@@ -49,7 +49,11 @@ Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell
 
 ## Plugins
 
-Install Antidote at `$XDG_DATA_HOME/zsh/antidote` using one of the install methods in the root README: a manual Git clone, or Homebrew on macOS followed by a symlink to this path. The shared plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt), while machine-specific additions go in the tracked but locally managed [`.zsh_plugins.local.txt`](.zsh_plugins.local.txt). Running `dotfiles update` automatically marks the local manifest as `skip-worktree`, so ordinary local edits do not appear in Git changes. Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations. Add a plugin to the local manifest with:
+Install Antidote at `$XDG_DATA_HOME/zsh/antidote` using one of the install methods in the root README: a manual Git clone, or Homebrew on macOS followed by a symlink to this path.
+
+The shared plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt), while machine-specific additions go in the tracked but locally managed [`.zsh_plugins.local.txt`](.zsh_plugins.local.txt). Running `dotfiles update` automatically marks the local manifest as `skip-worktree`, so ordinary local edits do not appear in Git changes.
+
+Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations. Add a plugin to the local manifest with:
 
 ```zsh
 zsh-plugin-install ohmyzsh/ohmyzsh
