@@ -66,7 +66,22 @@ zsh-plugin-install() {
     return 1
   fi
 
-  antidote install "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
+  # Defer by default so plugins source after compinit and can call
+  # compdef, which oh-my-zsh plugins rely on. Skip if the user already
+  # set a kind via flag or annotation.
+  local has_kind=0
+  local arg
+  for arg in "$@"; do
+    if [[ "$arg" == (-k|--kind) || "$arg" == *kind:* ]]; then
+      has_kind=1
+      break
+    fi
+  done
+  if (( has_kind )); then
+    antidote install "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
+  else
+    antidote install -k defer "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
+  fi
 }
 
 # Keep the previous helper name as a compatibility alias.

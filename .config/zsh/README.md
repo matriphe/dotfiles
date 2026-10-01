@@ -71,6 +71,10 @@ The direct Antidote equivalent is:
 antidote install ohmyzsh/ohmyzsh "$ZDOTDIR/.zsh_plugins.local.txt"
 ```
 
+`zsh-plugin-install` (and `zpi`) adds `kind:defer` automatically, so plugins are sourced after `compinit` and can register completions with `compdef` — required by most oh-my-zsh plugins. To control loading explicitly, pass a kind yourself (`zpi <repo> -k defer`) or include an annotation in the bundle string (`zpi '<repo> kind:defer'`).
+
+When editing a manifest by hand, append `kind:defer` to each plugin line unless the plugin must load eagerly (for example, completion generators or fpath-only plugins).
+
 Update installed plugins with:
 
 ```zsh
