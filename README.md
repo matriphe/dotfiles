@@ -210,7 +210,7 @@ Review the loaded plugins in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_p
 - [`zsh-users/zsh-completions`](https://github.com/zsh-users/zsh-completions) provides additional completion definitions for Zsh commands.
 - [`ohmyzsh/ohmyzsh`](https://github.com/ohmyzsh/ohmyzsh) provides the `git` and `alias-finder` plugins.
 
-The tracked `.config/zsh/.zsh_plugins.txt` file contains the shared plugin baseline. The repository also includes `.config/zsh/.zsh_plugins.local.txt` as a downloadable local-manifest placeholder. After cloning, run `git update-index --skip-worktree .config/zsh/.zsh_plugins.local.txt` before adding machine-specific plugins so ordinary local edits do not appear in Git changes or get included in normal commits.
+The tracked `.config/zsh/.zsh_plugins.txt` file contains the shared plugin baseline. The repository also includes `.config/zsh/.zsh_plugins.local.txt` as a downloadable local-manifest placeholder. Running `dotfiles update` automatically marks the local manifest as `skip-worktree`, so machine-specific edits do not appear in Git changes or get included in normal commits.
 
 Add machine-specific plugins to `.config/zsh/.zsh_plugins.local.txt` with:
 

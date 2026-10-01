@@ -79,7 +79,8 @@ dotfiles() {
         # Checkout with a tree-ish updates both work-tree and index; HEAD is
         # fast-forwarded afterwards. Skip-worktree files are left untouched.
         ${=g} checkout FETCH_HEAD -- . 2>&1 | grep -v "sparse-checkout" 1>&2
-        ${=g} merge --ff-only FETCH_HEAD
+        ${=g} merge --ff-only FETCH_HEAD && \
+            ${=g} update-index --skip-worktree -- .config/zsh/.zsh_plugins.local.txt
         print "Tracked files reset to the repository state."
         print "Remember to run 'dotfiles reload' to reload the updated configuration."
         return
@@ -111,6 +112,7 @@ dotfiles() {
         # FETCH_HEAD is already fetched above; merging directly avoids a
         # second fetch inside pull.
         ${=g} merge --ff-only FETCH_HEAD && \
+            ${=g} update-index --skip-worktree -- .config/zsh/.zsh_plugins.local.txt && \
             print "Remember to run 'dotfiles reload' to reload the updated configuration."
         return
     fi
