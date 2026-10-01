@@ -214,33 +214,43 @@ The tracked `.config/zsh/.zsh_plugins.txt` file contains the shared plugin basel
 
 The repository also includes `.config/zsh/.zsh_plugins.local.txt` as a downloadable local-manifest placeholder. Running `dotfiles update` automatically marks the local manifest as `skip-worktree`, so machine-specific edits do not appear in Git changes or get included in normal commits.
 
-Add machine-specific plugins to `.config/zsh/.zsh_plugins.local.txt` with:
+The main plugin-management aliases are:
 
-```zsh
-zsh-plugin-install ohmyzsh/ohmyzsh
-```
+| Alias | Command | Purpose |
+|---|---|---|
+| `zpi` / `zpa` | `zsh-plugin-install` | Install a plugin into the local manifest |
+| `zpu` | `zsh-plugins-update` | Update plugins and regenerate the bundle |
+| `zpd` / `zpr` | `zsh-plugin-uninstall` | Remove a locally installed plugin |
 
-Use `zpi` as the short alias for `zsh-plugin-install`:
+`zpi` adds `kind:defer` automatically, so plugins are sourced after `compinit` and can register completions with `compdef`. Install a plugin with:
 
 ```zsh
 zpi ohmyzsh/ohmyzsh
 ```
 
-This keeps local additions separate from the shared `.zsh_plugins.txt` manifest. The direct Antidote equivalent is:
+This appends `ohmyzsh/ohmyzsh kind:defer` to `.zsh_plugins.local.txt`, keeping local additions separate from the shared `.zsh_plugins.txt` manifest. The direct Antidote equivalent is:
 
 ```zsh
 antidote install <plugin> "$ZDOTDIR/.zsh_plugins.local.txt"
 ```
 
-Antidote reads the manifest and generates a cached plugin bundle. Update the installed plugins and regenerate the bundle with:
+To install a single plugin from a monorepo like [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh), use the `path:` annotation. For example, to add the kubectl plugin:
 
 ```zsh
-zsh-plugins-update
+zpi 'ohmyzsh/ohmyzsh path:plugins/kubectl'
 ```
 
-Use `zpu` as the short alias for `zsh-plugins-update`.
+This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.local.txt`. Run `dotfiles reload` (or start a new shell) to load it.
 
-Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.
+Remove it again with the same bundle name:
+
+```zsh
+zpd 'ohmyzsh/ohmyzsh path:plugins/kubectl'
+```
+
+This deletes matching lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory; run `zpu` and reload the shell to finish. Removing `ohmyzsh/ohmyzsh` without a `path:` annotation removes all oh-my-zsh plugin lines and the whole clone.
+
+Additional long-form commands and typo-tolerant variants are available in [`plugins.zsh`](.config/zsh/plugins.zsh).
 
 ### Install Starship
 

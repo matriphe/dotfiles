@@ -23,6 +23,10 @@ if [[ -z "${ANTIDOTE_ZSH}" ]]; then
 else
   source "${ANTIDOTE_ZSH}"
 
+  # oh-my-zsh plugins expect ZSH_CACHE_DIR (see .zshenv) and write
+  # completion caches under completions/.
+  mkdir -p "${ZSH_CACHE_DIR}/completions"
+
   mkdir -p "${ANTIDOTE_BUNDLE:h}"
 
   # Regenerate when the manifest is newer, or when the antidote install
@@ -62,15 +66,100 @@ zsh-plugin-install() {
     return 1
   fi
 
-  antidote install "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
+  # Defer by default so plugins source after compinit and can call
+  # compdef, which oh-my-zsh plugins rely on. Skip if the user already
+  # set a kind via flag or annotation.
+  local has_kind=0
+  local arg
+  for arg in "$@"; do
+    if [[ "$arg" == (-k|--kind) || "$arg" == *kind:* ]]; then
+      has_kind=1
+      break
+    fi
+  done
+  if (( has_kind )); then
+    antidote install "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
+  else
+    antidote install -k defer "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
+  fi
 }
 
-# Keep the previous helper name as a compatibility alias.
-alias zplugin-update='zsh-plugins-update'
+zsh-plugin-uninstall() {
+  if (( $# == 0 )); then
+    print -u2 "usage: zsh-plugin-uninstall <plugin>"
+    return 1
+  fi
 
-# Accept common singular, plural, and misspelled command variants.
-alias zsh-plugins-install='zsh-plugin-install'
-alias zsh-plugin-update='zsh-plugins-update'
-alias zsh-pluins-update='zsh-plugins-update'
+  if [[ ! -r "${ANTIDOTE_LOCAL_MANIFEST}" ]]; then
+    print -u2 "No local plugin manifest at ${ANTIDOTE_LOCAL_MANIFEST}"
+    return 1
+  fi
+
+  local bundle="$1"
+  local repo="${bundle%%[[:blank:]]*}"
+  repo="${repo#https://}"
+  repo="${repo#http://}"
+  repo="${repo#git@}"
+  repo="${repo%.git}"
+
+  # Remove matching lines from the local manifest.
+  local tmp="${ANTIDOTE_LOCAL_MANIFEST}.tmp.$$"
+  awk -v b="$repo" '
+    {
+      l = $0
+      sub(/^[[:blank:]]+/, "", l)
+      if (l == b || substr(l, 1, length(b) + 1) == b " ") {
+        print "Removed: " $0 > "/dev/stderr"
+        next
+      }
+      print
+    }' "${ANTIDOTE_LOCAL_MANIFEST}" > "${tmp}" \
+    && mv "${tmp}" "${ANTIDOTE_LOCAL_MANIFEST}" \
+    || { rm -f "${tmp}"; print -u2 "Failed to update ${ANTIDOTE_LOCAL_MANIFEST}"; return 1; }
+
+  # Drop the cloned plugin directory, if present.
+  local plugindir="${ANTIDOTE_HOME}/github.com/${repo}"
+  if [[ -d "${plugindir}" ]]; then
+    rm -rf "${plugindir}"
+    print "Removed ${plugindir}"
+  fi
+
+  print "Run 'zpu' and restart the shell (or run 'dotfiles reload') to finish."
+}
+
+# Short aliases for daily use.
 alias zpi='zsh-plugin-install'
+alias zpa='zsh-plugin-install'
 alias zpu='zsh-plugins-update'
+alias zpd='zsh-plugin-uninstall'
+alias zpr='zsh-plugin-uninstall'
+
+# Install (zsh-plugin-install).
+alias zsh-plugins-install='zsh-plugin-install'
+alias zsh-plugin-add='zsh-plugin-install'
+alias zsh-plugins-add='zsh-plugin-install'
+alias zsh-plugin-ad='zsh-plugin-install'
+alias zsh-plugins-ad='zsh-plugin-install'
+alias zsh-plugin-adds='zsh-plugin-install'
+alias zsh-plugin-dd='zsh-plugin-install'
+alias zsh-plugin-add-plugin='zsh-plugin-install'
+alias zsh-plugins-add-plugins='zsh-plugin-install'
+
+# Update (zsh-plugins-update).
+alias zsh-plugin-update='zsh-plugins-update'
+
+# Uninstall (zsh-plugin-uninstall).
+alias zsh-plugins-uninstall='zsh-plugin-uninstall'
+alias zsh-plugin-remove='zsh-plugin-uninstall'
+alias zsh-plugins-remove='zsh-plugin-uninstall'
+alias zsh-plugin-remve='zsh-plugin-uninstall'
+alias zsh-plugins-remve='zsh-plugin-uninstall'
+alias zsh-plugin-remov='zsh-plugin-uninstall'
+alias zsh-plugin-reove='zsh-plugin-uninstall'
+alias zsh-plugin-reomve='zsh-plugin-uninstall'
+alias zsh-plugin-removes='zsh-plugin-uninstall'
+alias zsh-plugins-uninstal='zsh-plugin-uninstall'
+alias zsh-plugin-uninstal='zsh-plugin-uninstall'
+alias zsh-plugins-unistall='zsh-plugin-uninstall'
+alias zsh-plugin-unistall='zsh-plugin-uninstall'
+alias zsh-plug-in-uninstall='zsh-plugin-uninstall'
