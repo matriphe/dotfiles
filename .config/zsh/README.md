@@ -53,25 +53,17 @@ Install Antidote at `$XDG_DATA_HOME/zsh/antidote` using one of the install metho
 
 The shared plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt), while machine-specific additions go in the tracked but locally managed [`.zsh_plugins.local.txt`](.zsh_plugins.local.txt). Running `dotfiles update` automatically marks the local manifest as `skip-worktree`, so ordinary local edits do not appear in Git changes.
 
-Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations. Add a plugin to the local manifest with:
+Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations.
 
-```zsh
-zsh-plugin-install ohmyzsh/ohmyzsh
-```
+The main plugin-management aliases are:
 
-The short alias is `zpi`:
+| Alias | Command | Purpose |
+|---|---|---|
+| `zpi` / `zpa` | `zsh-plugin-install` | Install a plugin into the local manifest |
+| `zpu` | `zsh-plugins-update` | Update plugins and regenerate the bundle |
+| `zpd` / `zpr` | `zsh-plugin-uninstall` | Remove a locally installed plugin |
 
-```zsh
-zpi ohmyzsh/ohmyzsh
-```
-
-The direct Antidote equivalent is:
-
-```zsh
-antidote install ohmyzsh/ohmyzsh "$ZDOTDIR/.zsh_plugins.local.txt"
-```
-
-`zsh-plugin-install` (and `zpi`) adds `kind:defer` automatically, so plugins are sourced after `compinit` and can register completions with `compdef` — required by most oh-my-zsh plugins. To control loading explicitly, pass a kind yourself (`zpi <repo> -k defer`) or include an annotation in the bundle string (`zpi '<repo> kind:defer'`).
+`zsh-plugin-install` adds `kind:defer` automatically, so plugins are sourced after `compinit` and can register completions with `compdef` — required by most oh-my-zsh plugins. To control loading explicitly, pass a kind yourself (`zpi <repo> -k defer`) or include an annotation in the bundle string (`zpi '<repo> kind:defer'`).
 
 When editing a manifest by hand, append `kind:defer` to each plugin line unless the plugin must load eagerly (for example, completion generators or fpath-only plugins).
 
@@ -81,22 +73,18 @@ For example, to install the oh-my-zsh kubectl plugin:
 zpi 'ohmyzsh/ohmyzsh path:plugins/kubectl'
 ```
 
-This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.local.txt`. Then run `dotfiles reload` (or start a new shell) to load it.
+This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.local.txt`. Then run `dotfiles reload` (or start a new shell) to load it. The direct Antidote equivalent is:
+
+```zsh
+antidote install 'ohmyzsh/ohmyzsh path:plugins/kubectl' "$ZDOTDIR/.zsh_plugins.local.txt"
+```
 
 Remove a locally installed plugin with:
 
 ```zsh
-zsh-plugin-uninstall ohmyzsh/ohmyzsh
+zpd ohmyzsh/ohmyzsh
 ```
 
-The short aliases are `zpd` (zp delete) and `zpr` (zp remove); `zsh-plugin-remove` also works. This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup.
+This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup.
 
-Update installed plugins with:
-
-```zsh
-zsh-plugins-update
-```
-
-The short alias is `zpu`.
-
-Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugin-add` (short alias `zpa`), `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.
+Additional long-form commands and typo-tolerant variants are available in [`plugins.zsh`](plugins.zsh).
