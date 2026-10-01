@@ -75,6 +75,14 @@ antidote install ohmyzsh/ohmyzsh "$ZDOTDIR/.zsh_plugins.local.txt"
 
 When editing a manifest by hand, append `kind:defer` to each plugin line unless the plugin must load eagerly (for example, completion generators or fpath-only plugins).
 
+For example, to install the oh-my-zsh kubectl plugin:
+
+```zsh
+zpi 'ohmyzsh/ohmyzsh path:plugins/kubectl'
+```
+
+This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.local.txt`. Then run `dotfiles reload` (or start a new shell) to load it.
+
 Update installed plugins with:
 
 ```zsh
