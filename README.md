@@ -220,6 +220,12 @@ Add machine-specific plugins to `.config/zsh/.zsh_plugins.local.txt` with:
 zsh-plugin-install ohmyzsh/ohmyzsh
 ```
 
+Use `zpi` as the short alias for `zsh-plugin-install`:
+
+```zsh
+zpi ohmyzsh/ohmyzsh
+```
+
 This keeps local additions separate from the shared `.zsh_plugins.txt` manifest. The direct Antidote equivalent is:
 
 ```zsh
@@ -231,6 +237,8 @@ Antidote reads the manifest and generates a cached plugin bundle. Update the ins
 ```zsh
 zsh-plugins-update
 ```
+
+Use `zpu` as the short alias for `zsh-plugins-update`.
 
 ### Install Starship
 
