@@ -37,6 +37,14 @@ Install Zsh using the package manager:
 sudo dnf install -y zsh
 ```
 
+#### Arch Linux
+
+Install Zsh with Pacman:
+
+```sh
+sudo pacman -Syu --needed --noconfirm zsh
+```
+
 #### Debian, Ubuntu, and Linux Mint
 
 Linux Mint uses Ubuntu as its package base, while Linux Mint Debian Edition
@@ -99,9 +107,9 @@ fi
 EOF
 ```
 
-#### Debian, Ubuntu, and Linux Mint
+#### Arch Linux, Debian, Ubuntu, and Linux Mint
 
-On Debian, Ubuntu, and Linux Mint, the global configuration file is `/etc/zsh/zshenv`. Create it if it does not exist, or append the block below if it does:
+On Arch Linux, Debian, Ubuntu, and Linux Mint, the global configuration file is `/etc/zsh/zshenv`. Append the block below to that file:
 
 ```sh
 sudo tee -a /etc/zsh/zshenv > /dev/null <<'EOF'
@@ -119,6 +127,9 @@ then
 fi
 EOF
 ```
+
+On Arch Linux, keep the existing line that sources `/etc/profile` in
+`/etc/zsh/zshenv`.
 
 Log out from the shell and back in after updating the global configuration.
 
@@ -164,6 +175,17 @@ sudo dnf install -y lf
 
 Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's standard repositories. Use Podman as the recommended Fedora container engine.
 
+#### Arch Linux
+
+Install the required tools with Pacman:
+
+```sh
+sudo pacman -Syu --needed --noconfirm git curl zsh tmux eza bat ripgrep lf fontconfig
+```
+
+Install Antidote separately in [Install Antidote](#install-antidote), and
+install Hack Nerd Font in [Install Nerd Font](#install-nerd-font).
+
 #### Debian, Ubuntu, and Linux Mint
 
 Install the required packages with APT:
@@ -195,10 +217,20 @@ git clone --depth=1 https://github.com/mattmc3/antidote.git \
   "$HOME/.local/share/zsh/antidote"
 ```
 
+The clone command follows Antidote's [official Git installation
+method](https://antidote.sh/), with a destination that matches this
+configuration's `ANTIDOTE_HOME`.
+
 > [!NOTE]
 > On macOS, avoid installing Antidote with Homebrew. Homebrew upgrades can
 > replace the Cellar path and invalidate the plugin installation. Use the Git
 > installation above instead.
+>
+> On Arch Linux, Antidote is available from the [AUR](https://aur.archlinux.org/packages/zsh-antidote),
+> not the official Pacman repositories. This configuration expects the loader at
+> `$XDG_DATA_HOME/zsh/antidote`, while a package installation uses a different
+> path and would require changing the Zsh loader configuration. Use the Git
+> installation above to install it where this configuration expects it.
 
 Use [Antidote](https://antidote.sh/) to manage the Zsh plugins.
 
@@ -257,6 +289,15 @@ Additional long-form commands and typo-tolerant variants are available in [`plug
 Install [Starship](https://starship.rs/) separately because package availability
 varies by distribution.
 
+#### Arch Linux
+
+Install Starship with Pacman, as described in the [official Starship
+guide](https://starship.rs/guide/):
+
+```sh
+sudo pacman -S --needed --noconfirm starship
+```
+
 #### Fedora
 
 Enable the Starship COPR and install Starship with DNF:
@@ -294,7 +335,18 @@ brew install starship
 
 Install Nerd Font to provide the icons and glyphs used by the Starship prompt. This configuration uses [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts), but you can choose another available Nerd Font such as JetBrainsMono Nerd Font.
 
-Install Hack Nerd Font for the current user using the instructions for your platform:
+Install Hack Nerd Font using the instructions for your platform:
+
+#### Arch Linux
+
+Install Hack Nerd Font from the official Arch repositories:
+
+```sh
+sudo pacman -S --needed --noconfirm ttf-hack-nerd
+```
+
+Select `Hack Nerd Font` in your terminal emulator. Verify that Fontconfig can
+find the font with `fc-list | grep -i 'Hack Nerd Font'`.
 
 #### Fedora
 
@@ -337,6 +389,22 @@ brew install --cask font-hack-nerd-font
 ### Install Podman/Docker
 
 Install a container engine before using the Docker-compatible aliases in the Zsh configuration.
+
+#### Arch Linux
+
+Install Docker Engine and Docker Compose with Pacman, then enable the Docker
+service:
+
+```sh
+sudo pacman -S --needed --noconfirm docker docker-compose
+sudo systemctl enable --now docker
+sudo docker run hello-world
+docker compose version
+```
+
+Use `sudo` for Docker commands unless you have configured another access
+method. Adding a user to the `docker` group grants root-equivalent privileges;
+see the [ArchWiki Docker documentation](https://wiki.archlinux.org/title/Docker).
 
 #### Fedora
 
