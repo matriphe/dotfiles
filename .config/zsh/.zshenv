@@ -36,3 +36,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Zsh plugin manager and generated plugin bundle.
 export ANTIDOTE_HOME="${XDG_DATA_HOME}/zsh/antidote"
 export ANTIDOTE_BUNDLE="${XDG_CACHE_HOME}/zsh/.zsh_plugins.zsh"
+
+# oh-my-zsh plugins (e.g. kubectl) expect this core variable even when
+# loaded via antidote without oh-my-zsh's lib/.
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
