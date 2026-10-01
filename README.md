@@ -225,6 +225,12 @@ configuration's `ANTIDOTE_HOME`.
 > On macOS, avoid installing Antidote with Homebrew. Homebrew upgrades can
 > replace the Cellar path and invalidate the plugin installation. Use the Git
 > installation above instead.
+>
+> On Arch Linux, Antidote is available from the [AUR](https://aur.archlinux.org/packages/zsh-antidote),
+> not the official Pacman repositories. This configuration expects the loader at
+> `$XDG_DATA_HOME/zsh/antidote`, while a package installation uses a different
+> path and would require changing the Zsh loader configuration. Use the Git
+> installation above to install it where this configuration expects it.
 
 Use [Antidote](https://antidote.sh/) to manage the Zsh plugins.
 
