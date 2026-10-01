@@ -79,12 +79,12 @@ This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.
 antidote install 'ohmyzsh/ohmyzsh path:plugins/kubectl' "$ZDOTDIR/.zsh_plugins.local.txt"
 ```
 
-Remove a locally installed plugin with:
+Remove it again with the same bundle name:
 
 ```zsh
-zpd ohmyzsh/ohmyzsh
+zpd 'ohmyzsh/ohmyzsh path:plugins/kubectl'
 ```
 
-This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup.
+This deletes matching lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup. Removing `ohmyzsh/ohmyzsh` without a `path:` annotation removes all oh-my-zsh plugin lines and the whole clone.
 
 Additional long-form commands and typo-tolerant variants are available in [`plugins.zsh`](plugins.zsh).

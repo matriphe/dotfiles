@@ -234,13 +234,21 @@ This appends `ohmyzsh/ohmyzsh kind:defer` to `.zsh_plugins.local.txt`, keeping l
 antidote install <plugin> "$ZDOTDIR/.zsh_plugins.local.txt"
 ```
 
-Remove a locally installed plugin with:
+To install a single plugin from a monorepo like [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh), use the `path:` annotation. For example, to add the kubectl plugin:
 
 ```zsh
-zpd ohmyzsh/ohmyzsh
+zpi 'ohmyzsh/ohmyzsh path:plugins/kubectl'
 ```
 
-This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory; run `zpu` and reload the shell to finish.
+This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.local.txt`. Run `dotfiles reload` (or start a new shell) to load it.
+
+Remove it again with the same bundle name:
+
+```zsh
+zpd 'ohmyzsh/ohmyzsh path:plugins/kubectl'
+```
+
+This deletes matching lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory; run `zpu` and reload the shell to finish. Removing `ohmyzsh/ohmyzsh` without a `path:` annotation removes all oh-my-zsh plugin lines and the whole clone.
 
 Additional long-form commands and typo-tolerant variants are available in [`plugins.zsh`](.config/zsh/plugins.zsh).
 
