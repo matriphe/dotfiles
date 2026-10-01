@@ -67,3 +67,6 @@ zsh-plugin-install() {
 
 # Keep the previous helper name as a compatibility alias.
 alias zplugin-update='zsh-plugins-update'
+
+alias zpi='zsh-plugin-install'
+alias zpu='zsh-plugins-update'
