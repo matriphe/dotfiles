@@ -42,7 +42,7 @@ sudo dnf install -y zsh
 Install Zsh with Pacman:
 
 ```sh
-sudo pacman -Syu --needed zsh
+sudo pacman -Syu --needed --noconfirm zsh
 ```
 
 #### Debian, Ubuntu, and Linux Mint
@@ -180,7 +180,7 @@ Enable the `pennbauman/ports` COPR to install `lf`, which is not in Fedora's sta
 Install the required tools with Pacman:
 
 ```sh
-sudo pacman -Syu --needed git curl zsh tmux eza bat ripgrep lf fontconfig
+sudo pacman -Syu --needed --noconfirm git curl zsh tmux eza bat ripgrep lf fontconfig
 ```
 
 Install Antidote separately in [Install Antidote](#install-antidote), and
@@ -289,7 +289,7 @@ Install Starship with Pacman, as described in the [official Starship
 guide](https://starship.rs/guide/):
 
 ```sh
-sudo pacman -S --needed starship
+sudo pacman -S --needed --noconfirm starship
 ```
 
 #### Fedora
@@ -336,7 +336,7 @@ Install Hack Nerd Font using the instructions for your platform:
 Install Hack Nerd Font from the official Arch repositories:
 
 ```sh
-sudo pacman -S --needed ttf-hack-nerd
+sudo pacman -S --needed --noconfirm ttf-hack-nerd
 ```
 
 Select `Hack Nerd Font` in your terminal emulator. Verify that Fontconfig can
@@ -390,7 +390,7 @@ Install Docker Engine and Docker Compose with Pacman, then enable the Docker
 service:
 
 ```sh
-sudo pacman -S --needed docker docker-compose
+sudo pacman -S --needed --noconfirm docker docker-compose
 sudo systemctl enable --now docker
 sudo docker run hello-world
 docker compose version
