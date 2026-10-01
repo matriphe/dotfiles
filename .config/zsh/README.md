@@ -83,6 +83,14 @@ zpi 'ohmyzsh/ohmyzsh path:plugins/kubectl'
 
 This appends `ohmyzsh/ohmyzsh path:plugins/kubectl kind:defer` to `.zsh_plugins.local.txt`. Then run `dotfiles reload` (or start a new shell) to load it.
 
+Remove a locally installed plugin with:
+
+```zsh
+zsh-plugin-uninstall ohmyzsh/ohmyzsh
+```
+
+The short aliases are `zpd` (zp delete) and `zpr` (zp remove). This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup.
+
 Update installed plugins with:
 
 ```zsh

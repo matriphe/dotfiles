@@ -84,12 +84,63 @@ zsh-plugin-install() {
   fi
 }
 
+zsh-plugin-uninstall() {
+  if (( $# == 0 )); then
+    print -u2 "usage: zsh-plugin-uninstall <plugin>"
+    return 1
+  fi
+
+  if [[ ! -r "${ANTIDOTE_LOCAL_MANIFEST}" ]]; then
+    print -u2 "No local plugin manifest at ${ANTIDOTE_LOCAL_MANIFEST}"
+    return 1
+  fi
+
+  local bundle="$1"
+  local repo="${bundle%%[[:blank:]]*}"
+  repo="${repo#https://}"
+  repo="${repo#http://}"
+  repo="${repo#git@}"
+  repo="${repo%.git}"
+
+  # Remove matching lines from the local manifest.
+  local tmp="${ANTIDOTE_LOCAL_MANIFEST}.tmp.$$"
+  awk -v b="$repo" '
+    {
+      l = $0
+      sub(/^[[:blank:]]+/, "", l)
+      if (l == b || substr(l, 1, length(b) + 1) == b " ") {
+        print "Removed: " $0 > "/dev/stderr"
+        next
+      }
+      print
+    }' "${ANTIDOTE_LOCAL_MANIFEST}" > "${tmp}" \
+    && mv "${tmp}" "${ANTIDOTE_LOCAL_MANIFEST}" \
+    || { rm -f "${tmp}"; print -u2 "Failed to update ${ANTIDOTE_LOCAL_MANIFEST}"; return 1; }
+
+  # Drop the cloned plugin directory, if present.
+  local plugindir="${ANTIDOTE_HOME}/github.com/${repo}"
+  if [[ -d "${plugindir}" ]]; then
+    rm -rf "${plugindir}"
+    print "Removed ${plugindir}"
+  fi
+
+  print "Run 'zpu' and restart the shell (or run 'dotfiles reload') to finish."
+}
+
 # Keep the previous helper name as a compatibility alias.
 alias zplugin-update='zsh-plugins-update'
 
 # Accept common singular, plural, and misspelled command variants.
 alias zsh-plugins-install='zsh-plugin-install'
 alias zsh-plugin-update='zsh-plugins-update'
-alias zsh-pluins-update='zsh-plugins-update'
+alias zsh-plugins-uninstall='zsh-plugin-uninstall'
+alias zsh-plugins-uninstal='zsh-plugin-uninstall'
+alias zsh-plugin-uninstal='zsh-plugin-uninstall'
+alias zsh-plugins-unistall='zsh-plugin-uninstall'
+alias zsh-plugin-unistall='zsh-plugin-uninstall'
+alias zsh-plug-in-uninstall='zsh-plugin-uninstall'
 alias zpi='zsh-plugin-install'
 alias zpu='zsh-plugins-update'
+alias zpd='zsh-plugin-uninstall'
+alias zpr='zsh-plugin-uninstall'
+alias zpr='zsh-plugin-uninstall'

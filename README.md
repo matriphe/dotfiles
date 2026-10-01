@@ -240,7 +240,15 @@ zsh-plugins-update
 
 Use `zpu` as the short alias for `zsh-plugins-update`.
 
-Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.
+Remove a locally installed plugin with `zsh-plugin-uninstall` (short aliases `zpd` and `zpr`):
+
+```zsh
+zsh-plugin-uninstall ohmyzsh/ohmyzsh
+```
+
+This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory; run `zpu` and reload the shell to finish.
+
+Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugins-uninstall`, `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.
 
 ### Install Starship
 
