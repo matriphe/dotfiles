@@ -208,6 +208,7 @@ Review the loaded plugins in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_p
 - [`zsh-users/zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) highlights valid and invalid shell syntax before a command runs.
 - [`zsh-users/zsh-history-substring-search`](https://github.com/zsh-users/zsh-history-substring-search) searches command history using the text currently entered at the prompt.
 - [`zsh-users/zsh-completions`](https://github.com/zsh-users/zsh-completions) provides additional completion definitions for Zsh commands.
+- [`ohmyzsh/ohmyzsh`](https://github.com/ohmyzsh/ohmyzsh) provides the `git`, `kubectl`, and `alias-finder` plugins.
 
 Antidote reads the manifest and generates a cached plugin bundle. Update the installed plugins and regenerate the bundle with:
 
