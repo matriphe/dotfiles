@@ -23,6 +23,10 @@ if [[ -z "${ANTIDOTE_ZSH}" ]]; then
 else
   source "${ANTIDOTE_ZSH}"
 
+  # oh-my-zsh plugins expect ZSH_CACHE_DIR (see .zshenv) and write
+  # completion caches under completions/.
+  mkdir -p "${ZSH_CACHE_DIR}/completions"
+
   mkdir -p "${ANTIDOTE_BUNDLE:h}"
 
   # Regenerate when the manifest is newer, or when the antidote install
