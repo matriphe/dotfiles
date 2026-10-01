@@ -78,3 +78,5 @@ zsh-plugins-update
 ```
 
 The short alias is `zpu`.
+
+Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.

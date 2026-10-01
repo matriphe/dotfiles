@@ -240,6 +240,8 @@ zsh-plugins-update
 
 Use `zpu` as the short alias for `zsh-plugins-update`.
 
+Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.
+
 ### Install Starship
 
 Install [Starship](https://starship.rs/) separately because package availability
