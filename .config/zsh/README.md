@@ -17,7 +17,8 @@ The system-wide `/etc/zshenv` sets `ZDOTDIR` to this directory. The interactive 
 - `.zshenv` sets XDG directories, the default editor, the man-page pager, GPG terminal handling, `PATH`, and Python virtualenv prompt behavior.
 - `.zshrc` configures history, shell behavior, completion, plugins, aliases, modules, and local overrides.
 - `plugins.zsh` loads Antidote and the generated plugin bundle, and provides a plugin update helper.
-- `.zsh_plugins.txt` lists the plugins managed by Antidote.
+- `.zsh_plugins.txt` lists the shared plugins managed by Antidote.
+- `.zsh_plugins.local.txt` lists machine-specific plugins installed locally.
 - `aliases.zsh` provides aliases and helper functions for `eza`, `bat`, `lf`, Git, and navigation.
 - `modules/homebrew.zsh` initializes Homebrew when the `brew` command or a standard macOS Homebrew installation is available.
 - `modules/podman.zsh` maps `docker` and `docker-compose` to Podman when both Podman commands are installed.
@@ -48,7 +49,19 @@ Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell
 
 ## Plugins
 
-Install Antidote at `$XDG_DATA_HOME/zsh/antidote` using one of the install methods in the root README: a manual Git clone, or Homebrew on macOS followed by a symlink to this path. The plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt). Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations. Update installed plugins with:
+Install Antidote at `$XDG_DATA_HOME/zsh/antidote` using one of the install methods in the root README: a manual Git clone, or Homebrew on macOS followed by a symlink to this path. The shared plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt), while machine-specific additions go in [`.zsh_plugins.local.txt`](.zsh_plugins.local.txt). Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations. Add a plugin to the local manifest with:
+
+```zsh
+zsh-plugin-install ohmyzsh/ohmyzsh
+```
+
+The direct Antidote equivalent is:
+
+```zsh
+antidote install ohmyzsh/ohmyzsh "$ZDOTDIR/.zsh_plugins.local.txt"
+```
+
+Update installed plugins with:
 
 ```zsh
 zsh-plugins-update

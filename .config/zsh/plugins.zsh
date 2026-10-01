@@ -1,6 +1,7 @@
 # Antidote plugin loading.
 
 typeset -g ANTIDOTE_MANIFEST="${ZDOTDIR}/.zsh_plugins.txt"
+typeset -g ANTIDOTE_LOCAL_MANIFEST="${ZDOTDIR}/.zsh_plugins.local.txt"
 
 # Locate the antidote.zsh loader. ANTIDOTE_HOME is the plugin data dir; a
 # git-clone install keeps the loader there. On macOS, Homebrew installs the
@@ -29,8 +30,13 @@ else
   # version bump or a move between machines).
   if [[ ! -r "${ANTIDOTE_BUNDLE}" ||
         "${ANTIDOTE_MANIFEST}" -nt "${ANTIDOTE_BUNDLE}" ||
+        "${ANTIDOTE_LOCAL_MANIFEST}" -nt "${ANTIDOTE_BUNDLE}" ||
         "${ANTIDOTE_ZSH}" -nt "${ANTIDOTE_BUNDLE}" ]]; then
-    antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
+    if [[ -r "${ANTIDOTE_LOCAL_MANIFEST}" ]]; then
+      antidote bundle < <(cat "${ANTIDOTE_MANIFEST}" "${ANTIDOTE_LOCAL_MANIFEST}") >"${ANTIDOTE_BUNDLE}"
+    else
+      antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
+    fi
   fi
 
   source "${ANTIDOTE_BUNDLE}"
@@ -43,7 +49,20 @@ zsh-plugins-update() {
   fi
 
   antidote update
-  antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
+  if [[ -r "${ANTIDOTE_LOCAL_MANIFEST}" ]]; then
+    antidote bundle < <(cat "${ANTIDOTE_MANIFEST}" "${ANTIDOTE_LOCAL_MANIFEST}") >"${ANTIDOTE_BUNDLE}"
+  else
+    antidote bundle <"${ANTIDOTE_MANIFEST}" >"${ANTIDOTE_BUNDLE}"
+  fi
+}
+
+zsh-plugin-install() {
+  if (( $# == 0 )); then
+    print -u2 "usage: zsh-plugin-install <plugin> [plugin options...]"
+    return 1
+  fi
+
+  antidote install "$@" "${ANTIDOTE_LOCAL_MANIFEST}"
 }
 
 # Keep the previous helper name as a compatibility alias.
