@@ -134,9 +134,6 @@ alias zpu='zsh-plugins-update'
 alias zpd='zsh-plugin-uninstall'
 alias zpr='zsh-plugin-uninstall'
 
-# Keep the previous helper name as a compatibility alias.
-alias zplugin-update='zsh-plugins-update'
-
 # Install (zsh-plugin-install).
 alias zsh-plugins-install='zsh-plugin-install'
 alias zsh-plugin-add='zsh-plugin-install'
