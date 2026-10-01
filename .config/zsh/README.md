@@ -89,7 +89,7 @@ Remove a locally installed plugin with:
 zsh-plugin-uninstall ohmyzsh/ohmyzsh
 ```
 
-The short aliases are `zpd` (zp delete) and `zpr` (zp remove). This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup.
+The short aliases are `zpd` (zp delete) and `zpr` (zp remove); `zsh-plugin-remove` also works. This deletes the plugin's lines from `.zsh_plugins.local.txt` and removes the cloned plugin directory, then regenerating the bundle with `zpu` finishes the cleanup.
 
 Update installed plugins with:
 

@@ -127,18 +127,18 @@ zsh-plugin-uninstall() {
   print "Run 'zpu' and restart the shell (or run 'dotfiles reload') to finish."
 }
 
+# Short aliases for daily use.
+alias zpi='zsh-plugin-install'
+alias zpa='zsh-plugin-install'
+alias zpu='zsh-plugins-update'
+alias zpd='zsh-plugin-uninstall'
+alias zpr='zsh-plugin-uninstall'
+
 # Keep the previous helper name as a compatibility alias.
 alias zplugin-update='zsh-plugins-update'
 
-# Accept common singular, plural, and misspelled command variants.
+# Install (zsh-plugin-install).
 alias zsh-plugins-install='zsh-plugin-install'
-alias zsh-plugin-update='zsh-plugins-update'
-alias zsh-plugins-uninstall='zsh-plugin-uninstall'
-alias zsh-plugins-uninstal='zsh-plugin-uninstall'
-alias zsh-plugin-uninstal='zsh-plugin-uninstall'
-alias zsh-plugins-unistall='zsh-plugin-uninstall'
-alias zsh-plugin-unistall='zsh-plugin-uninstall'
-alias zsh-plug-in-uninstall='zsh-plugin-uninstall'
 alias zsh-plugin-add='zsh-plugin-install'
 alias zsh-plugins-add='zsh-plugin-install'
 alias zsh-plugin-ad='zsh-plugin-install'
@@ -147,8 +147,22 @@ alias zsh-plugin-adds='zsh-plugin-install'
 alias zsh-plugin-dd='zsh-plugin-install'
 alias zsh-plugin-add-plugin='zsh-plugin-install'
 alias zsh-plugins-add-plugins='zsh-plugin-install'
-alias zpi='zsh-plugin-install'
-alias zpa='zsh-plugin-install'
-alias zpu='zsh-plugins-update'
-alias zpd='zsh-plugin-uninstall'
-alias zpr='zsh-plugin-uninstall'
+
+# Update (zsh-plugins-update).
+alias zsh-plugin-update='zsh-plugins-update'
+
+# Uninstall (zsh-plugin-uninstall).
+alias zsh-plugins-uninstall='zsh-plugin-uninstall'
+alias zsh-plugin-remove='zsh-plugin-uninstall'
+alias zsh-plugins-remove='zsh-plugin-uninstall'
+alias zsh-plugin-remve='zsh-plugin-uninstall'
+alias zsh-plugins-remve='zsh-plugin-uninstall'
+alias zsh-plugin-remov='zsh-plugin-uninstall'
+alias zsh-plugin-reove='zsh-plugin-uninstall'
+alias zsh-plugin-reomve='zsh-plugin-uninstall'
+alias zsh-plugin-removes='zsh-plugin-uninstall'
+alias zsh-plugins-uninstal='zsh-plugin-uninstall'
+alias zsh-plugin-uninstal='zsh-plugin-uninstall'
+alias zsh-plugins-unistall='zsh-plugin-uninstall'
+alias zsh-plugin-unistall='zsh-plugin-uninstall'
+alias zsh-plug-in-uninstall='zsh-plugin-uninstall'
