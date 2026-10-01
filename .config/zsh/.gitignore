@@ -10,4 +10,3 @@
 
 # Machine-local overrides
 local/
-.zsh_plugins.*.txt
