@@ -59,6 +59,7 @@ alias gadog='PAGER="less -F -X" git log --all --decorate --oneline --graph'
 
 dotfiles() {
     local g="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+    local local_plugin_manifest="$ZDOTDIR/.zsh_plugins.local.txt"
     if [[ "$1" == reload ]]; then
         source "$ZDOTDIR/.zshenv"
         source "$ZDOTDIR/.zshrc"
@@ -80,7 +81,7 @@ dotfiles() {
         # fast-forwarded afterwards. Skip-worktree files are left untouched.
         ${=g} checkout FETCH_HEAD -- . 2>&1 | grep -v "sparse-checkout" 1>&2
         ${=g} merge --ff-only FETCH_HEAD && \
-            ${=g} update-index --skip-worktree -- .config/zsh/.zsh_plugins.local.txt
+            ${=g} update-index --skip-worktree -- "$local_plugin_manifest"
         print "Tracked files reset to the repository state."
         print "Remember to run 'dotfiles reload' to reload the updated configuration."
         return
@@ -112,7 +113,7 @@ dotfiles() {
         # FETCH_HEAD is already fetched above; merging directly avoids a
         # second fetch inside pull.
         ${=g} merge --ff-only FETCH_HEAD && \
-            ${=g} update-index --skip-worktree -- .config/zsh/.zsh_plugins.local.txt && \
+            ${=g} update-index --skip-worktree -- "$local_plugin_manifest" && \
             print "Remember to run 'dotfiles reload' to reload the updated configuration."
         return
     fi
