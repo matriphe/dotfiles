@@ -41,4 +41,6 @@ export ANTIDOTE_BUNDLE="${XDG_CACHE_HOME}/zsh/.zsh_plugins.zsh"
 # loaded via antidote without oh-my-zsh's lib/. Plugins write completion
 # caches under completions/, so create it up front.
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
-mkdir -p "${ZSH_CACHE_DIR}/completions"
+if [[ ! -d "${ZSH_CACHE_DIR}/completions" ]]; then
+  mkdir -p "${ZSH_CACHE_DIR}/completions"
+fi
