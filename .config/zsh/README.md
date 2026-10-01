@@ -59,6 +59,12 @@ Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, 
 zsh-plugin-install ohmyzsh/ohmyzsh
 ```
 
+The short alias is `zpi`:
+
+```zsh
+zpi ohmyzsh/ohmyzsh
+```
+
 The direct Antidote equivalent is:
 
 ```zsh
@@ -70,3 +76,7 @@ Update installed plugins with:
 ```zsh
 zsh-plugins-update
 ```
+
+The short alias is `zpu`.
+
+Compatibility aliases are also available: `zsh-plugins-install`, `zsh-plugin-update`, and the typo-tolerant `zsh-pluins-update`.
