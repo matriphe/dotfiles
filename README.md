@@ -7,15 +7,15 @@ Git repository in `$HOME`, and configure Zsh to use the files.
 
 ## Table of contents
 
-- [1. Install Zsh and required tools](#1-install-zsh-and-required-tools)
-- [2. Install optional components](#2-install-optional-components)
+- [Install Zsh and required tools](#install-zsh-and-required-tools)
+- [Install optional components](#install-optional-components)
   - [Install Antidote](#install-antidote)
   - [Install Starship](#install-starship)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Install Podman or Docker](#install-podman-or-docker)
-- [3. Clone this repository](#3-clone-this-repository)
-- [4. Configure Zsh](#4-configure-zsh)
-- [5. Start and manage your shell](#5-start-and-manage-your-shell)
+- [Clone this repository](#clone-this-repository)
+- [Configure Zsh](#configure-zsh)
+- [Start and manage your shell](#start-and-manage-your-shell)
   - [Manage Zsh plugins](#manage-zsh-plugins)
 - [Zsh modules](#zsh-modules)
 - [AI agent configuration](#ai-agent-configuration)
@@ -23,7 +23,7 @@ Git repository in `$HOME`, and configure Zsh to use the files.
 - [Credits](#credits)
 - [License](#license)
 
-## 1. Install Zsh and required tools
+## Install Zsh and required tools
 
 Install Zsh and the command-line tools for your operating system.
 
@@ -77,7 +77,7 @@ Zsh is included with macOS. Install the other tools with Homebrew:
 brew install git curl tmux eza bat ripgrep lf
 ```
 
-## 2. Install optional components
+## Install optional components
 
 Install the components you want to use. Starship and a Nerd Font provide the
 configured prompt; Antidote loads Zsh plugins. Install a container engine if
@@ -270,7 +270,7 @@ ln -sfn "$(brew --prefix)/opt/docker-compose/bin/docker-compose" \
 The symlink makes Homebrew's standalone `docker-compose` binary available to
 the Docker CLI as `docker compose`.
 
-## 3. Clone this repository
+## Clone this repository
 
 Clone the repository as a bare Git repository and use your home directory as
 its working tree:
@@ -286,7 +286,7 @@ Tracked files are placed directly in your home directory, including
 `AGENTS.md`, `.config/zsh`, and `.config/tmux`. The bare repository is stored
 separately at `~/.dotfiles`.
 
-## 4. Configure Zsh
+## Configure Zsh
 
 Configure the global Zsh startup file to use `$HOME/.config/zsh`. The checked
 out directory must exist before you add this configuration.
@@ -357,7 +357,7 @@ On Arch Linux, keep the existing line that sources `/etc/profile` in
 `/etc/zsh/zshenv`. After changing the global configuration, log out and back
 in.
 
-## 5. Start and manage your shell
+## Start and manage your shell
 
 Load the Zsh configuration to enable the `dotfiles` helper:
 
