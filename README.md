@@ -114,6 +114,10 @@ It includes:
 Install [Starship](https://starship.rs/) using the instructions for your
 operating system:
 
+Example of the configured prompt in a terminal:
+
+![Terminal running Zsh with the Starship prompt](.config/starship/terminal-example.png)
+
 #### Arch Linux
 
 ```sh
