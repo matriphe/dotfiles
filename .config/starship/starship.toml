@@ -4,6 +4,7 @@
 add_newline = true
 format = """
 $os\
+$username\
 $directory\
 $git_branch\
 $git_status\
@@ -134,8 +135,9 @@ crust = "#181926"
 # Operating system module
 [os]
 disabled = false
+style = "bg:mauve fg:crust"
 format = """
-[ $symbol ](bg:mauve fg:base)\
+[ $symbol( $version) ]($style)\
 """
 
 [os.symbols]
@@ -160,11 +162,18 @@ Debian = "󰣚"
 Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 
+# Username module
+[username]
+show_always = true
+style_user = "bg:peach fg:crust"
+style_root = "bg:red fg:crust"
+format = '[ $user ]($style)'
+
 # Directory module
 [directory]
 format = """
-[ $path ](bg:green fg:base)\
-([ $read_only ](bg:red fg:text))\
+[ $path ](bg:green fg:crust)\
+([$read_only ](bg:green fg:red))\
 """
 truncation_length = 3
 truncation_symbol = "󰉖 /"
@@ -186,13 +195,13 @@ Projects = ' '
 [git_branch]
 symbol = ""
 format = """
-([ $symbol $branch ](bg:flamingo fg:base))\
+([ $symbol $branch ](bg:flamingo fg:crust))\
 """
 
 [git_status]
 format = """
-([ $all_status ](bg:maroon fg:base))\
-([ $ahead_behind ](bg:rosewater fg:base))\
+([ $all_status ](bg:maroon fg:crust))\
+([ $ahead_behind ](bg:rosewater fg:crust))\
 """
 
 # Fill module
@@ -204,16 +213,16 @@ style = 'bg:overlay0'
 [cmd_duration]
 style = 'fg:230'
 format = """
-([ 󱎫 $duration ](bg:pink fg:base))\
+([ 󱎫 $duration ](bg:pink fg:crust))\
 """
 
 # Kubernetes module
 [kubernetes]
 disabled = false
 symbol = ''
-style = 'fg:base'
+style = 'fg:crust'
 format = """
-([ $symbol [$context](bg:blue bold $style) $namespace ](bg:blue fg:base))\
+([ $symbol [$context](bg:blue bold $style) $namespace ](bg:blue fg:crust))\
 """
 
 [[kubernetes.contexts]]
@@ -229,9 +238,19 @@ style = 'fg:green'
 ssh_only = false
 disabled = false
 format = """
-([   $localipv4 ](bg:yellow fg:base))\
+([   $localipv4 ](bg:yellow fg:crust))\
 """
 
 # Package information is not shown.
 [package]
 disabled = true
+
+# character
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
+vimcmd_replace_symbol = '[❮](bold fg:lavender)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
