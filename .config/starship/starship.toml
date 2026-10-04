@@ -213,16 +213,16 @@ disabled = false
 symbol = ''
 style = 'fg:base'
 format = """
-([ $symbol ](fg:blue fg:base)[ $context ](fg:blue bold $style)[ $namespace ](bg:sky $style))\
+([ $symbol [$context](bg:blue bold $style) $namespace ](bg:blue fg:base))\
 """
 
 [[kubernetes.contexts]]
 context_pattern = ".*live.*"
-style = 'fg:maroon'
+style = 'fg:rosewater'
 
 [[kubernetes.contexts]]
 context_pattern = ".*staging.*"
-style = 'fg:flamingo'
+style = 'fg:green'
 
 # Local network information
 [localip]
