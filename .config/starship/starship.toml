@@ -17,7 +17,7 @@ $character
 """
 
 # Color palette
-palette = 'catppuccin_frappe'
+palette = 'catppuccin_macchiato'
 
 # Catppuccin color palette
 [palettes.catppuccin_mocha]
