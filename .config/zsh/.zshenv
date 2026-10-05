@@ -41,3 +41,7 @@ export ANTIDOTE_BUNDLE="${XDG_CACHE_HOME}/zsh/.zsh_plugins.zsh"
 # loaded via antidote without oh-my-zsh's lib/. Plugins write completion
 # caches under completions/, so create it up front.
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
+
+# Point eza at its XDG config dir for theme.yml; without this, macOS eza
+# looks in ~/Library/Application Support/eza instead.
+export EZA_CONFIG_DIR="${XDG_CONFIG_HOME}/eza"
