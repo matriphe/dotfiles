@@ -5,6 +5,8 @@ Personal Zsh, terminal, application, and AI-agent configuration.
 Follow the steps below to install the tools, check out this repository as a bare
 Git repository in `$HOME`, and configure Zsh to use the files.
 
+![Terminal running Zsh with the Starship prompt and eza](.config/starship/terminal-example.png)
+
 ## Table of contents
 
 - [Install Zsh and required tools](#install-zsh-and-required-tools)
@@ -113,10 +115,6 @@ It includes:
 
 Install [Starship](https://starship.rs/) using the instructions for your
 operating system:
-
-Example of the configured prompt in a terminal:
-
-![Terminal running Zsh with the Starship prompt](.config/starship/terminal-example.png)
 
 #### Arch Linux
 
