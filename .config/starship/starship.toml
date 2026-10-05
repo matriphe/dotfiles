@@ -137,7 +137,7 @@ crust = "#181926"
 disabled = false
 style = "bg:mauve fg:crust"
 format = """
-[ $symbol( $version) ]($style)\
+[ $symbol( $codename)( $edition)( $version) ]($style)\
 """
 
 [os.symbols]
