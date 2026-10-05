@@ -2,9 +2,9 @@
 unalias ls 2>/dev/null
 ls() {
     if [[ "$#" -eq 1 && "$1" == Backup && ! -e "$1" && -e "$HOME/Backup" ]]; then
-        command eza --icons=auto "$HOME/Backup"
+        command env -u LS_COLORS -u EZA_COLORS eza --color=always --icons=auto "$HOME/Backup"
     else
-        command eza --icons=auto "$@"
+        command env -u LS_COLORS -u EZA_COLORS eza --color=always --icons=auto "$@"
     fi
 }
 
