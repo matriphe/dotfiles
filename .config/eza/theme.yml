@@ -3,27 +3,27 @@ colourful: true
 
 filekinds:
   normal: { foreground: "#B8C0E0" }
-  directory: { foreground: "#8AADF4" }
+  directory: { foreground: "#a6da95" }
   symlink: { foreground: "#91D7E3" }
   pipe: { foreground: "#8087A2" }
   block_device: { foreground: "#EE99A0" }
   char_device: { foreground: "#EE99A0" }
   socket: { foreground: "#5B6078" }
   special: { foreground: "#C6A0F6" }
-  executable: { foreground: "#A6DA95" }
+  executable: { foreground: "#ee99a0" }
   mount_point: { foreground: "#7DC4E4" }
 
 perms:
   user_read: { foreground: "#CAD3F5" }
   user_write: { foreground: "#EED49F" }
-  user_execute_file: { foreground: "#A6DA95" }
-  user_execute_other: { foreground: "#A6DA95" }
+  user_execute_file: { foreground: "#ee99a0" }
+  user_execute_other: { foreground: "#ee99a0" }
   group_read: { foreground: "#B8C0E0" }
   group_write: { foreground: "#EED49F" }
-  group_execute: { foreground: "#A6DA95" }
+  group_execute: { foreground: "#ee99a0" }
   other_read: { foreground: "#A5ADCB" }
   other_write: { foreground: "#EED49F" }
-  other_execute: { foreground: "#A6DA95" }
+  other_execute: { foreground: "#ee99a0" }
   special_user_file: { foreground: "#C6A0F6" }
   special_other: { foreground: "#5B6078" }
   attribute: { foreground: "#A5ADCB" }
@@ -43,7 +43,7 @@ size:
   unit_huge: { foreground: "#7DC4E4" }
 
 users:
-  user_you: { foreground: "#CAD3F5" }
+  user_you: { foreground: "#f5a97f" }
   user_root: { foreground: "#ED8796" }
   user_other: { foreground: "#C6A0F6" }
   group_yours: { foreground: "#B8C0E0" }
@@ -90,7 +90,7 @@ file_type:
   source: { foreground: "#8AADF4" }
 
 punctuation: { foreground: "#8087A2" }
-date: { foreground: "#EED49F" }
+date: { foreground: "#f5bde6" }
 inode: { foreground: "#A5ADCB" }
 blocks: { foreground: "#9399B2" }
 header: { foreground: "#CAD3F5" }
