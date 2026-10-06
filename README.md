@@ -384,15 +384,17 @@ dotfiles update-force
 dotfiles reload
 ```
 
-- Run `dotfiles update` to pull upstream changes with fast-forward-only
-  behavior. It resets files already matching upstream and lists local edits it
-  would overwrite.
-- Run `dotfiles update-force` to reset every tracked file in `$HOME` to the
-  repository state. It asks for confirmation; pass `-y` to skip it. Use this
-  when a normal update refuses to proceed. Skip-worktree files remain
-  untouched. Both update commands initialize and update repository submodules.
+- Run `dotfiles update` to fetch and reset tracked files and local commits to
+  the current branch's upstream state. Local edits to tracked files are
+  overwritten. The machine-specific `.zsh_plugins.local.txt` manifest and
+  untracked files are preserved. Recursive submodules are synchronized and
+  forced to the commits recorded by the remote.
+- Run `dotfiles update-force` for the same reset after confirmation; pass `-y`
+  to skip the prompt. It also preserves the local plugin manifest and
+  untracked files.
 - Run `dotfiles reload` to reload `.zshenv` and `.zshrc` in the current Zsh
   shell, and reload the tmux configuration when a tmux server is running.
+  Update and reload failures are reported with a nonzero status.
 
 The helper is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
 
@@ -400,9 +402,10 @@ The helper is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.
 
 The shared plugin baseline is in [`.config/zsh/.zsh_plugins.txt`](.config/zsh/.zsh_plugins.txt).
 The repository also includes `.config/zsh/.zsh_plugins.local.txt` as a
-machine-specific manifest placeholder. Running `dotfiles update` marks this
-file `skip-worktree`, keeping local edits out of normal Git changes and
-commits.
+machine-specific manifest placeholder. `dotfiles update` preserves local
+contents of this file across remote resets and marks it `skip-worktree`,
+keeping local edits out of normal Git changes and commits. Other tracked files
+and local commits are reset to the upstream state.
 
 Use these aliases to manage local plugins:
 
