@@ -385,7 +385,8 @@ dotfiles reload
 ```
 
 - Run `dotfiles update` to fetch and reset tracked files and local commits to
-  the current branch's upstream state. Local edits to tracked files are
+  the current branch's upstream state. If no upstream is configured, it uses
+  the same-named branch on `origin`. Local edits to tracked files are
   overwritten. The machine-specific `.zsh_plugins.local.txt` manifest and
   untracked files are preserved. Recursive submodules are synchronized and
   forced to the commits recorded by the remote.

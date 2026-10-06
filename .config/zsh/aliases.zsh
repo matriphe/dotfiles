@@ -71,7 +71,7 @@ _dotfiles_sync_from_upstream() (
     local manifest_relative="${manifest_path#"$work_tree"/}"
     local manifest_backup=""
     local manifest_tracked=0
-    local upstream_ref remote_name remote_branch target
+    local upstream_ref remote_name remote_branch current_branch target
     local -a gitcmd=(git -C "$work_tree" --git-dir="$git_dir" --work-tree="$work_tree")
 
     if ! "${gitcmd[@]}" rev-parse --git-dir >/dev/null 2>&1; then
@@ -80,8 +80,12 @@ _dotfiles_sync_from_upstream() (
     fi
 
     upstream_ref=$("${gitcmd[@]}" rev-parse --symbolic-full-name '@{upstream}' 2>/dev/null) || {
-        print -u2 "dotfiles $operation: current branch has no configured upstream"
-        return 1
+        current_branch=$("${gitcmd[@]}" symbolic-ref --quiet --short HEAD 2>/dev/null) || {
+            print -u2 "dotfiles $operation: current branch has no configured upstream and HEAD is detached"
+            return 1
+        }
+        remote_name=origin
+        upstream_ref="refs/remotes/$remote_name/$current_branch"
     }
     if [[ "$upstream_ref" != refs/remotes/*/* ]]; then
         print -u2 "dotfiles $operation: upstream is not a remote tracking branch: $upstream_ref"
