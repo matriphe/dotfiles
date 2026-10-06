@@ -17,8 +17,11 @@ alias la='eza -lah --icons --git'
 # Tree view
 alias tree='eza --tree --icons'
 
-# Reuse ls completions for eza (avoids defining a separate completion function)
-compdef eza=ls
+# Fall back to ls completions only when eza ships none of its own
+# (some Linux packages omit them; Homebrew and official .deb/.rpm do not).
+# zsh-autocomplete defers compinit to ZLE startup, so _comps is still
+# empty here; re-check in a deferred task that runs after compinit.
+zsh-defer '(( $+_comps[eza] )) || compdef eza=ls'
 
 # Better cat
 alias cat='bat'

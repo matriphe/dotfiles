@@ -1,6 +1,6 @@
-zsh-users/zsh-autosuggestions kind:defer
+# Synchronous: must run compinit itself, before any compdef call
+marlonrichert/zsh-autocomplete
 zsh-users/zsh-syntax-highlighting kind:defer
-zsh-users/zsh-history-substring-search kind:defer
 zsh-users/zsh-completions kind:defer
 ohmyzsh/ohmyzsh path:plugins/git kind:defer
 ohmyzsh/ohmyzsh path:plugins/alias-finder kind:defer
