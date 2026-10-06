@@ -19,6 +19,7 @@ Git repository in `$HOME`, and configure Zsh to use the files.
 - [Configure Zsh](#configure-zsh)
 - [Start and manage your shell](#start-and-manage-your-shell)
   - [Manage Zsh plugins](#manage-zsh-plugins)
+  - [Manage Tmux plugins](#manage-tmux-plugins)
 - [Zsh modules](#zsh-modules)
 - [AI agent configuration](#ai-agent-configuration)
 - [Component documentation](#component-documentation)
@@ -282,6 +283,7 @@ cd "$HOME"
 git clone --bare https://github.com/matriphe/dotfiles.git .dotfiles
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config --local status.showUntrackedFiles no
 git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout
+git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" submodule update --init --recursive
 ```
 
 Tracked files are placed directly in your home directory, including
@@ -388,9 +390,9 @@ dotfiles reload
 - Run `dotfiles update-force` to reset every tracked file in `$HOME` to the
   repository state. It asks for confirmation; pass `-y` to skip it. Use this
   when a normal update refuses to proceed. Skip-worktree files remain
-  untouched.
+  untouched. Both update commands initialize and update repository submodules.
 - Run `dotfiles reload` to reload `.zshenv` and `.zshrc` in the current Zsh
-  shell.
+  shell, and reload the tmux configuration when a tmux server is running.
 
 The helper is loaded from [`$HOME/.config/zsh/aliases.zsh`](.config/zsh/aliases.zsh).
 
@@ -443,6 +445,28 @@ Then run `zpu` and reload the shell. Removing `ohmyzsh/ohmyzsh` without a
 `path:` annotation removes all its plugin lines and the cloned repository.
 See [`plugins.zsh`](.config/zsh/plugins.zsh) for long-form commands and
 typo-tolerant variants.
+
+### Manage Tmux plugins
+
+TPM is tracked as a Git submodule at `.config/tmux/plugins/tpm`. On a fresh
+checkout, the submodule setup command in the installation steps initializes
+TPM. `dotfiles update` and `dotfiles update-force` also initialize and update
+submodules automatically.
+
+Declare plugins in `.config/tmux/tmux.conf` with TPM's `@plugin` option:
+
+```tmux
+set -g @plugin 'tmux-plugins/tmux-sensible'
+```
+
+Then reload the configuration and press `prefix + I` to install. At runtime,
+tmux resolves TPM and installs managed plugins under
+`$XDG_CONFIG_HOME/tmux/plugins/` (normally `$HOME/.config/tmux/plugins/`),
+alongside the TPM submodule. Downloaded plugin directories are ignored by the
+dotfiles repository. Use `prefix + U` to update plugins or `prefix + alt + u`
+to remove plugins no longer declared. `dotfiles reload` reloads Zsh and the
+tmux configuration from the home-directory checkout when a tmux server is
+running.
 
 ## Zsh modules
 
