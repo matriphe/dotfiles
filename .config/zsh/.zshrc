@@ -38,6 +38,11 @@ done
 
 source "$ZDOTDIR/plugins.zsh"
 
+# Tab opens the completion menu instead of inserting the first listed
+# completion (zsh-autocomplete's default); Shift-Tab expands the word.
+bindkey '^I' menu-select
+bindkey "$terminfo[kcbt]" menu-select
+
 # =========================================================
 # Aliases Configurations
 # =========================================================
