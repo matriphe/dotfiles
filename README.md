@@ -35,7 +35,7 @@ Install Zsh and the command-line tools for your operating system.
 | [curl](https://curl.se/) | Download installation files and release assets. |
 | [Zsh](https://www.zsh.org/) | Run the configured shell. |
 | [Tmux](https://github.com/tmux/tmux) | Run the configured terminal multiplexer. |
-| [Eza](https://github.com/eza-community/eza) | Provide the `ls`, `ll`, `la`, and `tree` aliases, using the Catppuccin Macchiato palette shared with Starship and tmux. |
+| [Eza](https://github.com/eza-community/eza) | Provide the `ls`, `ll`, `la`, and `tree` aliases, using a theme based on Catppuccin Mocha with selected colors matched to Starship's palette. |
 | [Bat](https://github.com/sharkdp/bat) | Provide syntax highlighting through the `cat` alias. |
 | [Ripgrep](https://github.com/BurntSushi/ripgrep) | Search files while keeping `grep` available with its own flags. |
 | [Lf](https://github.com/gokcehan/lf) | Browse files with the `lf` navigation function. |
