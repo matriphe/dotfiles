@@ -96,7 +96,7 @@ _dotfiles_sync_from_upstream() (
     remote_branch="${remote_branch#*/}"
 
     if ! "${gitcmd[@]}" fetch --prune "$remote_name" \
-        "+refs/heads/$remote_branch:refs/remotes/$remote_name/$remote_branch"; then
+        "+refs/heads/${remote_branch}:refs/remotes/${remote_name}/${remote_branch}"; then
         print -u2 "dotfiles $operation: failed to fetch $remote_name/$remote_branch"
         return 1
     fi
