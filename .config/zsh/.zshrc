@@ -22,32 +22,21 @@ setopt NOBEEP
 setopt NUMERIC_GLOB_SORT  # sort file10 after file9, not after file1
 
 # =========================================================
+# Modular Config Files
+# =========================================================
+
+# Modules before plugins: homebrew.zsh adds Homebrew's completion
+# directory to fpath, which must exist before the autocomplete plugin
+# runs its own compinit.
+for module in "$XDG_CONFIG_HOME/zsh/modules/"*.zsh(N); do
+  [ -r "$module" ] && source "$module"
+done
+
+# =========================================================
 # Plugins
 # =========================================================
 
 source "$ZDOTDIR/plugins.zsh"
-
-# Load completion system after plugins have had a chance to add completions.
-autoload -Uz compinit
-
-# Initialize completion with cached metadata file
-compinit -d "$ZDOTDIR/.zcompdump"
-
-# Enable interactive completion menu selection
-zstyle ':completion:*' menu select
-
-# Make completion case-insensitive
-# Example: "doc" can complete to "Documents"
-# Keep zsh's default suffix rules so Tab keeps matching across /, - and _
-# separators instead of stopping at the first path segment
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-# Group the completion listing with a header per tag (directories, files, ...)
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%d'
-
-# Collapse doubled slashes while completing paths
-zstyle ':completion:*' squeeze-slashes true
 
 # =========================================================
 # Aliases Configurations
@@ -58,16 +47,11 @@ if [[ -f "$ZDOTDIR/aliases.zsh" ]]; then
 fi
 
 # =========================================================
-# Modular Config Files
+# Function nesting limit
 # =========================================================
 
 # Maximum function nesting level
 FUNCNEST=100
-
-# Modules
-for module in "$XDG_CONFIG_HOME/zsh/modules/"*.zsh(N); do
-  [ -r "$module" ] && source "$module"
-done
 
 # =========================================================
 # User Custom Configurations
