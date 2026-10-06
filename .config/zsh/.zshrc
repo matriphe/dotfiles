@@ -38,7 +38,16 @@ zstyle ':completion:*' menu select
 
 # Make completion case-insensitive
 # Example: "doc" can complete to "Documents"
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # lowercase input matches upper and lower
+# Keep zsh's default suffix rules so Tab keeps matching across /, - and _
+# separators instead of stopping at the first path segment
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Group the completion listing with a header per tag (directories, files, ...)
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%d'
+
+# Collapse doubled slashes while completing paths
+zstyle ':completion:*' squeeze-slashes true
 
 # =========================================================
 # Aliases Configurations
