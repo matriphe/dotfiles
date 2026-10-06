@@ -10,6 +10,8 @@ TPM-managed plugins are installed alongside it in `plugins/`; those plugin check
 
 Add plugin declarations with TPM's `@plugin` option in `tmux.conf`, then press `prefix + I` to install them. `dotfiles update` and `dotfiles update-force` initialize and update the TPM submodule.
 
+The `xamut/tmux-weather` plugin adds current weather to the status line. Its default location is inferred from your IP address, and it uses metric units. It requires `curl` and `sed`.
+
 To reload both Zsh and the running tmux configuration, use `dotfiles reload`.
 
 ## Key bindings

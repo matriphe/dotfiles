@@ -460,6 +460,7 @@ Declare plugins in `.config/tmux/tmux.conf` with TPM's `@plugin` option:
 
 ```tmux
 set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'xamut/tmux-weather'
 ```
 
 Then reload the configuration and press `prefix + I` to install. At runtime,
