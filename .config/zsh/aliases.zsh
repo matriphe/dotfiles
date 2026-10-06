@@ -60,72 +60,184 @@ lf() { # zsh follow lf navigation
 alias glog='PAGER="less -F -X" git log'                              # -F quit if one screen, -X no clear on exit
 alias gadog='PAGER="less -F -X" git log --all --decorate --oneline --graph'
 
-dotfiles() {
-    local g="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-    local local_plugin_manifest="$ZDOTDIR/.zsh_plugins.local.txt"
-    if [[ "$1" == reload ]]; then
-        source "$ZDOTDIR/.zshenv"
-        source "$ZDOTDIR/.zshrc"
-        print "Zsh configuration reloaded."
-        if command -v tmux >/dev/null 2>&1 && tmux display-message -p '#S' >/dev/null 2>&1; then
-            tmux source-file "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" || return
-            print "Tmux configuration reloaded."
-        fi
-        return
-    elif [[ "$1" == update-force ]]; then
-        shift
-        local -a yes=(n)
-        [[ "${#argv}" -gt 0 && "${argv[1]}" == -y ]] && { yes=(y); shift; }
-        print "This resets every tracked file in $HOME to the repository state."
-        print "Local changes to tracked files will be LOST."
-        if [[ "${yes}" != y ]]; then
-            printf 'Continue? [y/N] '
-            read -r answer
-            [[ "$answer" == y ]] || return 1
-        fi
-        ${=g} fetch origin
-        # Checkout with a tree-ish updates both work-tree and index; HEAD is
-        # fast-forwarded afterwards. Skip-worktree files are left untouched.
-        ${=g} checkout FETCH_HEAD -- . 2>&1 | grep -v "sparse-checkout" 1>&2
-        ${=g} merge --ff-only FETCH_HEAD && \
-            ${=g} submodule update --init --recursive --force && \
-            ${=g} update-index --skip-worktree -- "$local_plugin_manifest" || return
-        print "Tracked files reset to the repository state."
-        print "Remember to run 'dotfiles reload' to reload the updated configuration."
-        return
-    elif [[ "$1" == update ]]; then
-        shift
-        ${=g} fetch origin
-        local -a to_reset=() conflicts=()
-        local f
-        # A dirty work-tree file whose content already matches the incoming
-        # version would needlessly block the pull; reset only those, keep real edits.
-        for f in $(${=g} diff --name-only HEAD FETCH_HEAD -- 2>/dev/null); do
-            if ${=g} diff --quiet HEAD -- "$f" && [[ -e "$f" ]]; then
-                continue
-            elif [[ "$(${=g} hash-object "$f" 2>/dev/null)" == "$(${=g} rev-parse "FETCH_HEAD:$f" 2>/dev/null)" ]]; then
-                to_reset+=("$f")
-            else
-                conflicts+=("$f")
-            fi
-        done
-        if (( ${#conflicts} )); then
-            print -u2 "dotfiles update: local changes would be overwritten by merge:"
-            printf '  %s\n' "${conflicts[@]}" 1>&2
-            print -u2 "Commit, stash, or remove these changes, then retry."
-            return 1
-        fi
-        if (( ${#to_reset} )); then
-            ${=g} checkout -- "${to_reset[@]}"
-        fi
-        # FETCH_HEAD is already fetched above; merging directly avoids a
-        # second fetch inside pull.
-        ${=g} merge --ff-only FETCH_HEAD && \
-            ${=g} submodule update --init --recursive && \
-            ${=g} update-index --skip-worktree -- "$local_plugin_manifest" && \
-            print "Remember to run 'dotfiles reload' to reload the updated configuration."
-        return
+_dotfiles_sync_from_upstream() (
+    emulate -L zsh
+
+    local operation="$1"
+    local git_dir="$HOME/.dotfiles"
+    local work_tree="$HOME"
+    local zsh_dir="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}"
+    local manifest_path="$zsh_dir/.zsh_plugins.local.txt"
+    local manifest_relative="${manifest_path#"$work_tree"/}"
+    local manifest_backup=""
+    local manifest_tracked=0
+    local upstream_ref remote_name remote_branch target
+    local -a gitcmd=(git -C "$work_tree" --git-dir="$git_dir" --work-tree="$work_tree")
+
+    if ! "${gitcmd[@]}" rev-parse --git-dir >/dev/null 2>&1; then
+        print -u2 "dotfiles $operation: repository not found at $git_dir"
+        return 1
     fi
 
-    ${=g} "$@"
+    upstream_ref=$("${gitcmd[@]}" rev-parse --symbolic-full-name '@{upstream}' 2>/dev/null) || {
+        print -u2 "dotfiles $operation: current branch has no configured upstream"
+        return 1
+    }
+    if [[ "$upstream_ref" != refs/remotes/*/* ]]; then
+        print -u2 "dotfiles $operation: upstream is not a remote tracking branch: $upstream_ref"
+        return 1
+    fi
+    remote_branch="${upstream_ref#refs/remotes/}"
+    remote_name="${remote_branch%%/*}"
+
+    if ! "${gitcmd[@]}" fetch --prune "$remote_name"; then
+        print -u2 "dotfiles $operation: failed to fetch from $remote_name"
+        return 1
+    fi
+    target=$("${gitcmd[@]}" rev-parse --verify "${upstream_ref}^{commit}" 2>/dev/null) || {
+        print -u2 "dotfiles $operation: fetched upstream commit could not be resolved: $upstream_ref"
+        return 1
+    }
+
+    if [[ "$manifest_path" == "$work_tree"/* ]] && \
+        "${gitcmd[@]}" ls-files --error-unmatch -- "$manifest_relative" >/dev/null 2>&1; then
+        manifest_tracked=1
+        if [[ -e "$manifest_path" ]]; then
+            manifest_backup=$(command mktemp "${TMPDIR:-/tmp}/dotfiles-local-manifest.XXXXXX") || {
+                print -u2 "dotfiles $operation: could not save the local Zsh plugin manifest"
+                return 1
+            }
+            if ! command cp -p "$manifest_path" "$manifest_backup"; then
+                command rm -f "$manifest_backup"
+                print -u2 "dotfiles $operation: could not save the local Zsh plugin manifest"
+                return 1
+            fi
+        fi
+        if ! "${gitcmd[@]}" update-index --no-skip-worktree -- "$manifest_relative"; then
+            [[ -z "$manifest_backup" ]] || command rm -f "$manifest_backup"
+            print -u2 "dotfiles $operation: could not prepare the local Zsh plugin manifest for reset"
+            return 1
+        fi
+    fi
+
+    if ! "${gitcmd[@]}" reset --hard "$target"; then
+        if [[ -n "$manifest_backup" ]] && ! command cp -p "$manifest_backup" "$manifest_path"; then
+            print -u2 "dotfiles $operation: reset failed; recover the local manifest from $manifest_backup"
+            return 1
+        fi
+        if (( manifest_tracked )) && [[ -e "$manifest_path" ]] && \
+            ! "${gitcmd[@]}" update-index --skip-worktree -- "$manifest_relative"; then
+            print -u2 "dotfiles $operation: reset failed and could not restore skip-worktree on the local manifest"
+            return 1
+        fi
+        [[ -z "$manifest_backup" ]] || command rm -f "$manifest_backup"
+        print -u2 "dotfiles $operation: failed to reset tracked files to $upstream_ref"
+        return 1
+    fi
+
+    if [[ -n "$manifest_backup" ]] && ! command cp -p "$manifest_backup" "$manifest_path"; then
+        if (( manifest_tracked )) && [[ -e "$manifest_path" ]]; then
+            "${gitcmd[@]}" update-index --skip-worktree -- "$manifest_relative" >/dev/null 2>&1
+        fi
+        print -u2 "dotfiles $operation: reset succeeded, but the local manifest backup remains at $manifest_backup"
+        return 1
+    fi
+    if (( manifest_tracked )) && [[ -e "$manifest_path" ]] && \
+        "${gitcmd[@]}" ls-files --error-unmatch -- "$manifest_relative" >/dev/null 2>&1 && \
+        ! "${gitcmd[@]}" update-index --skip-worktree -- "$manifest_relative"; then
+        [[ -z "$manifest_backup" ]] || print -u2 "dotfiles $operation: local manifest backup: $manifest_backup"
+        print -u2 "dotfiles $operation: reset succeeded, but could not mark the local manifest skip-worktree"
+        return 1
+    fi
+    if [[ -n "$manifest_backup" ]] && ! command rm -f "$manifest_backup"; then
+        print -u2 "dotfiles $operation: reset succeeded, but could not remove temporary manifest backup $manifest_backup"
+        return 1
+    fi
+
+    if ! "${gitcmd[@]}" submodule sync --recursive; then
+        print -u2 "dotfiles $operation: dotfiles were reset, but submodule URL synchronization failed"
+        return 1
+    fi
+    if ! "${gitcmd[@]}" submodule update --init --recursive --force; then
+        print -u2 "dotfiles $operation: dotfiles were reset, but recursive submodule update failed"
+        return 1
+    fi
+
+    print "Dotfiles synchronized to $target from $upstream_ref."
+    print "Remember to run 'dotfiles reload' to reload the updated configuration."
+)
+
+dotfiles() {
+    local zsh_dir="${ZDOTDIR:-$HOME/.config/zsh}"
+    local tmux_conf="${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
+    local answer
+    local -a gitcmd=(git -C "$HOME" --git-dir="$HOME/.dotfiles" --work-tree="$HOME")
+
+    case "$1" in
+        reload)
+            if ! source "$zsh_dir/.zshenv"; then
+                print -u2 "dotfiles reload: failed to source $zsh_dir/.zshenv"
+                return 1
+            fi
+            if ! source "$zsh_dir/.zshrc"; then
+                print -u2 "dotfiles reload: failed to source $zsh_dir/.zshrc"
+                return 1
+            fi
+            print "Zsh configuration reloaded."
+
+            if ! command -v tmux >/dev/null 2>&1; then
+                print "Tmux is not installed; skipped tmux reload."
+                return 0
+            fi
+            if ! tmux display-message -p '#S' >/dev/null 2>&1; then
+                print "No tmux server is running; configuration will load on the next start."
+                return 0
+            fi
+            if ! tmux source-file "$tmux_conf"; then
+                print -u2 "dotfiles reload: failed to source tmux configuration $tmux_conf"
+                return 1
+            fi
+            print "Tmux configuration reloaded."
+            return 0
+            ;;
+        update)
+            shift
+            if (( $# )); then
+                print -u2 "Usage: dotfiles update"
+                return 2
+            fi
+            _dotfiles_sync_from_upstream update
+            return $?
+            ;;
+        update-force)
+            shift
+            local skip_confirmation=0
+            if [[ "${1:-}" == -y ]]; then
+                skip_confirmation=1
+                shift
+            fi
+            if (( $# )); then
+                print -u2 "Usage: dotfiles update-force [-y]"
+                return 2
+            fi
+            if (( ! skip_confirmation )); then
+                print "This overwrites tracked files and local commits with the remote state."
+                print "The local Zsh plugin manifest and untracked files are preserved."
+                printf 'Continue? [y/N] '
+                if ! read -r answer; then
+                    print -u2 "dotfiles update-force: could not read confirmation"
+                    return 1
+                fi
+                if [[ "$answer" != y ]]; then
+                    print "dotfiles update-force: cancelled"
+                    return 1
+                fi
+            fi
+            _dotfiles_sync_from_upstream update-force
+            return $?
+            ;;
+    esac
+
+    "${gitcmd[@]}" "$@"
+    return $?
 }
