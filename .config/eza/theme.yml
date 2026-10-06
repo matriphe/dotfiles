@@ -1,4 +1,4 @@
-# Catppuccin Mocha: https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin-mocha.yml
+# Catppuccin Macchiato: https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin-macchiato.yml
 colourful: true
 
 filekinds:
@@ -92,7 +92,7 @@ file_type:
 punctuation: { foreground: "#8087A2" }
 date: { foreground: "#f5bde6" }
 inode: { foreground: "#A5ADCB" }
-blocks: { foreground: "#9399B2" }
+blocks: { foreground: "#939AB7" }
 header: { foreground: "#CAD3F5" }
 octal: { foreground: "#8BD5CA" }
 flags: { foreground: "#C6A0F6" }
