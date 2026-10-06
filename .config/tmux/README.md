@@ -51,7 +51,7 @@ Copy mode uses Vim-style keys. Press `v` in copy mode to begin selecting text.
 
 ## Theme and status bar
 
-The configuration uses a Melange-inspired colour palette with the status bar at the top. The status bar shows the current session, window information, time, date, user, and host. A Nerd Font is recommended for the status icons.
+The status bar sits at the bottom and uses the Catppuccin Macchiato palette — the same flavor the starship prompt uses — loaded from `themes/catppuccin_macchiato.conf` (copied from [catppuccin/tmux](https://github.com/catppuccin/tmux) v2.3.1). Colors in `tmux.conf` reference the palette via `#{@thm_*}` placeholders instead of hardcoded hex values. The status bar shows the current session, window information, time, date, user, and host. A Nerd Font is recommended for the status icons.
 
 ## Customization
 
