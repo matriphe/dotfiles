@@ -4,15 +4,13 @@ This directory contains the Tmux configuration used by this dotfiles repository.
 
 The configuration uses a 1-based index for windows and panes, keeps the default `Ctrl-b` prefix, and supports `Ctrl-B` as a secondary prefix.
 
-TPM is tracked as a Git submodule at `plugins/tpm`. At runtime, tmux loads it
-from `$XDG_CONFIG_HOME/tmux/plugins/tpm` (normally
-`$HOME/.config/tmux/plugins/tpm`); it loads from the home-directory checkout,
-not the separate `~/Projects/dotfiles` working copy. TPM-managed plugins are
-installed alongside it in `plugins/`; those plugin checkouts are ignored by
-the dotfiles repository. Add plugin declarations with TPM's `@plugin` option
-in `tmux.conf`, then press `prefix + I` to install them. `dotfiles update` and
-`dotfiles update-force` initialize and update the TPM submodule. To reload both
-Zsh and the running tmux configuration, use `dotfiles reload`.
+TPM is tracked as a Git submodule at `plugins/tpm`. At runtime, tmux loads it from `$XDG_CONFIG_HOME/tmux/plugins/tpm` (normally `$HOME/.config/tmux/plugins/tpm`); it loads from the home-directory checkout, not the separate `~/Projects/dotfiles` working copy.
+
+TPM-managed plugins are installed alongside it in `plugins/`; those plugin checkouts are ignored by the dotfiles repository.
+
+Add plugin declarations with TPM's `@plugin` option in `tmux.conf`, then press `prefix + I` to install them. `dotfiles update` and `dotfiles update-force` initialize and update the TPM submodule.
+
+To reload both Zsh and the running tmux configuration, use `dotfiles reload`.
 
 ## Key bindings
 
