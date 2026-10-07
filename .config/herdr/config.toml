@@ -3,9 +3,10 @@ onboarding = false
 [theme]
 name = "catppuccin"
 
+auto_switch = false
 [theme.custom]
 accent = "#a6da95"
-panel_bg = "#24273a"
+panel_bg = "#6e738d"
 selection_bg = "#363a4f"
 surface0 = "#363a4f"
 surface1 = "#494d64"
@@ -23,6 +24,7 @@ teal = "#8bd5ca"
 peach = "#f5a97f"
 
 [keys]
+detach = "prefix+d"
 reload_config = "prefix+r"
 previous_tab = "shift+left"
 next_tab = "shift+right"
@@ -46,6 +48,7 @@ directory = "/home/matriphe/.config/herdr/worktrees"
 [ui]
 status_indicators = "symbols"
 accent = "#a6da95"
+tab_bar_position = "bottom"
 
 [ui.toast]
-delivery = "herdr"
+delivery = "terminal"
