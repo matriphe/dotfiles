@@ -13,6 +13,7 @@ Git repository in `$HOME`, and configure Zsh to use the files.
 - [Install optional components](#install-optional-components)
   - [Install Antidote](#install-antidote)
   - [Install Starship](#install-starship)
+  - [Install Herdr](#install-herdr)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Install Podman or Docker](#install-podman-or-docker)
 - [Clone this repository](#clone-this-repository)
@@ -149,6 +150,50 @@ curl -sS https://starship.rs/install.sh | sh
 ```sh
 brew install starship
 ```
+
+### Install Herdr
+
+Herdr is the terminal workspace manager configured in
+[`.config/herdr/config.toml`](.config/herdr/config.toml). Install the stable
+release using Herdr's official installer for your operating system.
+
+#### Linux
+
+```sh
+curl -fsSL https://herdr.dev/install.sh | sh
+```
+
+#### macOS
+
+Use the installer, or install with Homebrew:
+
+```sh
+brew install herdr
+```
+
+```sh
+curl -fsSL https://herdr.dev/install.sh | sh
+```
+
+#### Windows
+
+Run this in PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"
+```
+
+If endpoint security blocks the PowerShell installer, use Command Prompt:
+
+```cmd
+curl.exe -fsSLo install.cmd https://herdr.dev/install.cmd && install.cmd && del install.cmd
+```
+
+Open a new terminal if the `herdr` command is not found. See the [Herdr
+installation guide](https://herdr.dev/docs/install/) for mise, Nix, manual
+downloads, verification, and update instructions. Update Homebrew-managed
+installs with `brew upgrade herdr`; direct installer installs can use
+`herdr update`.
 
 ### Install a Nerd Font
 
