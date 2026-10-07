@@ -3,6 +3,7 @@
 # Keep user files in standard XDG directories.
 # Configuration files.
 export XDG_CONFIG_HOME="$HOME/.config"
+export HERDR_CONFIG_PATH="$XDG_CONFIG_HOME/herdr/config.toml"
 # Temporary caches.
 export XDG_CACHE_HOME="$HOME/.cache"
 # Persistent application data.
