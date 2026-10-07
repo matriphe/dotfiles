@@ -43,7 +43,7 @@ resize_pane_up = "prefix+shift+k"
 resize_pane_right = "prefix+shift+l"
 
 [worktrees]
-directory = "~/.herdr/worktrees"
+directory = "/home/matriphe/.config/herdr/worktrees"
 
 [ui]
 status_indicators = "symbols"
