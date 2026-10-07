@@ -1,0 +1,31 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+[keys]
+reload_config = "prefix+r"
+previous_tab = "shift+left"
+next_tab = "shift+right"
+move_tab_previous = "ctrl+shift+left"
+move_tab_next = "ctrl+shift+right"
+focus_pane_left = "alt+left"
+focus_pane_down = "alt+down"
+focus_pane_up = "alt+up"
+focus_pane_right = "alt+right"
+last_pane = "prefix+space"
+split_horizontal = "prefix+h"
+resize_mode = ""
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+[worktrees]
+directory = "/home/matriphe/.config/herdr/worktrees"
+
+[ui]
+status_indicators = "symbols"
+
+[ui.toast]
+delivery = "herdr"
