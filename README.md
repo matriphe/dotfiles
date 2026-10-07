@@ -13,6 +13,7 @@ Git repository in `$HOME`, and configure Zsh to use the files.
 - [Install optional components](#install-optional-components)
   - [Install Antidote](#install-antidote)
   - [Install Starship](#install-starship)
+  - [Install Herdr](#install-herdr)
   - [Install a Nerd Font](#install-a-nerd-font)
   - [Install Podman or Docker](#install-podman-or-docker)
 - [Clone this repository](#clone-this-repository)
@@ -149,6 +150,35 @@ curl -sS https://starship.rs/install.sh | sh
 ```sh
 brew install starship
 ```
+
+### Install Herdr
+
+Herdr is the terminal workspace manager configured in
+[`.config/herdr/config.toml`](.config/herdr/config.toml). Install the stable
+release using the instructions for your operating system.
+
+#### Linux
+
+```sh
+curl -fsSL https://herdr.dev/install.sh | sh
+```
+
+#### macOS
+
+Install with Homebrew:
+
+```sh
+brew install herdr
+```
+
+Or use the installer:
+
+```sh
+curl -fsSL https://herdr.dev/install.sh | sh
+```
+
+See the [Herdr installation guide](https://herdr.dev/docs/install/) for mise,
+Nix, manual downloads, verification, and update instructions.
 
 ### Install a Nerd Font
 

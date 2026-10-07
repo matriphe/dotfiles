@@ -1,0 +1,54 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+auto_switch = false
+[theme.custom]
+accent = "#a6da95"
+panel_bg = "#6e738d"
+selection_bg = "#363a4f"
+surface0 = "#363a4f"
+surface1 = "#494d64"
+surface_dim = "#1e2030"
+overlay0 = "#6e738d"
+overlay1 = "#8087a2"
+text = "#cad3f5"
+subtext0 = "#a5adcb"
+mauve = "#c6a0f6"
+green = "#a6da95"
+yellow = "#eed49f"
+red = "#ed8796"
+blue = "#8aadf4"
+teal = "#8bd5ca"
+peach = "#f5a97f"
+
+[keys]
+detach = "prefix+d"
+reload_config = "prefix+r"
+previous_tab = "shift+left"
+next_tab = "shift+right"
+move_tab_previous = "ctrl+shift+left"
+move_tab_next = "ctrl+shift+right"
+focus_pane_left = "alt+left"
+focus_pane_down = "alt+down"
+focus_pane_up = "alt+up"
+focus_pane_right = "alt+right"
+last_pane = "prefix+space"
+split_horizontal = "prefix+h"
+resize_mode = ""
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+[worktrees]
+directory = "/home/matriphe/.config/herdr/worktrees"
+
+[ui]
+status_indicators = "symbols"
+accent = "#a6da95"
+tab_bar_position = "bottom"
+
+[ui.toast]
+delivery = "terminal"

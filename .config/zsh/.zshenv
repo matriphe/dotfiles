@@ -45,3 +45,6 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
 # Point eza at its XDG config dir for theme.yml; without this, macOS eza
 # looks in ~/Library/Application Support/eza instead.
 export EZA_CONFIG_DIR="${XDG_CONFIG_HOME}/eza"
+
+# Tell Herdr where to load its config.
+export HERDR_CONFIG_PATH="${XDG_CONFIG_HOME}/herdr/config.toml"
