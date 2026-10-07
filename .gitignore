@@ -63,3 +63,6 @@ AGENTS.md
 .copilot/
 .cursor/
 .gemini/
+
+# Log files
+*.log
