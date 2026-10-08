@@ -60,7 +60,7 @@ lf() { # zsh follow lf navigation
 alias glog='PAGER="less -F -X" git log'                              # -F quit if one screen, -X no clear on exit
 alias gadog='PAGER="less -F -X" git log --all --decorate --oneline --graph'
 
-_dotfiles_sync_from_upstream() (
+_dotfiles_sync_from_origin_main() (
     emulate -L zsh
 
     local operation="$1"
@@ -71,7 +71,7 @@ _dotfiles_sync_from_upstream() (
     local manifest_relative="${manifest_path#"$work_tree"/}"
     local manifest_backup=""
     local manifest_tracked=0
-    local upstream_ref remote_name remote_branch current_branch target
+    local upstream_ref=refs/remotes/origin/main target
     local -a gitcmd=(git -C "$work_tree" --git-dir="$git_dir" --work-tree="$work_tree")
 
     if ! "${gitcmd[@]}" rev-parse --git-dir >/dev/null 2>&1; then
@@ -79,25 +79,8 @@ _dotfiles_sync_from_upstream() (
         return 1
     fi
 
-    upstream_ref=$("${gitcmd[@]}" rev-parse --symbolic-full-name '@{upstream}' 2>/dev/null) || {
-        current_branch=$("${gitcmd[@]}" symbolic-ref --quiet --short HEAD 2>/dev/null) || {
-            print -u2 "dotfiles $operation: current branch has no configured upstream and HEAD is detached"
-            return 1
-        }
-        remote_name=origin
-        upstream_ref="refs/remotes/$remote_name/$current_branch"
-    }
-    if [[ "$upstream_ref" != refs/remotes/*/* ]]; then
-        print -u2 "dotfiles $operation: upstream is not a remote tracking branch: $upstream_ref"
-        return 1
-    fi
-    remote_branch="${upstream_ref#refs/remotes/}"
-    remote_name="${remote_branch%%/*}"
-    remote_branch="${remote_branch#*/}"
-
-    if ! "${gitcmd[@]}" fetch --prune "$remote_name" \
-        "+refs/heads/${remote_branch}:refs/remotes/${remote_name}/${remote_branch}"; then
-        print -u2 "dotfiles $operation: failed to fetch $remote_name/$remote_branch"
+    if ! "${gitcmd[@]}" fetch origin "+refs/heads/main:$upstream_ref"; then
+        print -u2 "dotfiles $operation: failed to fetch origin/main"
         return 1
     fi
     target=$("${gitcmd[@]}" rev-parse --verify "${upstream_ref}^{commit}" 2>/dev/null) || {
@@ -169,7 +152,7 @@ _dotfiles_sync_from_upstream() (
         return 1
     fi
 
-    print "Dotfiles synchronized to $target from $upstream_ref."
+    print "Dotfiles synchronized to $target from origin/main."
     print "Remember to run 'dotfiles reload' to reload the updated configuration."
 )
 
@@ -212,7 +195,7 @@ dotfiles() {
                 print -u2 "Usage: dotfiles update"
                 return 2
             fi
-            _dotfiles_sync_from_upstream update
+            _dotfiles_sync_from_origin_main update
             return $?
             ;;
         update-force)
@@ -239,7 +222,7 @@ dotfiles() {
                     return 1
                 fi
             fi
-            _dotfiles_sync_from_upstream update-force
+            _dotfiles_sync_from_origin_main update-force
             return $?
             ;;
     esac
