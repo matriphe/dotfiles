@@ -15,6 +15,7 @@ Git repository in `$HOME`, and configure Zsh to use the files.
   - [Install Starship](#install-starship)
   - [Install Herdr](#install-herdr)
   - [Install a Nerd Font](#install-a-nerd-font)
+  - [Install Alacritty](#install-alacritty)
   - [Install Podman or Docker](#install-podman-or-docker)
 - [Clone this repository](#clone-this-repository)
 - [Configure Zsh](#configure-zsh)
@@ -231,6 +232,55 @@ releases](https://github.com/ryanoasis/nerd-fonts/releases).
 ```sh
 brew install --cask font-hack-nerd-font
 ```
+
+### Install Alacritty
+
+[Alacritty](https://alacritty.org/) is the terminal emulator configured in
+[`.config/alacritty/alacritty.toml`](.config/alacritty/alacritty.toml). Install
+the current release using the instructions for your operating system.
+
+The configuration uses the TOML format, which Alacritty reads from version
+0.13.0 onward. Older releases only read YAML and ignore the file without
+reporting an error, so check the installed version with `alacritty --version`
+if your distribution provides an older package.
+
+#### Fedora
+
+```sh
+sudo dnf install -y alacritty
+```
+
+#### Arch Linux
+
+```sh
+sudo pacman -S --needed --noconfirm alacritty
+```
+
+#### Debian, Ubuntu, and Linux Mint
+
+```sh
+sudo apt install -y alacritty
+```
+
+If the version is older than 0.13.0, install a current release from the
+[Alacritty releases](https://github.com/alacritty/alacritty/releases) or build
+from source using the [official build
+instructions](https://github.com/alacritty/alacritty/blob/master/INSTALL.md).
+
+#### macOS
+
+Download the `.dmg` from the [Alacritty website](https://alacritty.org/), open
+it, and drag `Alacritty.app` into `/Applications`. The website links the current
+release, so the disk image name changes with the version.
+
+Alternatively, install it with Homebrew:
+
+```sh
+brew install --cask alacritty
+```
+
+See the [cask page](https://formulae.brew.sh/cask/alacritty) for the current
+package details.
 
 ### Install Podman or Docker
 
@@ -539,6 +589,7 @@ AI-agent guidance in the root-level `AGENTS.md`.
 
 Read the focused README for each major configuration:
 
+- [Alacritty terminal](.config/alacritty/README.md)
 - [Zsh configuration](.config/zsh/README.md)
 - [Starship prompt](.config/starship/README.md)
 - [Tmux configuration](.config/tmux/README.md)
