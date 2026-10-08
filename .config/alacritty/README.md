@@ -58,7 +58,3 @@ documentation](https://alacritty.org/config-alacritty.html) for the available
 options. Changes apply when a new Alacritty window is opened; Alacritty reloads
 the configuration automatically on live reload for the running instance when
 the file changes.
-
-Keep machine-specific changes in `$HOME/.config/alacritty/alacritty.toml`
-outside this repository, or use a separate
-`$XDG_CONFIG_HOME/alacritty/<name>.toml` file with `alacritty --config-file`.
