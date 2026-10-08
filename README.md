@@ -269,18 +269,12 @@ instructions](https://github.com/alacritty/alacritty/blob/master/INSTALL.md).
 
 #### macOS
 
-Download the `.dmg` from the [Alacritty website](https://alacritty.org/), open
-it, and drag `Alacritty.app` into `/Applications`. The website links the current
-release, so the disk image name changes with the version.
-
-Alternatively, install it with Homebrew:
-
-```sh
-brew install --cask alacritty
-```
-
-See the [cask page](https://formulae.brew.sh/cask/alacritty) for the current
-package details.
+Install Alacritty from the DMG on the
+[official releases page](https://github.com/alacritty/alacritty/releases):
+download the latest `.dmg`, open it, and drag `Alacritty.app` into
+`/Applications`.
+Homebrew Cask no longer distributes Alacritty because its macOS release does
+not pass Homebrew's Gatekeeper check.
 
 ### Install Podman or Docker
 
