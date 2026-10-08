@@ -51,7 +51,7 @@ Use `dotfiles reload` to reload both `.zshenv` and `.zshrc` in the current shell
 
 Install Antidote at `$XDG_DATA_HOME/zsh/antidote` using one of the install methods in the root README: a manual Git clone, or Homebrew on macOS followed by a symlink to this path.
 
-The shared plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt), while machine-specific additions go in the tracked but locally managed [`.zsh_plugins.local.txt`](.zsh_plugins.local.txt). `dotfiles update` and `dotfiles update-force` reset tracked files and local commits to the current branch's remote upstream and force recursive submodules to their recorded commits. They preserve the local manifest across that reset, then mark it `skip-worktree` so ordinary local edits do not appear in Git changes. Untracked files are left in place. Update failures are reported and return a nonzero status.
+The shared plugin manifest is tracked in [`.zsh_plugins.txt`](.zsh_plugins.txt), while machine-specific additions go in the tracked but locally managed [`.zsh_plugins.local.txt`](.zsh_plugins.local.txt). `dotfiles update` and `dotfiles update-force` reset tracked files and local commits to `origin/main` and force recursive submodules to their recorded commits. They preserve the local manifest across that reset, then mark it `skip-worktree` so ordinary local edits do not appear in Git changes. Untracked files are left in place. Update failures are reported and return a nonzero status.
 
 Antidote generates the static bundle in `$XDG_CACHE_HOME/zsh/.zsh_plugins.zsh`, so normal shell startup does not perform Git operations.
 
