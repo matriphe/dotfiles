@@ -26,6 +26,7 @@ peach = "#f5a97f"
 [keys]
 detach = "prefix+d"
 reload_config = "prefix+r"
+new_tab = "prefix+c"
 previous_tab = "alt+shift+left"
 next_tab = "alt+shift+right"
 move_tab_previous = "ctrl+alt+shift+left"
